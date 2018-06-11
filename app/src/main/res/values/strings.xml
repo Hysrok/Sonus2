@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Sonus</string>
+    <string name="title_activity_stats">Stats</string>
 </resources>

@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-Play.audio(note, instrument);
+        Play.audio(note, instrument);
         setContentView(R.layout.activity_main);
     }
 

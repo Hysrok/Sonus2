@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Perfect Unison"
+        android:text="@string/perfectUnison"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
@@ -23,7 +23,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Minor Second"
+        android:text="@string/minorSecond"
         app:layout_constraintEnd_toStartOf="@+id/M2"
         app:layout_constraintStart_toEndOf="@+id/P1"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="Major Second"
+        android:text="@string/majorSecond"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Minor Third"
+        android:text="@string/minorThird"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P1" />
 
@@ -55,7 +55,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Major Third"
+        android:text="@string/majorThird"
         app:layout_constraintEnd_toStartOf="@+id/P4"
         app:layout_constraintStart_toEndOf="@+id/m3"
         app:layout_constraintTop_toBottomOf="@+id/m2" />
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="Perfect Fourth"
+        android:text="@string/perfectFourth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M2" />
 
@@ -76,7 +76,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Perfect Fifth"
+        android:text="@string/perfectFifth"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/m3" />
 
@@ -87,7 +87,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Minor Sixth"
+        android:text="@string/minorSixth"
         app:layout_constraintEnd_toStartOf="@+id/M6"
         app:layout_constraintStart_toEndOf="@+id/P5"
         app:layout_constraintTop_toBottomOf="@+id/M3" />
@@ -98,7 +98,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="Major Sixth"
+        android:text="@string/majorSixth"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P4" />
 
@@ -108,7 +108,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:text="Minor Seventh"
+        android:text="@string/minorSeventh"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P5" />
 
@@ -119,7 +119,7 @@
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:text="Major Seventh"
+        android:text="@string/majorSeventh"
         app:layout_constraintEnd_toStartOf="@+id/P8"
         app:layout_constraintStart_toEndOf="@+id/m7"
         app:layout_constraintTop_toBottomOf="@+id/m6" />
@@ -130,7 +130,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
-        android:text="Perfect Octave"
+        android:text="@string/perfectOctave"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M6" />
 
@@ -150,7 +150,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="Which intervals would you like to work on?"
+        android:text="@string/intervalPrompt"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textStyle="bold"

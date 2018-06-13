@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="intervals_array">
+        <item>Perfect Unison</item>
+        <item>Minor Second</item>
+        <item>Major Second</item>
+        <item>Minor Third</item>
+        <item>Major Third</item>
+        <item>Perfect Fourth</item>
+        <item>Perfect Fifth</item>
+        <item>Minor Sixth</item>
+        <item>Major Sixth</item>
+        <item>Minor Seventh</item>
+        <item>Major Seventh</item>
+        <item>Perfect Octave</item>
+    </string-array>
+</resources>

@@ -18,7 +18,7 @@ import static jm.constants.Volumes.MF;
 public class MainActivity extends AppCompatActivity {
     //I made a comment // Another comment // Once again
     //new comment // One more change
-    public int count;
+    public int count = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
 
-        count = 0;
         // Check which checkbox was clicked
         switch (view.getId()) {
             case R.id.P1:

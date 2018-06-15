@@ -23,20 +23,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Note note = new Note(C4, CROTCHET, MF);
-
-        Instrument instrument = new Instrument() {
-            @Override
-            public void createChain() throws AOException {
-
-            }
-        };
-
-        Play play = new Play();
-        play.audio(note, instrument);
-        setContentView(R.layout.activity_main);
-        };
-
+    
+    }
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();

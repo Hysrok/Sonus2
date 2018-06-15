@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
+
 public class GameActivity extends AppCompatActivity {
 
     @Override
@@ -34,5 +36,11 @@ public class GameActivity extends AppCompatActivity {
     public void submit(View view) {
         Intent intent = new Intent(this, Stats.class);
         startActivity(intent);
+    }
+
+    public ArrayList checkedIntervals() {
+        ArrayList<String> list = new ArrayList<>();
+
+        return list;
     }
 }

@@ -21,19 +21,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Note note = new Note(C4, CROTCHET, MF);
-
-        Instrument instrument = new Instrument() {
-            @Override
-            public void createChain() throws AOException {
-
-            }
-        };
-
-Play play = new Play();
-        play.audio(note, instrument);
         setContentView(R.layout.activity_main);
-    }
+        };
 
     public void play(View view) {
         Intent intent = new Intent(this, GameActivity.class);

@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         Play play = new Play();
         play.audio(note, instrument);
         setContentView(R.layout.activity_main);
-    }
+        };
 
     public void onCheckboxClicked(View view) {
         // Is the view now checked?

@@ -13,7 +13,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectUnison"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
@@ -25,7 +24,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSecond"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toStartOf="@+id/M2"
         app:layout_constraintStart_toEndOf="@+id/P1"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
@@ -37,7 +35,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSecond"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
@@ -48,7 +45,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorThird"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P1" />
 
@@ -60,7 +56,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorThird"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toStartOf="@+id/P4"
         app:layout_constraintStart_toEndOf="@+id/m3"
         app:layout_constraintTop_toBottomOf="@+id/m2" />
@@ -72,7 +67,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectFourth"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M2" />
 
@@ -83,7 +77,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectFifth"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/m3" />
 
@@ -95,7 +88,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSixth"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toStartOf="@+id/M6"
         app:layout_constraintStart_toEndOf="@+id/P5"
         app:layout_constraintTop_toBottomOf="@+id/M3" />
@@ -107,7 +99,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSixth"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P4" />
 
@@ -118,7 +109,6 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSeventh"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/P5" />
 
@@ -130,7 +120,6 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSeventh"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toStartOf="@+id/P8"
         app:layout_constraintStart_toEndOf="@+id/m7"
         app:layout_constraintTop_toBottomOf="@+id/m6" />
@@ -142,7 +131,6 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectOctave"
-        android:onClick="onCheckboxClicked"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/M6" />
 

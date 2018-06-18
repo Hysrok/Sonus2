@@ -6,6 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.CheckBox;
 
+import java.sql.Array;
+import java.util.ArrayList;
+import java.util.List;
+
 import jm.audio.AOException;
 import jm.audio.Instrument;
 import jm.music.data.Note;
@@ -28,45 +32,57 @@ public class MainActivity extends AppCompatActivity {
     public void onCheckboxClicked(View view) {
         // Is the view now checked?
         boolean checked = ((CheckBox) view).isChecked();
-
+        List<String> intervals = new ArrayList<String>();
         // Check which checkbox was clicked
         switch (view.getId()) {
             case R.id.P1:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.m2:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.M2:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.m3:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.M3:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.P4:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.P5:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.m6:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.M6:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.m7:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.M7:
-                if (checked)
+                if (checked) {
                     count++;
+                }
             case R.id.P8:
-                if (checked)
+                if (checked) {
                     count++;
+                }
         }
     }
 

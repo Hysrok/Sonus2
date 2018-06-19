@@ -28,6 +28,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_media_ff" />
 
+
     <SeekBar
         android:id="@+id/seekBar2"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
@@ -46,6 +47,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/play_notes"
         app:layout_constraintVertical_bias="0.193" />
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="281dp"
+        android:layout_height="196dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="156dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/clef" />
+
 
     <Spinner
         android:id="@+id/intervals_spinner"
@@ -81,4 +94,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Sonus</string>
     <string name="title_activity_stats">Stats</string>
+    <string name="perfectUnison">Perfect Unison</string>
+    <string name="minorSecond">Minor Second</string>
+    <string name="majorSecond">Major Second</string>
+    <string name="minorThird">Minor Third</string>
+    <string name="majorThird">Major Third</string>
+    <string name="perfectFourth">Perfect Fourth</string>
+    <string name="perfectFifth">Perfect Fifth</string>
+    <string name="minorSixth">Minor Sixth</string>
+    <string name="majorSixth">Major Sixth</string>
+    <string name="minorSeventh">Minor Seventh</string>
+    <string name="majorSeventh">Major Seventh</string>
+    <string name="perfectOctave">Perfect Octave</string>
+    <string name="intervalPrompt">Which intervals would you like to work on?</string>
     <string name="home">Home</string>
     <string name="play_app">Play</string>
     <string name="submit">Submit</string>

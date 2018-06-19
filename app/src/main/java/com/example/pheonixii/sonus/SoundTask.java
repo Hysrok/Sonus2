@@ -10,18 +10,16 @@ public class SoundTask extends AsyncTask<Note,Note,Note> {
 
     @Override
     protected Note doInBackground(Note ... note) {
-        try{
-            Thread.sleep(4000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+
+
+        Play.midi(note[0]);
         return note[0];
     }
     @Override
     protected void onProgressUpdate(Note ... note) {
 
-        Play play = new Play();
-        play.midi(note[0]);
+
+
 
     }
 

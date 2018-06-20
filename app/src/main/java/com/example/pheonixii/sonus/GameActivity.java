@@ -31,9 +31,7 @@ public class GameActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
-        Note note = new Note(C4, WHOLE_NOTE);
-        SoundTask play = new SoundTask();
-        play.execute(note);
+
     }
 
     public void goHome(View view) {

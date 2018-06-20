@@ -27,40 +27,36 @@
         app:srcCompat="@android:drawable/ic_media_ff" />
 
 
-
-        <SeekBar
-            android:id="@+id/seekBar2"
-            style="@style/Widget.AppCompat.SeekBar.Discrete"
-            android:layout_width="133dp"
-            android:layout_height="188dp"
-            android:layout_gravity="top"
-            android:layout_marginBottom="160dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:max="10"
-            android:progress="3"
-            android:rotation="270"
-            android:elevation="7dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.502"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/play_notes"
-            app:layout_constraintVertical_bias="0.193" />
+    <SeekBar
+        android:id="@+id/seekBar2"
+        style="@style/Widget.AppCompat.SeekBar.Discrete"
+        android:layout_width="133dp"
+        android:layout_height="188dp"
+        android:layout_gravity="top"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="160dp"
+        android:max="10"
+        android:progress="3"
+        android:rotation="270"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.846"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="281dp"
-        android:layout_height="208dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginStart="52dp"
-        android:layout_marginTop="156dp"
+        android:layout_width="295dp"
+        android:layout_height="189dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="160dp"
+        android:alpha="0.6"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.512"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/clef" />
-
 
 
     <Spinner
@@ -79,9 +75,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:alpha=".75"
         android:onClick="goHome"
         android:text="@string/home"
-        android:alpha=".75"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -95,6 +91,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+
 
 
 </android.support.constraint.ConstraintLayout>

@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else
-            Toast.makeText(this, "You require more intervals", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You require more intervals", Toast.LENGTH_SHORT).show();
     }
 
 

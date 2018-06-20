@@ -1,6 +1,7 @@
 package com.example.pheonixii.sonus;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,10 +12,14 @@ import java.util.ArrayList;
 
 import jm.music.data.Note;
 
+import static jm.constants.Durations.Q;
 import static jm.constants.Durations.WHOLE_NOTE;
 import static jm.constants.Pitches.C4;
 
 public class GameActivity extends AppCompatActivity {
+
+    private MediaPlayer mediaPlayer;
+    private MediaPlayer midiFileMediaPlayer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,5 +46,9 @@ public class GameActivity extends AppCompatActivity {
     public void submit(View view) {
         Intent intent = new Intent(this, Stats.class);
         startActivity(intent);
+    }
+    public void play(View view){
+        midiFileMediaPlayer = MediaPlayer.create(this, R.raw.fourty_eight);
+        midiFileMediaPlayer.start();
     }
 }

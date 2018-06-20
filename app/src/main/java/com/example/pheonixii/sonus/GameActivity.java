@@ -24,11 +24,11 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         ArrayList intervals = intent.getStringArrayListExtra("interval_list");
         Spinner spinner = (Spinner) findViewById(R.id.intervals_spinner);
-// Create an ArrayAdapter using the string array and a default spinner layout
+
         ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
-// Specify the layout to use when the list of choices appears
+
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Apply the adapter to the spinner
+
         spinner.setAdapter(adapter);
         Note note = new Note(C4, WHOLE_NOTE);
         SoundTask play = new SoundTask();

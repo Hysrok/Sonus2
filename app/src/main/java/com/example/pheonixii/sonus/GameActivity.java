@@ -19,9 +19,9 @@ import static jm.constants.Pitches.C4;
 
 public class GameActivity extends AppCompatActivity {
 
-    private int baseNote;
-    private int testNote;
-    private int userNote;
+    private int baseNote = 0;
+    private int testNote = 0;
+    private int userNote = 0;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;

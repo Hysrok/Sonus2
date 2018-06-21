@@ -17,5 +17,8 @@
     <string name="intervalPrompt">Which intervals would you like to work on?</string>
     <string name="home">Home</string>
     <string name="play_app">Play</string>
+    <string name="natural">Natural</string>
+    <string name="sharp">Sharp</string>
+    <string name="flat">Flat</string>
     <string name="submit">Submit</string>
 </resources>

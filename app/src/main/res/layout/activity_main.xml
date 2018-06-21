@@ -11,128 +11,124 @@
         android:id="@+id/P1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectUnison"
+        android:buttonTint="@color/blue"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
     <CheckBox
         android:id="@+id/m2"
-        android:layout_width="122dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSecond"
+        android:buttonTint="@color/blue"
         app:layout_constraintEnd_toStartOf="@+id/M2"
         app:layout_constraintStart_toEndOf="@+id/P1"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
     <CheckBox
         android:id="@+id/M2"
-        android:layout_width="126dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSecond"
+        android:buttonTint="@color/blue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Select1" />
 
     <CheckBox
         android:id="@+id/m3"
-        android:layout_width="124dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorThird"
-        app:layout_constraintStart_toStartOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/P1"
         app:layout_constraintTop_toBottomOf="@+id/P1" />
 
     <CheckBox
         android:id="@+id/M3"
-        android:layout_width="122dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorThird"
-        app:layout_constraintEnd_toStartOf="@+id/P4"
-        app:layout_constraintStart_toEndOf="@+id/m3"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/m2"
         app:layout_constraintTop_toBottomOf="@+id/m2" />
 
     <CheckBox
         android:id="@+id/P4"
-        android:layout_width="126dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectFourth"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/M2"
         app:layout_constraintTop_toBottomOf="@+id/M2" />
 
     <CheckBox
         android:id="@+id/P5"
-        android:layout_width="124dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectFifth"
-        app:layout_constraintStart_toStartOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/m3"
         app:layout_constraintTop_toBottomOf="@+id/m3" />
 
     <CheckBox
         android:id="@+id/m6"
-        android:layout_width="122dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSixth"
-        app:layout_constraintEnd_toStartOf="@+id/M6"
-        app:layout_constraintStart_toEndOf="@+id/P5"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/M3"
         app:layout_constraintTop_toBottomOf="@+id/M3" />
 
     <CheckBox
         android:id="@+id/M6"
-        android:layout_width="126dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSixth"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/P4"
         app:layout_constraintTop_toBottomOf="@+id/P4" />
 
     <CheckBox
         android:id="@+id/m7"
-        android:layout_width="124dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/minorSeventh"
-        app:layout_constraintStart_toStartOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/P5"
         app:layout_constraintTop_toBottomOf="@+id/P5" />
 
     <CheckBox
         android:id="@+id/M7"
-        android:layout_width="122dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="@string/majorSeventh"
-        app:layout_constraintEnd_toStartOf="@+id/P8"
-        app:layout_constraintStart_toEndOf="@+id/m7"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/m6"
         app:layout_constraintTop_toBottomOf="@+id/m6" />
 
     <CheckBox
         android:id="@+id/P8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
         android:layout_marginTop="8dp"
         android:text="@string/perfectOctave"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:buttonTint="@color/blue"
+        app:layout_constraintStart_toStartOf="@+id/M6"
         app:layout_constraintTop_toBottomOf="@+id/M6" />
 
     <Button

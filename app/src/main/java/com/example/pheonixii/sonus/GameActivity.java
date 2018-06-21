@@ -19,7 +19,8 @@ import static jm.constants.Pitches.C4;
 public class GameActivity extends AppCompatActivity {
 
     private MediaPlayer mediaPlayer;
-    private MediaPlayer midiFileMediaPlayer;
+    private MediaPlayer midiFileMediaPlayer1;
+    private MediaPlayer midiFileMediaPlayer2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +49,11 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void play(View view){
-        midiFileMediaPlayer = MediaPlayer.create(this, R.raw.fourty_eight);
-        midiFileMediaPlayer.start();
+        midiFileMediaPlayer1 = MediaPlayer.create(this, R.raw.fourty_eight);
+        midiFileMediaPlayer1.start();
+        midiFileMediaPlayer2 = MediaPlayer.create(this, R.raw.fourty_nine);
+        midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
+        midiFileMediaPlayer1.start();
+
     }
 }

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.net.URI;
 import java.util.ArrayList;
 
 import jm.music.data.Note;
@@ -17,6 +18,10 @@ import static jm.constants.Durations.WHOLE_NOTE;
 import static jm.constants.Pitches.C4;
 
 public class GameActivity extends AppCompatActivity {
+
+    private int baseNote;
+    private int testNote;
+    private int userNote;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
@@ -49,11 +54,16 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
     public void play(View view){
-        midiFileMediaPlayer1 = MediaPlayer.create(this, R.raw.fourty_eight);
+        int file = R.raw.fifty_eight;
+        midiFileMediaPlayer1 = MediaPlayer.create(this, file);
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, R.raw.fourty_nine);
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
 
     }
+
+    public void setBaseNote(int baseNote){baseNote = this.baseNote;}
+    public void setTestNote(int testNote){testNote = this.testNote;}
+    public void setUserNote(int userNote){userNote = this.userNote;}
 }

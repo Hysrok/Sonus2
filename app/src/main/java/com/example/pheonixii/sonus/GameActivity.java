@@ -8,16 +8,9 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
-import java.net.URI;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
-
-import jm.music.data.Note;
-
-import static jm.constants.Durations.Q;
-import static jm.constants.Durations.WHOLE_NOTE;
-import static jm.constants.Pitches.C4;
 
 public class GameActivity extends AppCompatActivity {
 
@@ -37,6 +30,8 @@ public class GameActivity extends AppCompatActivity {
     private int baseNote = 0;
     private int testNote = 0;
     private int userNote = 0;
+    private int attempts = 0;
+    boolean correct = false;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
@@ -51,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
         ArrayList intervals = intent.getStringArrayListExtra("interval_list");
         Spinner spinner = (Spinner) findViewById(R.id.intervals_spinner);
 
-        ArrayAdapter<String> adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -65,10 +60,14 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
-        Intent intent = new Intent(this, Stats.class);
-        startActivity(intent);
+        verifyAnswer();
+        if (attempts == 3 || correct == true) {
+            Intent intent = new Intent(this, Stats.class);
+            startActivity(intent);
+        }
     }
-    public void play(View view){
+
+    public void play(View view) {
         int file = R.raw.fifty_eight;
         midiFileMediaPlayer1 = MediaPlayer.create(this, file);
         midiFileMediaPlayer1.start();
@@ -78,7 +77,37 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
-    public void setBaseNote(int baseNote){baseNote = this.baseNote;}
-    public void setTestNote(int testNote){testNote = this.testNote;}
-    public void setUserNote(int userNote){userNote = this.userNote;}
+    public void setBaseNote(int baseNote) {
+        baseNote = this.baseNote;
+    }
+
+    public void setTestNote(int testNote) {
+        testNote = this.testNote;
+    }
+
+    public void setUserNote(int userNote) {
+        userNote = this.userNote;
+    }
+
+    public int convertNote() {
+        return -1;
+    }
+
+    public boolean verifyNote() {
+        int theirNote = convertNote();
+        return false;
+    }
+
+    public boolean verifyInterval() {
+        return false;
+    }
+
+    public void verifyAnswer(){
+        if (verifyNote() && verifyInterval())
+            correct = true;
+        else if (!verifyNote() || !verifyInterval()) {
+            correct = false;
+            attempts++;
+        }
+    }
 }

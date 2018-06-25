@@ -17,7 +17,21 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+
+
 public class GameActivity extends AppCompatActivity {
+    private static final int INTERVAL1 = 1;
+    private static final int INTERVAL2 = 2;
+    private static final int INTERVAL3 = 3;
+    private static final int INTERVAL4 = 4;
+    private static final int INTERVAL5 = 5;
+    private static final int INTERVAL6 = 6;
+    private static final int INTERVAL7 = 7;
+    private static final int INTERVAL8 = 8;
+    private static final int INTERVAL9 = 9;
+    private static final int INTERVAL10 = 10;
+    private static final int INTERVAL11 = 11;
+    private static final int INTERVAL12 = 12;
 
     private static final Map<Integer, Integer> Notes = new TreeMap<Integer,Integer>(){{put(48, R.raw.fourty_eight); put(49, R.raw.fourty_nine);
         put(50, R.raw.fifty);put(51, R.raw.fifty_one);put(52, R.raw.fifty_two);put(53, R.raw.fifty_three);put(54, R.raw.fifty_four);put(55, R.raw.fifty_five);
@@ -73,10 +87,10 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        int file = R.raw.fifty_eight;
+        int file = Notes.get(48);
         midiFileMediaPlayer1 = MediaPlayer.create(this, file);
         midiFileMediaPlayer1.start();
-        midiFileMediaPlayer2 = MediaPlayer.create(this, R.raw.eighty_nine);
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
     }

@@ -6,8 +6,12 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -77,10 +81,48 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer1.start();
     }
 
-    public int getSeekValue() {
+    public int getUserNote() {
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar2);
         int seekValue = seekBar.getProgress();
-        return seekValue;
+        int note = 0;
+
+        if (seekValue == 0) {
+            note = 72;
+        } else if (seekValue == 1) {
+            note = 74;
+        } else if (seekValue == 2) {
+            note = 76;
+        } else if (seekValue == 3) {
+            note = 77;
+        } else if (seekValue == 4) {
+            note = 79;
+        } else if (seekValue == 5) {
+            note = 81;
+        } else if (seekValue == 6) {
+            note = 83;
+        } else if (seekValue == 7) {
+            note = 84;
+        } else if (seekValue == 8) {
+            note = 86;
+        } else if (seekValue == 9) {
+            note = 88;
+        } else if (seekValue == 10) {
+            note = 89;
+        } else if (seekValue == 11) {
+            note = 91;
+        } else if (seekValue == 12) {
+            note = 93;
+        }
+        RadioButton userSharp = findViewById(R.id.userSharp);
+        if (userSharp.isChecked()) {
+            note++;
+        }
+        RadioButton userFlat = findViewById(R.id.userFlat);
+        if (userSharp.isChecked()) {
+            note--;
+        }
+       // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();
+        return note;
     }
 
     public void setBaseNote(int baseNote) {

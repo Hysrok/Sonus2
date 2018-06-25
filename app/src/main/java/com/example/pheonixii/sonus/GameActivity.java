@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.SeekBar;
 import android.widget.Spinner;
 
 import java.util.ArrayList;
@@ -88,7 +89,12 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
+    }
 
+    public int getSeekValue() {
+        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar2);
+        int seekValue = seekBar.getProgress();
+        return seekValue;
     }
 
     public void setBaseNote(int baseNote) {

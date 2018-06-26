@@ -113,39 +113,53 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
-        if (seekValue == 0) {
-            note = 72;
-        } else if (seekValue == 1) {
-            note = 74;
-        } else if (seekValue == 2) {
-            note = 76;
-        } else if (seekValue == 3) {
-            note = 77;
-        } else if (seekValue == 4) {
-            note = 79;
-        } else if (seekValue == 5) {
-            note = 81;
-        } else if (seekValue == 6) {
-            note = 83;
-        } else if (seekValue == 7) {
-            note = 84;
-        } else if (seekValue == 8) {
-            note = 86;
-        } else if (seekValue == 9) {
-            note = 88;
-        } else if (seekValue == 10) {
-            note = 89;
-        } else if (seekValue == 11) {
-            note = 91;
-        } else if (seekValue == 12) {
-            note = 93;
+        switch(seekValue) {
+            case 0:
+                note = 72;
+                break;
+            case 1:
+                note = 74;
+                break;
+            case 2:
+                note = 76;
+                break;
+            case 3:
+                note = 77;
+                break;
+            case 4:
+                note = 79;
+                break;
+            case 5:
+                note = 81;
+                break;
+            case 6:
+                note = 83;
+                break;
+            case 7:
+                note = 84;
+                break;
+            case 8:
+                note = 86;
+                break;
+            case 9:
+                note = 88;
+                break;
+            case 10:
+                note = 89;
+                break;
+            case 11:
+                note = 91;
+                break;
+            case 12:
+                note = 93;
         }
+
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {
             note++;
         }
         RadioButton userFlat = findViewById(R.id.userFlat);
-        if (userSharp.isChecked()) {
+        if (userFlat.isChecked()) {
             note--;
         }
        // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();

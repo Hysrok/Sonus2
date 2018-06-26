@@ -46,7 +46,7 @@ public class GameActivity extends AppCompatActivity {
         put(99, R.raw.ninety_nine);put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);put(103, R.raw.one_hundred_three);}};
 
 
-
+    private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
     private int userNote = 0;
@@ -93,8 +93,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        int file = Notes.get(48);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, file);
+        randomBaseNote();
+        midiFileMediaPlayer1 = MediaPlayer.create(this, baseNote);
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
@@ -107,7 +107,7 @@ public class GameActivity extends AppCompatActivity {
         int note = 0;
 
         if (seekValue == 0) {
-            note = 72;
+            note = note;
         } else if (seekValue == 1) {
             note = 74;
         } else if (seekValue == 2) {
@@ -147,13 +147,17 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomBaseNote(){
         Random rand = new Random();
-        setBaseNote(Notes.get(rand.nextInt((93 - 72) + 1) +72)); //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((93 - 72) + 1) +72; //rand.nextInt((max - min) + 1) + min;
+        setBaseNote(Notes.get(baseNoteKey));
     }
 
-    public void intervalTestNote(){}
+    public void intervalTestNote(){
+
+
+    }
 
     public void setBaseNote(int baseNote) {
-        baseNote = this.baseNote;
+        this.baseNote = baseNote;
     }
 
     public void setTestNote(int testNote) {

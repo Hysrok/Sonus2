@@ -79,6 +79,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
+        int note = getUserNote();
+        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         verifyAnswer();
         if (attempts == 3 || correct == true) {
             Intent intent = new Intent(this, Stats.class);
@@ -129,13 +131,13 @@ public class GameActivity extends AppCompatActivity {
         }
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {
-            note++;
+            note = note + 1;
         }
         RadioButton userFlat = findViewById(R.id.userFlat);
-        if (userSharp.isChecked()) {
+        if (userFlat.isChecked()) {
             note--;
         }
-       // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         return note;
     }
 

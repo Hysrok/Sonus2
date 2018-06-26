@@ -89,16 +89,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        if(checkedNum()>=3) {
+//        if(checkedNum()>=3) {   // Commented out to make testing easier.
             Intent intent = new Intent(this, GameActivity.class);
 
             intent.putStringArrayListExtra("interval_list", intervals);
 
             startActivity(intent);
-        }
+/*        }
         else
             Toast.makeText(this, "You require more intervals", Toast.LENGTH_SHORT).show();
-    }
+*/    }
 
 
 

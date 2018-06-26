@@ -6,14 +6,32 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
 
+
+
 public class GameActivity extends AppCompatActivity {
+    private static final int INTERVAL1 = 1;
+    private static final int INTERVAL2 = 2;
+    private static final int INTERVAL3 = 3;
+    private static final int INTERVAL4 = 4;
+    private static final int INTERVAL5 = 5;
+    private static final int INTERVAL6 = 6;
+    private static final int INTERVAL7 = 7;
+    private static final int INTERVAL8 = 8;
+    private static final int INTERVAL9 = 9;
+    private static final int INTERVAL10 = 10;
+    private static final int INTERVAL11 = 11;
+    private static final int INTERVAL12 = 12;
 
     private static final Map<Integer, Integer> Notes = new TreeMap<Integer,Integer>(){{put(48, R.raw.fourty_eight); put(49, R.raw.fourty_nine);
         put(50, R.raw.fifty);put(51, R.raw.fifty_one);put(52, R.raw.fifty_two);put(53, R.raw.fifty_three);put(54, R.raw.fifty_four);put(55, R.raw.fifty_five);
@@ -69,18 +87,56 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        int file = R.raw.fifty_eight;
+        int file = Notes.get(48);
         midiFileMediaPlayer1 = MediaPlayer.create(this, file);
         midiFileMediaPlayer1.start();
-        midiFileMediaPlayer2 = MediaPlayer.create(this, R.raw.eighty_nine);
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
     }
 
-    public int getSeekValue() {
+    public int getUserNote() {
         SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar2);
         int seekValue = seekBar.getProgress();
-        return seekValue;
+        int note = 0;
+
+        if (seekValue == 0) {
+            note = 72;
+        } else if (seekValue == 1) {
+            note = 74;
+        } else if (seekValue == 2) {
+            note = 76;
+        } else if (seekValue == 3) {
+            note = 77;
+        } else if (seekValue == 4) {
+            note = 79;
+        } else if (seekValue == 5) {
+            note = 81;
+        } else if (seekValue == 6) {
+            note = 83;
+        } else if (seekValue == 7) {
+            note = 84;
+        } else if (seekValue == 8) {
+            note = 86;
+        } else if (seekValue == 9) {
+            note = 88;
+        } else if (seekValue == 10) {
+            note = 89;
+        } else if (seekValue == 11) {
+            note = 91;
+        } else if (seekValue == 12) {
+            note = 93;
+        }
+        RadioButton userSharp = findViewById(R.id.userSharp);
+        if (userSharp.isChecked()) {
+            note++;
+        }
+        RadioButton userFlat = findViewById(R.id.userFlat);
+        if (userSharp.isChecked()) {
+            note--;
+        }
+       // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();
+        return note;
     }
 
     public void setBaseNote(int baseNote) {

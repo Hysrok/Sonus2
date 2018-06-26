@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.Random;
 
 
 
@@ -67,6 +68,11 @@ public class GameActivity extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
 
+        randomBaseNote();
+
+        //Pick random base note
+
+
     }
 
     public void goHome(View view) {
@@ -96,6 +102,13 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         return seekValue;
     }
+
+    public void randomBaseNote(){
+        Random rand = new Random();
+        setBaseNote(Notes.get(rand.nextInt((93 - 72) + 1) +72)); //rand.nextInt((max - min) + 1) + min;
+    }
+
+    public void intervalTestNote(){}
 
     public void setBaseNote(int baseNote) {
         baseNote = this.baseNote;

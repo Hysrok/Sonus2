@@ -59,7 +59,7 @@ public class GameActivity extends AppCompatActivity {
 
     private int baseNote = 0;
     private int testNote = 0;
-    private int userNote = 0;
+    private int userNoteKey = 0;
     private int attempts = 0;
     boolean correct = false;
 
@@ -95,8 +95,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
-        int note = getUserNote();
-        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
+        userNoteKey = getUserNote();
+        Toast.makeText(this, "Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
         if (attempts == 3 || correct == true) {
             Intent intent = new Intent(this, Stats.class);
@@ -105,8 +105,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        int file = Notes.get(48);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, file);
+      //  int file = Notes.get(baseNote);
+        Integer IntegerBaseNote = new Integer(baseNote);
+        midiFileMediaPlayer1 = MediaPlayer.create(this, IntegerBaseNote);
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
@@ -179,7 +180,7 @@ public class GameActivity extends AppCompatActivity {
     public void intervalTestNote(){}
 
     public void setBaseNote(int baseNote) {
-        baseNote = this.baseNote;
+        this.baseNote = baseNote;
     }
 
     public void setTestNote(int testNote) {
@@ -187,7 +188,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void setUserNote(int userNote) {
-        userNote = this.userNote;
+        userNote = this.userNoteKey;
     }
 
     public int convertNote() {

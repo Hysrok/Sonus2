@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -100,10 +101,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        int file = Notes.get(48);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, file);
+        int fNote = 48;
+        int lNote = 103;
+        ImageView noteP = findViewById(R.id.C4);
+        noteP.setVisibility(View.VISIBLE);
+        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();
-        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
     }

@@ -54,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
         put(103, R.raw.one_hundred_three);}};
 
 
-
+    private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
     private int userNote = 0;
@@ -172,13 +172,17 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomBaseNote(){
         Random rand = new Random();
-        setBaseNote(Notes.get(rand.nextInt((93 - 72) + 1) +72)); //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((93 - 72) + 1) +72; //rand.nextInt((max - min) + 1) + min;
+        setBaseNote(Notes.get(baseNoteKey));
     }
 
-    public void intervalTestNote(){}
+    public void intervalTestNote(){
+
+
+    }
 
     public void setBaseNote(int baseNote) {
-        baseNote = this.baseNote;
+        this.baseNote = baseNote;
     }
 
     public void setTestNote(int testNote) {

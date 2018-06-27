@@ -6,17 +6,14 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.TreeMap;
 import java.util.Random;
+import java.util.TreeMap;
 
 
 
@@ -56,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
         put(103, R.raw.one_hundred_three);}};
 
 
-
+    private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
     private int userNoteKey = 0;
@@ -105,9 +102,8 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-      //  int file = Notes.get(baseNote);
-        Integer IntegerBaseNote = new Integer(baseNote);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, IntegerBaseNote);
+        randomBaseNote();
+        midiFileMediaPlayer1 = MediaPlayer.create(this, baseNote);
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(68));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
@@ -174,10 +170,14 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomBaseNote(){
         Random rand = new Random();
-        setBaseNote(Notes.get(rand.nextInt((93 - 72) + 1) +72)); //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((93 - 72) + 1) +72; //rand.nextInt((max - min) + 1) + min;
+        setBaseNote(Notes.get(baseNoteKey));
     }
 
-    public void intervalTestNote(){}
+    public void intervalTestNote(){
+
+
+    }
 
     public void setBaseNote(int baseNote) {
         this.baseNote = baseNote;

@@ -57,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
     private String interval;
     private ImageView noteP;
     private ImageView sharpP;
+    private ImageView noteU;
+    private ImageView sharpU;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -241,7 +243,8 @@ public class GameActivity extends AppCompatActivity {
     public void play(View view) {
         Random rand = new Random();
         int fNote = rand.nextInt((82 - 60) + 1) +60;
-        int lNote = 103;
+        Random rand1 = new Random();
+        int lNote = rand.nextInt((82 - 60) + 1) +60;
         displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();
@@ -255,6 +258,11 @@ public class GameActivity extends AppCompatActivity {
         SeekBar seekBar = findViewById(R.id.seekBar2);
         int seekValue = seekBar.getProgress();
         int note = 0;
+
+        if(noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }
 
         switch(seekValue) {
             case 0:
@@ -280,8 +288,8 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 7:
                 note = 72;
-                ImageView noteP = findViewById(R.id.C5U);
-                noteP.setVisibility(View.VISIBLE);
+                ImageView noteU = findViewById(R.id.C5U);
+                noteU.setVisibility(View.VISIBLE);
                 break;
             case 8:
                 note = 74;

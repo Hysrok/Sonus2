@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -59,21 +60,22 @@ public class GameActivity extends AppCompatActivity {
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
-    private int userNote = 0;
+    private int userNoteKey = 0;
     private int attempts = 0;
     boolean correct = false;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
     private MediaPlayer midiFileMediaPlayer2;
-
+    //private ArrayList<String> intervals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        ArrayList intervals = intent.getStringArrayListExtra("interval_list");
+        ArrayList<String> intervals = intent.getStringArrayListExtra("interval_list");
+       // intervals.add("dropdown");
         Spinner spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
@@ -85,8 +87,6 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote();
 
         //Pick random base note
-
-
     }
 
     public void goHome(View view) {
@@ -95,6 +95,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
+        userNoteKey = getUserNote();
+        String interval = randomInterval();
+        Toast.makeText(this, "Interval = " + interval, Toast.LENGTH_LONG).show();
         verifyAnswer();
         if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
@@ -299,13 +302,13 @@ public class GameActivity extends AppCompatActivity {
 
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {
-            note++;
+            note = note + 1;
         }
         RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
         }
-       // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         return note;
     }
 
@@ -315,9 +318,15 @@ public class GameActivity extends AppCompatActivity {
         setBaseNote(Notes.get(baseNoteKey));
     }
 
-    public void intervalTestNote(){
-
-
+    /**
+     * Chooses a random interval which will be used to determine the test note.
+     * Uses only intervals that user has chosen.
+     */
+    public String randomInterval(){
+        String answerInterval = "nothing";
+        //answerInterval = intervals.get(new Random().nextInt(intervals.size()));
+        //Toast.makeText(this, "Note = " + answerInterval, Toast.LENGTH_LONG).show();
+        return answerInterval;
     }
 
     public void setBaseNote(int baseNote) {
@@ -325,11 +334,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void setTestNote(int testNote) {
-        testNote = this.testNote;
+        this.testNote = testNote;
     }
 
     public void setUserNote(int userNote) {
-        userNote = this.userNote;
+        this.userNoteKey = userNote;
     }
 
     public int convertNote() {

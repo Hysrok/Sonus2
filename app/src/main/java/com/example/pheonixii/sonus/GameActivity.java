@@ -85,6 +85,7 @@ public class GameActivity extends AppCompatActivity {
 
         //Pick random base note
 
+
     }
 
     public void goHome(View view) {
@@ -97,68 +98,200 @@ public class GameActivity extends AppCompatActivity {
         String interval = randomInterval();
         Toast.makeText(this, "Interval = " + interval, Toast.LENGTH_LONG).show();
         verifyAnswer();
-        if (attempts == 3 || correct == true) {
+        if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
         }
     }
 
-    public void play(View view) {
-        int fNote = 48;
-        int lNote = 103;
+    public void displayNote(int note){
         ImageView noteP = findViewById(R.id.C4);
-        noteP.setVisibility(View.VISIBLE);
+        boolean noteB = true;
+        ImageView sharpP = findViewById(R.id.C4s);
+        boolean sharpB = false;
+
+        switch (note) {
+            case 60: {
+                noteP = findViewById(R.id.C4);
+                break;
+            }
+            case 61: {
+                noteP = findViewById(R.id.C4);
+                sharpP = findViewById(R.id.C4s);
+                sharpB = true;
+                break;
+            }
+            case 62: {
+                noteP = findViewById(R.id.D4);
+                break;
+            }
+            case 63: {
+                noteP = findViewById(R.id.D4);
+                sharpP = findViewById(R.id.D4s);
+                sharpB = true;
+                break;
+            }
+            case 64: {
+                noteP = findViewById(R.id.E4);
+                break;
+            }
+            case 65: {
+                noteP = findViewById(R.id.F4);
+                break;
+            }
+            case 66: {
+                noteP = findViewById(R.id.F4);
+                sharpP = findViewById(R.id.F4s);
+                sharpB = true;
+                break;
+            }
+            case 67: {
+                noteP = findViewById(R.id.G4);
+                break;
+            }
+            case 68: {
+                noteP = findViewById(R.id.G4);
+                sharpP = findViewById(R.id.G4s);
+                sharpB = true;
+                break;
+            }
+            case 69: {
+                noteP = findViewById(R.id.A4);
+                break;
+            }
+            case 70: {
+                noteP = findViewById(R.id.A4);
+                sharpP = findViewById(R.id.A4s);
+                sharpB = true;
+                break;
+            }
+            case 71: {
+                noteP = findViewById(R.id.B4);
+                break;
+            }
+            case 72: {
+                noteP = findViewById(R.id.C5);
+                break;
+            }
+            case 73: {
+                noteP = findViewById(R.id.C5);
+                sharpP = findViewById(R.id.C5s);
+                sharpB = true;
+                break;
+            }
+            case 74: {
+                noteP = findViewById(R.id.D5);
+                break;
+            }
+            case 75: {
+                noteP = findViewById(R.id.D5);
+                sharpP = findViewById(R.id.D5s);
+                sharpB = true;
+                break;
+            }
+            case 76: {
+                noteP = findViewById(R.id.E5);
+                break;
+            }
+            case 77: {
+                noteP = findViewById(R.id.F5);
+                break;
+            }
+            case 78: {
+                noteP = findViewById(R.id.F5);
+                sharpP = findViewById(R.id.F5s);
+                sharpB = true;
+                break;
+            }
+            case 79: {
+                noteP = findViewById(R.id.G5);
+                break;
+            }
+            case 80: {
+                noteP = findViewById(R.id.G5);
+                sharpP = findViewById(R.id.G5s);
+                sharpB = true;
+                break;
+            }
+            case 81: {
+                noteP = findViewById(R.id.A5);
+                break;
+            }
+            case 82: {
+                noteP = findViewById(R.id.A5);
+                sharpP = findViewById(R.id.A5s);
+                sharpB = true;
+                break;
+            }
+            default:
+                noteB = false;
+                sharpB = false;
+        }
+        if (noteB)
+            noteP.setVisibility(View.VISIBLE);
+        if(sharpB)
+            sharpP.setVisibility(View.VISIBLE);
+    }
+
+    public void play(View view) {
+        Random rand = new Random();
+        int fNote = rand.nextInt((82 - 60) + 1) +60;
+        int lNote = 103;
+        displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
+        getUserNote();
     }
 
     public int getUserNote() {
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBar seekBar = findViewById(R.id.seekBar2);
         int seekValue = seekBar.getProgress();
         int note = 0;
 
         switch(seekValue) {
             case 0:
-                note = 72;
+                note = 60;
                 break;
             case 1:
-                note = 74;
+                note = 62;
                 break;
             case 2:
-                note = 76;
+                note = 64;
                 break;
             case 3:
-                note = 77;
+                note = 65;
                 break;
             case 4:
-                note = 79;
+                note = 67;
                 break;
             case 5:
-                note = 81;
+                note = 69;
                 break;
             case 6:
-                note = 83;
+                note = 71;
                 break;
             case 7:
-                note = 84;
+                note = 72;
+                ImageView noteP = findViewById(R.id.C5U);
+                noteP.setVisibility(View.VISIBLE);
                 break;
             case 8:
-                note = 86;
+                note = 74;
                 break;
             case 9:
-                note = 88;
+                note = 76;
                 break;
             case 10:
-                note = 89;
+                note = 77;
                 break;
             case 11:
-                note = 91;
+                note = 79;
                 break;
             case 12:
-                note = 93;
+                note = 81;
         }
 
         RadioButton userSharp = findViewById(R.id.userSharp);
@@ -175,7 +308,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomBaseNote(){
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((93 - 72) + 1) +72; //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((82 - 60) + 1) +60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 

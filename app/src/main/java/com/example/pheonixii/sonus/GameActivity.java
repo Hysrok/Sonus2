@@ -232,7 +232,8 @@ public class GameActivity extends AppCompatActivity {
     public void play(View view) {
         Random rand = new Random();
         int fNote = rand.nextInt((82 - 60) + 1) +60;
-        int lNote = 103;
+        Random rand1 = new Random();
+        int lNote = rand.nextInt((82 - 60) + 1) +60;
         displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();

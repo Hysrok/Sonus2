@@ -239,6 +239,7 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
+        getUserNote();
     }
 
     public int getUserNote() {
@@ -248,43 +249,45 @@ public class GameActivity extends AppCompatActivity {
 
         switch(seekValue) {
             case 0:
-                note = 72;
+                note = 60;
                 break;
             case 1:
-                note = 74;
+                note = 62;
                 break;
             case 2:
-                note = 76;
+                note = 64;
                 break;
             case 3:
-                note = 77;
+                note = 65;
                 break;
             case 4:
-                note = 79;
+                note = 67;
                 break;
             case 5:
-                note = 81;
+                note = 69;
                 break;
             case 6:
-                note = 83;
+                note = 71;
                 break;
             case 7:
-                note = 84;
+                note = 72;
+                ImageView noteP = findViewById(R.id.C5U);
+                noteP.setVisibility(View.VISIBLE);
                 break;
             case 8:
-                note = 86;
+                note = 74;
                 break;
             case 9:
-                note = 88;
+                note = 76;
                 break;
             case 10:
-                note = 89;
+                note = 77;
                 break;
             case 11:
-                note = 91;
+                note = 79;
                 break;
             case 12:
-                note = 93;
+                note = 81;
         }
 
         RadioButton userSharp = findViewById(R.id.userSharp);

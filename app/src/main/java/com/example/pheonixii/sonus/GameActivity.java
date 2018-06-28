@@ -57,6 +57,8 @@ public class GameActivity extends AppCompatActivity {
 
     private ImageView noteP;
     private ImageView sharpP;
+    private ImageView noteU;
+    private ImageView sharpU;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -258,6 +260,10 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
+        if(noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }
 
         switch(seekValue) {
             case 0:
@@ -283,8 +289,8 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 7:
                 note = 72;
-                ImageView noteP = findViewById(R.id.C5U);
-                noteP.setVisibility(View.VISIBLE);
+                ImageView noteU = findViewById(R.id.C5U);
+                noteU.setVisibility(View.VISIBLE);
                 break;
             case 8:
                 note = 74;

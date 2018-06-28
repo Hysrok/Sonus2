@@ -67,15 +67,15 @@ public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
     private MediaPlayer midiFileMediaPlayer2;
-    //private ArrayList<String> intervals;
+    private ArrayList<String> intervals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        ArrayList<String> intervals = intent.getStringArrayListExtra("interval_list");
-       // intervals.add("dropdown");
+        intervals = intent.getStringArrayListExtra("interval_list");
+
         Spinner spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
@@ -94,10 +94,11 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+
     public void submit(View view) {
         userNoteKey = getUserNote();
         String interval = randomInterval();
-        Toast.makeText(this, "Interval = " + interval, Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
         if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
@@ -307,6 +308,9 @@ public class GameActivity extends AppCompatActivity {
         RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
+            // we shouldn't have anything lower than 60
+            if (note < 60)
+                note = 60;
         }
         Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         return note;
@@ -323,9 +327,9 @@ public class GameActivity extends AppCompatActivity {
      * Uses only intervals that user has chosen.
      */
     public String randomInterval(){
-        String answerInterval = "nothing";
-        //answerInterval = intervals.get(new Random().nextInt(intervals.size()));
-        //Toast.makeText(this, "Note = " + answerInterval, Toast.LENGTH_LONG).show();
+        String answerInterval = "Empty";
+        if (!intervals.isEmpty())
+            answerInterval = intervals.get(new Random().nextInt(intervals.size()));
         return answerInterval;
     }
 

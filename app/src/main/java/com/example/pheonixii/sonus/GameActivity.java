@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -53,7 +54,7 @@ public class GameActivity extends AppCompatActivity {
         put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);
         put(103, R.raw.one_hundred_three);}};
 
-
+    private String interval;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -302,12 +303,59 @@ public class GameActivity extends AppCompatActivity {
         return note;
     }
 
+    /****************************
+    * Get a random base note and key
+    *******************************/
     public void randomBaseNote(){
         Random rand = new Random();
         baseNoteKey = rand.nextInt((82 - 60) + 1) +60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 
+
+
+    /*********************
+     * Intervals are strings and need to be ints
+     **********************/
+    public int convertIntervalToInt(){
+        switch(interval) {
+            case "Perfect Unison":
+                return 0;
+            case "Minor Second":
+                return 1;
+            case "Major second":
+                return 2;
+            case "Minor Third":
+                return 3;
+            case "Major Third":
+                return 4;
+            case "Perfect Fourth":
+                return 5;
+            case "Perfect Fifth":
+                return 6;
+            case "Minor Sixth":
+                return 7;
+            case "Major Sixth":
+                return 8;
+            case "Minor Seventh":
+                return 9;
+            case "Major Seventh":
+                return 10;
+            case "Perfect Octave":
+                return 11;
+            default:
+                Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return -1; //fail
+
+    }
+
+
+    /*********************
+     * Get test note base off the base note and interval
+     **********************/
     public void intervalTestNote(){
 
 

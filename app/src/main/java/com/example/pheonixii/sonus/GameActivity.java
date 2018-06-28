@@ -53,9 +53,14 @@ public class GameActivity extends AppCompatActivity {
         put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);
         put(103, R.raw.one_hundred_three);}};
 
-
+    // Image views to remember which view was used to delete them later.
     private ImageView noteP;
     private ImageView sharpP;
+
+    // First note and last note created to be regenerated at command.  -1 indicates no current note value.
+    private int fNote = -1;
+    private int lNote = -1;
+
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -96,6 +101,9 @@ public class GameActivity extends AppCompatActivity {
 
     public void submit(View view) {
         verifyAnswer();
+        // Set these so that we can generate a new note for each.
+        fNote = -1;
+        lNote = -1;
         if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
@@ -236,9 +244,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        Random rand = new Random();
-        int fNote = rand.nextInt((82 - 60) + 1) +60;
-        int lNote = 103;
+        if(fNote == -1 || lNote == -1) {
+            Random rand = new Random();
+            fNote = rand.nextInt((82 - 60) + 1) + 60;
+            lNote = rand.nextInt((82 - 60) + 1) + 60;
+        }
         displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();

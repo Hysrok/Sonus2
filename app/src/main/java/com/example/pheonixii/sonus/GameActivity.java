@@ -53,7 +53,7 @@ public class GameActivity extends AppCompatActivity {
         put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);
         put(103, R.raw.one_hundred_three);}};
 
-    // Image views to remember which view was used to delete them later.
+    // ImageViews to remember which view was used last in order to delete them later.
     private ImageView noteP;
     private ImageView sharpP;
 

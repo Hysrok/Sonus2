@@ -258,6 +258,7 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
+
         switch(seekValue) {
             case 0:
                 note = 60;

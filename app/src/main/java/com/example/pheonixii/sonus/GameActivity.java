@@ -100,11 +100,139 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void play(View view) {
-        int fNote = 48;
-        int lNote = 103;
+    public void displayNote(int note){
         ImageView noteP = findViewById(R.id.C4);
-        noteP.setVisibility(View.VISIBLE);
+        boolean noteB = true;
+        ImageView sharpP = findViewById(R.id.C4s);
+        boolean sharpB = false;
+
+        switch (note) {
+            case 60: {
+                noteP = findViewById(R.id.C4);
+                break;
+            }
+            case 61: {
+                noteP = findViewById(R.id.C4);
+                sharpP = findViewById(R.id.C4s);
+                sharpB = true;
+                break;
+            }
+            case 62: {
+                noteP = findViewById(R.id.D4);
+                break;
+            }
+            case 63: {
+                noteP = findViewById(R.id.D4);
+                sharpP = findViewById(R.id.D4s);
+                sharpB = true;
+                break;
+            }
+            case 64: {
+                noteP = findViewById(R.id.E4);
+                break;
+            }
+            case 65: {
+                noteP = findViewById(R.id.F4);
+                break;
+            }
+            case 66: {
+                noteP = findViewById(R.id.F4);
+                sharpP = findViewById(R.id.F4s);
+                sharpB = true;
+                break;
+            }
+            case 67: {
+                noteP = findViewById(R.id.G4);
+                break;
+            }
+            case 68: {
+                noteP = findViewById(R.id.G4);
+                sharpP = findViewById(R.id.G4s);
+                sharpB = true;
+                break;
+            }
+            case 69: {
+                noteP = findViewById(R.id.A4);
+                break;
+            }
+            case 70: {
+                noteP = findViewById(R.id.A4);
+                sharpP = findViewById(R.id.A4s);
+                sharpB = true;
+                break;
+            }
+            case 71: {
+                noteP = findViewById(R.id.B4);
+                break;
+            }
+            case 72: {
+                noteP = findViewById(R.id.C5);
+                break;
+            }
+            case 73: {
+                noteP = findViewById(R.id.C5);
+                sharpP = findViewById(R.id.C5s);
+                sharpB = true;
+                break;
+            }
+            case 74: {
+                noteP = findViewById(R.id.D5);
+                break;
+            }
+            case 75: {
+                noteP = findViewById(R.id.D5);
+                sharpP = findViewById(R.id.D5s);
+                sharpB = true;
+                break;
+            }
+            case 76: {
+                noteP = findViewById(R.id.E5);
+                break;
+            }
+            case 77: {
+                noteP = findViewById(R.id.F5);
+                break;
+            }
+            case 78: {
+                noteP = findViewById(R.id.F5);
+                sharpP = findViewById(R.id.F5s);
+                sharpB = true;
+                break;
+            }
+            case 79: {
+                noteP = findViewById(R.id.G5);
+                break;
+            }
+            case 80: {
+                noteP = findViewById(R.id.G5);
+                sharpP = findViewById(R.id.G5s);
+                sharpB = true;
+                break;
+            }
+            case 81: {
+                noteP = findViewById(R.id.A5);
+                break;
+            }
+            case 82: {
+                noteP = findViewById(R.id.A5);
+                sharpP = findViewById(R.id.A5s);
+                sharpB = true;
+                break;
+            }
+            default:
+                noteB = false;
+                sharpB = false;
+        }
+        if (noteB == true)
+            noteP.setVisibility(View.VISIBLE);
+        if(sharpB == true)
+            sharpP.setVisibility(View.VISIBLE);
+    }
+
+    public void play(View view) {
+        int fNote = 73;
+        int lNote = 103;
+        displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
         midiFileMediaPlayer1.start();
         midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
@@ -172,7 +300,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void randomBaseNote(){
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((93 - 72) + 1) +72; //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((82 - 60) + 1) +60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 

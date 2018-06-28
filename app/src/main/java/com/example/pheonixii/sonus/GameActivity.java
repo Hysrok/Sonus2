@@ -55,6 +55,8 @@ public class GameActivity extends AppCompatActivity {
         put(103, R.raw.one_hundred_three);}};
 
     private String interval;
+    private ImageView noteP;
+    private ImageView sharpP;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -365,8 +367,8 @@ public class GameActivity extends AppCompatActivity {
     /*********************
      * Get test note base off the base note and interval
      **********************/
-    public void intervalTestNote(){
-
+    public void intervalTestNote() {
+    }
 
     /**
      * Chooses a random interval which will be used to determine the test note.

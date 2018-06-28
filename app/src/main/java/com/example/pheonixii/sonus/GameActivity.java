@@ -72,7 +72,7 @@ public class GameActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         ArrayList intervals = intent.getStringArrayListExtra("interval_list");
-        Spinner spinner = (Spinner) findViewById(R.id.intervals_spinner);
+        Spinner spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
@@ -94,7 +94,7 @@ public class GameActivity extends AppCompatActivity {
 
     public void submit(View view) {
         verifyAnswer();
-        if (attempts == 3 || correct == true) {
+        if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
         }
@@ -223,14 +223,15 @@ public class GameActivity extends AppCompatActivity {
                 noteB = false;
                 sharpB = false;
         }
-        if (noteB == true)
+        if (noteB)
             noteP.setVisibility(View.VISIBLE);
-        if(sharpB == true)
+        if(sharpB)
             sharpP.setVisibility(View.VISIBLE);
     }
 
     public void play(View view) {
-        int fNote = 73;
+        Random rand = new Random();
+        int fNote = rand.nextInt((82 - 60) + 1) +60;
         int lNote = 103;
         displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
@@ -241,7 +242,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public int getUserNote() {
-        SeekBar seekBar = (SeekBar) findViewById(R.id.seekBar2);
+        SeekBar seekBar = findViewById(R.id.seekBar2);
         int seekValue = seekBar.getProgress();
         int note = 0;
 

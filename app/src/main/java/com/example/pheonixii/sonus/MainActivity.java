@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        if(checkedNum()>=0) {   // Commented out to make testing easier.
+        if(checkedNum()>=0) {
             Intent intent = new Intent(this, GameActivity.class);
 
             intent.putStringArrayListExtra("interval_list", intervals);

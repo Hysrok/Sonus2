@@ -55,6 +55,8 @@ public class GameActivity extends AppCompatActivity {
         put(103, R.raw.one_hundred_three);}};
 
 
+    private ImageView noteP;
+    private ImageView sharpP;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -104,9 +106,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void displayNote(int note){
-        ImageView noteP = findViewById(R.id.C4);
+        if(noteP != null) {
+            noteP.setVisibility(View.INVISIBLE);
+            sharpP.setVisibility(View.INVISIBLE);
+        }
+        noteP = findViewById(R.id.C4);
         boolean noteB = true;
-        ImageView sharpP = findViewById(R.id.C4s);
+        sharpP = findViewById(R.id.C4s);
         boolean sharpB = false;
 
         switch (note) {

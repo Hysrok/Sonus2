@@ -65,15 +65,16 @@ public class GameActivity extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
     private MediaPlayer midiFileMediaPlayer2;
-    private ArrayList<String> intervals;
+    //private ArrayList<String> intervals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        intervals = intent.getStringArrayListExtra("interval_list");
-        Spinner spinner = (Spinner) findViewById(R.id.intervals_spinner);
+        ArrayList<String> intervals = intent.getStringArrayListExtra("interval_list");
+       // intervals.add("dropdown");
+        Spinner spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
@@ -84,8 +85,6 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote();
 
         //Pick random base note
-
-
     }
 
     public void goHome(View view) {
@@ -318,8 +317,8 @@ public class GameActivity extends AppCompatActivity {
      */
     public String randomInterval(){
         String answerInterval = "nothing";
-        answerInterval = intervals.get(new Random().nextInt(intervals.size()));
-        Toast.makeText(this, "Note = " + answerInterval, Toast.LENGTH_LONG).show();
+        //answerInterval = intervals.get(new Random().nextInt(intervals.size()));
+        //Toast.makeText(this, "Note = " + answerInterval, Toast.LENGTH_LONG).show();
         return answerInterval;
     }
 

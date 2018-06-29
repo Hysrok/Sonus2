@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -53,9 +54,12 @@ public class GameActivity extends AppCompatActivity {
         put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);
         put(103, R.raw.one_hundred_three);}};
 
+    private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
     private ImageView noteP;
     private ImageView sharpP;
+    private ImageView noteU;
+    private ImageView sharpU;
 
     // First note and last note created to be regenerated at command.  -1 indicates no current note value.
     private int fNote = -1;
@@ -64,21 +68,22 @@ public class GameActivity extends AppCompatActivity {
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
-    private int userNote = 0;
+    private int userNoteKey = 0;
     private int attempts = 0;
     boolean correct = false;
 
     private MediaPlayer mediaPlayer;
     private MediaPlayer midiFileMediaPlayer1;
     private MediaPlayer midiFileMediaPlayer2;
-
+    private ArrayList<String> intervals;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
         Intent intent = getIntent();
-        ArrayList intervals = intent.getStringArrayListExtra("interval_list");
+        intervals = intent.getStringArrayListExtra("interval_list");
+
         Spinner spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
@@ -90,8 +95,6 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote();
 
         //Pick random base note
-
-
     }
 
     public void goHome(View view) {
@@ -100,6 +103,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void submit(View view) {
+        userNoteKey = getUserNote();
+        String interval = randomInterval();
+        Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
         // Set these so that we can generate a new note for each.
         fNote = -1;
@@ -263,6 +269,11 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
+        if(noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }
+
         switch(seekValue) {
             case 0:
                 note = 60;
@@ -287,8 +298,8 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 7:
                 note = 72;
-                ImageView noteP = findViewById(R.id.C5U);
-                noteP.setVisibility(View.VISIBLE);
+                ImageView noteU = findViewById(R.id.C5U);
+                noteU.setVisibility(View.VISIBLE);
                 break;
             case 8:
                 note = 74;
@@ -313,20 +324,79 @@ public class GameActivity extends AppCompatActivity {
         RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
+            // we shouldn't have anything lower than 60
+            if (note < 60)
+                note = 60;
         }
-       // Toast.makeText(this, "seekValue = " + seekValue, Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         return note;
     }
 
+    /****************************
+    * Get a random base note and key
+    *******************************/
     public void randomBaseNote(){
         Random rand = new Random();
         baseNoteKey = rand.nextInt((82 - 60) + 1) +60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 
-    public void intervalTestNote(){
 
 
+    /*********************
+     * Intervals are strings and need to be ints
+     **********************/
+    public int convertIntervalToInt(){
+        switch(interval) {
+            case "Perfect Unison":
+                return 0;
+            case "Minor Second":
+                return 1;
+            case "Major second":
+                return 2;
+            case "Minor Third":
+                return 3;
+            case "Major Third":
+                return 4;
+            case "Perfect Fourth":
+                return 5;
+            case "Perfect Fifth":
+                return 6;
+            case "Minor Sixth":
+                return 7;
+            case "Major Sixth":
+                return 8;
+            case "Minor Seventh":
+                return 9;
+            case "Major Seventh":
+                return 10;
+            case "Perfect Octave":
+                return 11;
+            default:
+                Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return -1; //fail
+
+    }
+
+
+    /*********************
+     * Get test note base off the base note and interval
+     **********************/
+    public void intervalTestNote() {
+    }
+
+    /**
+     * Chooses a random interval which will be used to determine the test note.
+     * Uses only intervals that user has chosen.
+     */
+    public String randomInterval(){
+        String answerInterval = "Empty";
+        if (!intervals.isEmpty())
+            answerInterval = intervals.get(new Random().nextInt(intervals.size()));
+        return answerInterval;
     }
 
     public void setBaseNote(int baseNote) {
@@ -334,11 +404,11 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void setTestNote(int testNote) {
-        testNote = this.testNote;
+        this.testNote = testNote;
     }
 
     public void setUserNote(int userNote) {
-        userNote = this.userNote;
+        this.userNoteKey = userNote;
     }
 
     public int convertNote() {

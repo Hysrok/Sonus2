@@ -84,7 +84,10 @@ public class GameActivity extends AppCompatActivity {
 
         spinner.setAdapter(adapter);
         roundNum = intent.getIntExtra("roundNum", 0);
-        randomBaseNote();
+        interval = randomInterval();
+        randomBaseNote(); //has to go before the test note
+        intervalTestNote();
+
 
         //Pick random base note
     }
@@ -258,9 +261,9 @@ public class GameActivity extends AppCompatActivity {
             lNote = rand.nextInt((82 - 60) + 1) + 60;
         }
         displayNote(fNote);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
+        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
         midiFileMediaPlayer1.start();
-        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(testNoteKey));
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
         midiFileMediaPlayer1.start();
         getUserNote();
@@ -363,17 +366,17 @@ public class GameActivity extends AppCompatActivity {
             case "Perfect Fourth":
                 return 5;
             case "Perfect Fifth":
-                return 6;
-            case "Minor Sixth":
                 return 7;
-            case "Major Sixth":
+            case "Minor Sixth":
                 return 8;
-            case "Minor Seventh":
+            case "Major Sixth":
                 return 9;
-            case "Major Seventh":
+            case "Minor Seventh":
                 return 10;
-            case "Perfect Octave":
+            case "Major Seventh":
                 return 11;
+            case "Perfect Octave":
+                return 12;
             default:
                 Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
                 break;
@@ -389,7 +392,8 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         testNoteKey = baseNoteKey + convertIntervalToInt();
-        testNote = Notes.get(testNoteKey);
+        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+        setTestNote(Notes.get(testNoteKey));
     }
 
     /**

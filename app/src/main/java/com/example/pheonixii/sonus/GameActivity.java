@@ -82,10 +82,10 @@ public class GameActivity extends AppCompatActivity {
 
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
-    private ImageView noteP;
-    private ImageView sharpP;
-    private ImageView noteU;
-    private ImageView sharpU;
+    private ImageView noteP = null;
+    private ImageView sharpP = null;
+    private ImageView noteU = null;
+    private ImageView sharpU = null;
 
     private int baseNoteKey = 0;
     private int baseNote = 0;
@@ -144,6 +144,140 @@ public class GameActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
+    public void displayGuess(int note){
+        if (noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }
+        noteU = findViewById(R.id.C4U);
+        boolean noteB = true;
+        sharpU = findViewById(R.id.C4sU);
+        boolean sharpB = false;
+
+
+        switch (note) {
+            case 60: {
+                noteU = findViewById(R.id.C4U);
+                break;
+            }
+            case 61: {
+                noteU = findViewById(R.id.C4U);
+                sharpU = findViewById(R.id.C4sU);
+                sharpB = true;
+                break;
+            }
+            case 62: {
+                noteU = findViewById(R.id.D4);
+                break;
+            }
+            case 63: {
+                noteU = findViewById(R.id.D4U);
+                sharpU = findViewById(R.id.D4sU);
+                sharpB = true;
+                break;
+            }
+            case 64: {
+                noteU = findViewById(R.id.E4U);
+                break;
+            }
+            case 65: {
+                noteU = findViewById(R.id.F4U);
+                break;
+            }
+            case 66: {
+                noteU = findViewById(R.id.F4U);
+                sharpU = findViewById(R.id.F4sU);
+                sharpB = true;
+                break;
+            }
+            case 67: {
+                noteU = findViewById(R.id.G4U);
+                break;
+            }
+            case 68: {
+                noteU = findViewById(R.id.G4U);
+                sharpU = findViewById(R.id.G4sU);
+                sharpB = true;
+                break;
+            }
+            case 69: {
+                noteU = findViewById(R.id.A4U);
+                break;
+            }
+            case 70: {
+                noteU = findViewById(R.id.A4U);
+                sharpU = findViewById(R.id.A4sU);
+                sharpB = true;
+                break;
+            }
+            case 71: {
+                noteU = findViewById(R.id.B4U);
+                break;
+            }
+            case 72: {
+                noteU = findViewById(R.id.C5U);
+                break;
+            }
+            case 73: {
+                noteU = findViewById(R.id.C5U);
+                sharpU = findViewById(R.id.C5sU);
+                sharpB = true;
+                break;
+            }
+            case 74: {
+                noteU = findViewById(R.id.D5U);
+                break;
+            }
+            case 75: {
+                noteU = findViewById(R.id.D5U);
+                sharpU = findViewById(R.id.D5sU);
+                sharpB = true;
+                break;
+            }
+            case 76: {
+                noteP = findViewById(R.id.E5U);
+                break;
+            }
+            case 77: {
+                noteU = findViewById(R.id.F5U);
+                break;
+            }
+            case 78: {
+                noteU = findViewById(R.id.F5U);
+                sharpU = findViewById(R.id.F5sU);
+                sharpB = true;
+                break;
+            }
+            case 79: {
+                noteU = findViewById(R.id.G5U);
+                break;
+            }
+            case 80: {
+                noteU = findViewById(R.id.G5U);
+                sharpU = findViewById(R.id.G5sU);
+                sharpB = true;
+                break;
+            }
+            case 81: {
+                noteU = findViewById(R.id.A5U);
+                break;
+            }
+            case 82: {
+                noteU = findViewById(R.id.A5U);
+                sharpU = findViewById(R.id.A5sU);
+                sharpB = true;
+                break;
+            }
+            default:
+                noteB = false;
+                sharpB = false;
+        }
+        if (noteB)
+            noteU.setVisibility(View.VISIBLE);
+        if (sharpB)
+            sharpU.setVisibility(View.VISIBLE);
+
+    }
 
     public void displayNote(int note) {
         if (noteP != null) {
@@ -154,6 +288,7 @@ public class GameActivity extends AppCompatActivity {
         boolean noteB = true;
         sharpP = findViewById(R.id.C4s);
         boolean sharpB = false;
+
 
         switch (note) {
             case 60: {
@@ -303,7 +438,7 @@ public class GameActivity extends AppCompatActivity {
     public void play(View view) {
         soundOff();
 
-        getUserNote();
+        displayGuess(getUserNote());
     }
 
     public int getUserNote() {
@@ -311,10 +446,10 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
-        if (noteU != null) {
+       /* if (noteU != null) {
             noteU.setVisibility(View.INVISIBLE);
             sharpU.setVisibility(View.INVISIBLE);
-        }
+        }*/
 
         switch (seekValue) {
             case 0:
@@ -340,8 +475,6 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 7:
                 note = 72;
-                ImageView noteU = findViewById(R.id.C5U);
-                noteU.setVisibility(View.VISIBLE);
                 break;
             case 8:
                 note = 74;
@@ -358,6 +491,7 @@ public class GameActivity extends AppCompatActivity {
             case 12:
                 note = 81;
         }
+
 
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {

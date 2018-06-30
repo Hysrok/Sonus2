@@ -144,7 +144,8 @@ public class GameActivity extends AppCompatActivity {
             startActivity(intent);
         }
     }
-    public void displayGuess(int note){
+
+    public void displayGuess(int note) {
         if (noteU != null) {
             noteU.setVisibility(View.INVISIBLE);
             sharpU.setVisibility(View.INVISIBLE);

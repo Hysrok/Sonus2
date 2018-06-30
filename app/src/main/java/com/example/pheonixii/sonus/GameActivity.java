@@ -298,14 +298,14 @@ public class GameActivity extends AppCompatActivity {
             lNote = rand.nextInt((82 - 60) + 1) + 60;
         }
         displayNote(fNote);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
+        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.release();
             }
         });
-        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(testNoteKey));
         midiFileMediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {

@@ -19,56 +19,86 @@ import java.util.Random;
 import java.util.TreeMap;
 
 
-
 public class GameActivity extends AppCompatActivity {
-    private static final int INTERVAL1 = 1;
-    private static final int INTERVAL2 = 2;
-    private static final int INTERVAL3 = 3;
-    private static final int INTERVAL4 = 4;
-    private static final int INTERVAL5 = 5;
-    private static final int INTERVAL6 = 6;
-    private static final int INTERVAL7 = 7;
-    private static final int INTERVAL8 = 8;
-    private static final int INTERVAL9 = 9;
-    private static final int INTERVAL10 = 10;
-    private static final int INTERVAL11 = 11;
-    private static final int INTERVAL12 = 12;
+    static final String SAVE_FILE = "";
+    Integer roundNum = new Integer(0);
 
-    private static final Map<Integer, Integer> Notes = new TreeMap<Integer,Integer>(){{
-        put(48, R.raw.fourty_eight);put(49, R.raw.fourty_nine);put(50, R.raw.fifty);
-        put(51, R.raw.fifty_one);put(52, R.raw.fifty_two);put(53, R.raw.fifty_three);
-        put(54, R.raw.fifty_four);put(55, R.raw.fifty_five);put(56, R.raw.fifty_six);
-        put(57, R.raw.fifty_seven);put(58, R.raw.fifty_eight);put(59, R.raw.fifty_nine);
-        put(60, R.raw.sixty);put(61, R.raw.sixty_one);put(62, R.raw.sixty_two);
-        put(63, R.raw.sixty_three);put(64, R.raw.sixty_four);put(65, R.raw.sixty_five);
-        put(66, R.raw.sixty_six);put(67, R.raw.sixty_seven);put(68, R.raw.sixty_eight);
-        put(69, R.raw.sixty_nine);put(70, R.raw.seventy);put(71, R.raw.seventy_one);
-        put(72, R.raw.seventy_two);put(73, R.raw.seventy_three);put(74, R.raw.seventy_four);
-        put(75, R.raw.seventy_five);put(76, R.raw.seventy_six);put(77, R.raw.seventy_seven);
-        put(78, R.raw.seventy_eight);put(79, R.raw.seventy_nine);put(80, R.raw.eighty);
-        put(81, R.raw.eighty_one);put(82, R.raw.eighty_two);put(83, R.raw.eighty_three);
-        put(84, R.raw.eighty_four);put(85, R.raw.eighty_five);put(86, R.raw.eighty_six);
-        put(87, R.raw.eighty_seven);put(88, R.raw.eighty_eight);put(89, R.raw.eighty_nine);
-        put(91, R.raw.ninety_one);put(92, R.raw.ninety_two);put(93, R.raw.ninety_three);
-        put(94, R.raw.ninety_four);put(95, R.raw.ninety_five);put(96, R.raw.ninety_six);
-        put(97, R.raw.ninety_seven);put(98, R.raw.ninety_eight);put(99, R.raw.ninety_nine);
-        put(100, R.raw.one_hundred);put(101, R.raw.one_hundred_one);put(102, R.raw.one_hundred_two);
-        put(103, R.raw.one_hundred_three);}};
+    private static final Map<Integer, Integer> Notes = new TreeMap<Integer, Integer>() {{
+        put(48, R.raw.fourty_eight);
+        put(49, R.raw.fourty_nine);
+        put(50, R.raw.fifty);
+        put(51, R.raw.fifty_one);
+        put(52, R.raw.fifty_two);
+        put(53, R.raw.fifty_three);
+        put(54, R.raw.fifty_four);
+        put(55, R.raw.fifty_five);
+        put(56, R.raw.fifty_six);
+        put(57, R.raw.fifty_seven);
+        put(58, R.raw.fifty_eight);
+        put(59, R.raw.fifty_nine);
+        put(60, R.raw.sixty);
+        put(61, R.raw.sixty_one);
+        put(62, R.raw.sixty_two);
+        put(63, R.raw.sixty_three);
+        put(64, R.raw.sixty_four);
+        put(65, R.raw.sixty_five);
+        put(66, R.raw.sixty_six);
+        put(67, R.raw.sixty_seven);
+        put(68, R.raw.sixty_eight);
+        put(69, R.raw.sixty_nine);
+        put(70, R.raw.seventy);
+        put(71, R.raw.seventy_one);
+        put(72, R.raw.seventy_two);
+        put(73, R.raw.seventy_three);
+        put(74, R.raw.seventy_four);
+        put(75, R.raw.seventy_five);
+        put(76, R.raw.seventy_six);
+        put(77, R.raw.seventy_seven);
+        put(78, R.raw.seventy_eight);
+        put(79, R.raw.seventy_nine);
+        put(80, R.raw.eighty);
+        put(81, R.raw.eighty_one);
+        put(82, R.raw.eighty_two);
+        put(83, R.raw.eighty_three);
+        put(84, R.raw.eighty_four);
+        put(85, R.raw.eighty_five);
+        put(86, R.raw.eighty_six);
+        put(87, R.raw.eighty_seven);
+        put(88, R.raw.eighty_eight);
+        put(89, R.raw.eighty_nine);
+        put(91, R.raw.ninety_one);
+        put(92, R.raw.ninety_two);
+        put(93, R.raw.ninety_three);
+        put(94, R.raw.ninety_four);
+        put(95, R.raw.ninety_five);
+        put(96, R.raw.ninety_six);
+        put(97, R.raw.ninety_seven);
+        put(98, R.raw.ninety_eight);
+        put(99, R.raw.ninety_nine);
+        put(100, R.raw.one_hundred);
+        put(101, R.raw.one_hundred_one);
+        put(102, R.raw.one_hundred_two);
+        put(103, R.raw.one_hundred_three);
+    }};
 
+    private String interval;
+    // ImageViews to remember which view was used last in order to delete them later.
+    private ImageView noteP = null;
+    private ImageView sharpP = null;
+    private ImageView noteU = null;
+    private ImageView sharpU = null;
 
-    private ImageView noteP;
-    private ImageView sharpP;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
+    private int testNoteKey = 0;
     private int userNoteKey = 0;
-    private int attempts = 0;
+
     boolean correct = false;
 
-    private MediaPlayer mediaPlayer;
-    private MediaPlayer midiFileMediaPlayer1;
-    private MediaPlayer midiFileMediaPlayer2;
+
     private ArrayList<String> intervals;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,9 +114,12 @@ public class GameActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
-
-        randomBaseNote();
-
+        roundNum = intent.getIntExtra("roundNum", 0);
+        interval = randomInterval();
+        randomBaseNote(); //has to go before the test note
+        intervalTestNote();
+        displayNote(baseNoteKey);
+        soundOff();
         //Pick random base note
     }
 
@@ -95,20 +128,161 @@ public class GameActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-
     public void submit(View view) {
         userNoteKey = getUserNote();
         String interval = randomInterval();
         Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
-        if (attempts == 3 || correct) {
+
+        if (roundNum < 10) {
+            roundNum++;
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putStringArrayListExtra("interval_list", intervals);
+            intent.putExtra("roundNum", roundNum);
+            startActivity(intent);
+        } else {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
         }
     }
 
-    public void displayNote(int note){
-        if(noteP != null) {
+    public void displayGuess(int note) {
+        if (noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }
+        noteU = findViewById(R.id.C4U);
+        boolean noteB = true;
+        sharpU = findViewById(R.id.C4sU);
+        boolean sharpB = false;
+
+
+        switch (note) {
+            case 60: {
+                noteU = findViewById(R.id.C4U);
+                break;
+            }
+            case 61: {
+                noteU = findViewById(R.id.C4U);
+                sharpU = findViewById(R.id.C4sU);
+                sharpB = true;
+                break;
+            }
+            case 62: {
+                noteU = findViewById(R.id.D4);
+                break;
+            }
+            case 63: {
+                noteU = findViewById(R.id.D4U);
+                sharpU = findViewById(R.id.D4sU);
+                sharpB = true;
+                break;
+            }
+            case 64: {
+                noteU = findViewById(R.id.E4U);
+                break;
+            }
+            case 65: {
+                noteU = findViewById(R.id.F4U);
+                break;
+            }
+            case 66: {
+                noteU = findViewById(R.id.F4U);
+                sharpU = findViewById(R.id.F4sU);
+                sharpB = true;
+                break;
+            }
+            case 67: {
+                noteU = findViewById(R.id.G4U);
+                break;
+            }
+            case 68: {
+                noteU = findViewById(R.id.G4U);
+                sharpU = findViewById(R.id.G4sU);
+                sharpB = true;
+                break;
+            }
+            case 69: {
+                noteU = findViewById(R.id.A4U);
+                break;
+            }
+            case 70: {
+                noteU = findViewById(R.id.A4U);
+                sharpU = findViewById(R.id.A4sU);
+                sharpB = true;
+                break;
+            }
+            case 71: {
+                noteU = findViewById(R.id.B4U);
+                break;
+            }
+            case 72: {
+                noteU = findViewById(R.id.C5U);
+                break;
+            }
+            case 73: {
+                noteU = findViewById(R.id.C5U);
+                sharpU = findViewById(R.id.C5sU);
+                sharpB = true;
+                break;
+            }
+            case 74: {
+                noteU = findViewById(R.id.D5U);
+                break;
+            }
+            case 75: {
+                noteU = findViewById(R.id.D5U);
+                sharpU = findViewById(R.id.D5sU);
+                sharpB = true;
+                break;
+            }
+            case 76: {
+                noteP = findViewById(R.id.E5U);
+                break;
+            }
+            case 77: {
+                noteU = findViewById(R.id.F5U);
+                break;
+            }
+            case 78: {
+                noteU = findViewById(R.id.F5U);
+                sharpU = findViewById(R.id.F5sU);
+                sharpB = true;
+                break;
+            }
+            case 79: {
+                noteU = findViewById(R.id.G5U);
+                break;
+            }
+            case 80: {
+                noteU = findViewById(R.id.G5U);
+                sharpU = findViewById(R.id.G5sU);
+                sharpB = true;
+                break;
+            }
+            case 81: {
+                noteU = findViewById(R.id.A5U);
+                break;
+            }
+            case 82: {
+                noteU = findViewById(R.id.A5U);
+                sharpU = findViewById(R.id.A5sU);
+                sharpB = true;
+                break;
+            }
+            default:
+                noteB = false;
+                sharpB = false;
+        }
+        if (noteB)
+            noteU.setVisibility(View.VISIBLE);
+        if (sharpB)
+            sharpU.setVisibility(View.VISIBLE);
+
+    }
+
+    public void displayNote(int note) {
+        if (noteP != null) {
             noteP.setVisibility(View.INVISIBLE);
             sharpP.setVisibility(View.INVISIBLE);
         }
@@ -116,6 +290,7 @@ public class GameActivity extends AppCompatActivity {
         boolean noteB = true;
         sharpP = findViewById(R.id.C4s);
         boolean sharpB = false;
+
 
         switch (note) {
             case 60: {
@@ -236,21 +411,36 @@ public class GameActivity extends AppCompatActivity {
         }
         if (noteB)
             noteP.setVisibility(View.VISIBLE);
-        if(sharpB)
+        if (sharpB)
             sharpP.setVisibility(View.VISIBLE);
     }
 
-    public void play(View view) {
-        Random rand = new Random();
-        int fNote = rand.nextInt((82 - 60) + 1) +60;
-        int lNote = 103;
-        displayNote(fNote);
-        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(fNote));
-        midiFileMediaPlayer1.start();
-        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(lNote));
+    public void soundOff() {
+        MediaPlayer midiFileMediaPlayer1;
+        MediaPlayer midiFileMediaPlayer2;
+        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
+        midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
+        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(testNoteKey));
+        midiFileMediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.release();
+            }
+        });
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
+
         midiFileMediaPlayer1.start();
-        getUserNote();
+    }
+
+    public void play(View view) {
+        soundOff();
+
+        displayGuess(getUserNote());
     }
 
     public int getUserNote() {
@@ -258,7 +448,12 @@ public class GameActivity extends AppCompatActivity {
         int seekValue = seekBar.getProgress();
         int note = 0;
 
-        switch(seekValue) {
+       /* if (noteU != null) {
+            noteU.setVisibility(View.INVISIBLE);
+            sharpU.setVisibility(View.INVISIBLE);
+        }*/
+
+        switch (seekValue) {
             case 0:
                 note = 60;
                 break;
@@ -282,8 +477,6 @@ public class GameActivity extends AppCompatActivity {
                 break;
             case 7:
                 note = 72;
-                ImageView noteP = findViewById(R.id.C5U);
-                noteP.setVisibility(View.VISIBLE);
                 break;
             case 8:
                 note = 74;
@@ -301,9 +494,10 @@ public class GameActivity extends AppCompatActivity {
                 note = 81;
         }
 
+
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {
-            note = note + 1;
+            note++;
         }
         RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
@@ -316,17 +510,69 @@ public class GameActivity extends AppCompatActivity {
         return note;
     }
 
-    public void randomBaseNote(){
+    /****************************
+     * Get a random base note and key
+     *******************************/
+    public void randomBaseNote() {
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((82 - 60) + 1) +60; //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((82 - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
+    }
+
+
+    /*********************
+     * Intervals are strings and need to be ints
+     **********************/
+    public int convertIntervalToInt() {
+        switch (interval) {
+            case "Perfect Unison":
+                return 0;
+            case "Minor Second":
+                return 1;
+            case "Major second":
+                return 2;
+            case "Minor Third":
+                return 3;
+            case "Major Third":
+                return 4;
+            case "Perfect Fourth":
+                return 5;
+            case "Perfect Fifth":
+                return 7;
+            case "Minor Sixth":
+                return 8;
+            case "Major Sixth":
+                return 9;
+            case "Minor Seventh":
+                return 10;
+            case "Major Seventh":
+                return 11;
+            case "Perfect Octave":
+                return 12;
+            default:
+                Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                break;
+        }
+
+        return -1; //fail
+
+    }
+
+
+    /*********************
+     * Get test note base off the base note and interval
+     **********************/
+    public void intervalTestNote() {
+        testNoteKey = baseNoteKey + convertIntervalToInt();
+        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+        setTestNote(Notes.get(testNoteKey));
     }
 
     /**
      * Chooses a random interval which will be used to determine the test note.
      * Uses only intervals that user has chosen.
      */
-    public String randomInterval(){
+    public String randomInterval() {
         String answerInterval = "Empty";
         if (!intervals.isEmpty())
             answerInterval = intervals.get(new Random().nextInt(intervals.size()));
@@ -365,12 +611,11 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
 
-    public void verifyAnswer(){
+    public void verifyAnswer() {
         if (verifyNote() && verifyInterval())
             correct = true;
         else if (!verifyNote() || !verifyInterval()) {
             correct = false;
-            attempts++;
         }
     }
 }

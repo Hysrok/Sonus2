@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -330,6 +331,13 @@ public class GameActivity extends AppCompatActivity {
         if (!intervals.isEmpty())
             answerInterval = intervals.get(new Random().nextInt(intervals.size()));
         return answerInterval;
+    }
+
+    public void createTestNote() {
+        String interval = randomInterval();
+        switch (interval){
+            case "Perfect Unison" : setTestNote(baseNote);
+        }
     }
 
     public void setBaseNote(int baseNote) {

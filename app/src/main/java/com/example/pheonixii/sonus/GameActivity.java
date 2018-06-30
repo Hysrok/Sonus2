@@ -124,7 +124,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-
+        displayNote(baseNoteKey);
 
         //Pick random base note
     }
@@ -292,7 +292,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        displayNote(fNote);
+
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override

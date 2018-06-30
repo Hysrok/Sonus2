@@ -93,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(this, GameActivity.class);
 
             intent.putStringArrayListExtra("interval_list", intervals);
+            intent.putExtra("roundNum", 0);
 
             startActivity(intent);
         }

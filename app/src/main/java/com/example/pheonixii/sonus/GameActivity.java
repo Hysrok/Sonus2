@@ -20,18 +20,8 @@ import java.util.TreeMap;
 
 
 public class GameActivity extends AppCompatActivity {
-    private static final int INTERVAL1 = 1;
-    private static final int INTERVAL2 = 2;
-    private static final int INTERVAL3 = 3;
-    private static final int INTERVAL4 = 4;
-    private static final int INTERVAL5 = 5;
-    private static final int INTERVAL6 = 6;
-    private static final int INTERVAL7 = 7;
-    private static final int INTERVAL8 = 8;
-    private static final int INTERVAL9 = 9;
-    private static final int INTERVAL10 = 10;
-    private static final int INTERVAL11 = 11;
-    private static final int INTERVAL12 = 12;
+    static final String SAVE_FILE = "";
+    Integer roundNum = new Integer(0);
 
     private static final Map<Integer, Integer> Notes = new TreeMap<Integer,Integer>(){{
         put(48, R.raw.fourty_eight);put(49, R.raw.fourty_nine);put(50, R.raw.fifty);
@@ -68,8 +58,10 @@ public class GameActivity extends AppCompatActivity {
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
+    private int testNoteKey = 0;
     private int userNoteKey = 0;
     private int attempts = 0;
+
     boolean correct = false;
 
     private MediaPlayer mediaPlayer;
@@ -91,7 +83,7 @@ public class GameActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
-
+        roundNum = intent.getIntExtra("roundNum", 0);
         randomBaseNote();
 
         //Pick random base note
@@ -110,6 +102,16 @@ public class GameActivity extends AppCompatActivity {
         // Set these so that we can generate a new note for each.
         fNote = -1;
         lNote = -1;
+
+        if (roundNum < 10)
+        {
+            roundNum++;
+            Intent intent = new Intent(this, GameActivity.class);
+            intent.putStringArrayListExtra("interval_list", intervals);
+            intent.putExtra("roundNum", roundNum);
+            startActivity(intent);
+        }
+
         if (attempts == 3 || correct) {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
@@ -386,6 +388,8 @@ public class GameActivity extends AppCompatActivity {
      * Get test note base off the base note and interval
      **********************/
     public void intervalTestNote() {
+        testNoteKey = baseNoteKey + convertIntervalToInt();
+        testNote = Notes.get(testNoteKey);
     }
 
     /**

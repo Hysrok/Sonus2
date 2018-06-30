@@ -87,22 +87,15 @@ public class GameActivity extends AppCompatActivity {
     private ImageView noteU;
     private ImageView sharpU;
 
-    // First note and last note created to be regenerated at command.  -1 indicates no current note value.
-    private int fNote = -1;
-    private int lNote = -1;
-
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
     private int testNoteKey = 0;
     private int userNoteKey = 0;
-    private int attempts = 0;
 
     boolean correct = false;
 
-    private MediaPlayer mediaPlayer;
-    private MediaPlayer midiFileMediaPlayer1;
-    private MediaPlayer midiFileMediaPlayer2;
+
     private ArrayList<String> intervals;
 
     @Override
@@ -125,7 +118,7 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         displayNote(baseNoteKey);
-
+        soundOff();
         //Pick random base note
     }
 
@@ -139,20 +132,14 @@ public class GameActivity extends AppCompatActivity {
         String interval = randomInterval();
         Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
-        // Set these so that we can generate a new note for each.
-        fNote = -1;
-        lNote = -1;
 
-        if (roundNum < 10)
-        {
+        if (roundNum < 10) {
             roundNum++;
             Intent intent = new Intent(this, GameActivity.class);
             intent.putStringArrayListExtra("interval_list", intervals);
             intent.putExtra("roundNum", roundNum);
             startActivity(intent);
-        }
-
-        if (attempts == 3 || correct) {
+        } else {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
         }
@@ -291,8 +278,9 @@ public class GameActivity extends AppCompatActivity {
             sharpP.setVisibility(View.VISIBLE);
     }
 
-    public void play(View view) {
-
+    public void soundOff() {
+        MediaPlayer midiFileMediaPlayer1;
+        MediaPlayer midiFileMediaPlayer2;
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
@@ -310,6 +298,11 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer1.setNextMediaPlayer(midiFileMediaPlayer2);
 
         midiFileMediaPlayer1.start();
+    }
+
+    public void play(View view) {
+        soundOff();
+
         getUserNote();
     }
 
@@ -480,7 +473,6 @@ public class GameActivity extends AppCompatActivity {
             correct = true;
         else if (!verifyNote() || !verifyInterval()) {
             correct = false;
-            attempts++;
         }
     }
 }

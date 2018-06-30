@@ -292,11 +292,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void play(View view) {
-        if (fNote == -1 || lNote == -1) {
-            Random rand = new Random();
-            fNote = rand.nextInt((82 - 60) + 1) + 60;
-            lNote = rand.nextInt((82 - 60) + 1) + 60;
-        }
         displayNote(fNote);
         midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

@@ -21,7 +21,6 @@ import java.util.TreeMap;
 
 public class GameActivity extends AppCompatActivity {
     static final String SAVE_FILE = "";
-    Integer roundNum = new Integer(0);
 
     private static final Map<Integer, Integer> Notes = new TreeMap<Integer, Integer>() {{
         put(48, R.raw.fourty_eight);
@@ -66,6 +65,7 @@ public class GameActivity extends AppCompatActivity {
         put(87, R.raw.eighty_seven);
         put(88, R.raw.eighty_eight);
         put(89, R.raw.eighty_nine);
+        put(90, R.raw.ninety);
         put(91, R.raw.ninety_one);
         put(92, R.raw.ninety_two);
         put(93, R.raw.ninety_three);
@@ -88,11 +88,13 @@ public class GameActivity extends AppCompatActivity {
     private ImageView noteU = null;
     private ImageView sharpU = null;
 
+    int highestNote = 82;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
     private int testNoteKey = 0;
     private int userNoteKey = 0;
+    private int roundNum = 0;
 
     boolean correct = false;
     Spinner spinner;
@@ -115,13 +117,18 @@ public class GameActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         spinner.setAdapter(adapter);
-        roundNum = intent.getIntExtra("roundNum", 0);
+
+        roundNum = 0;
+
+        startRound();
+    }
+
+    public void startRound(){
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         displayNote(baseNoteKey);
         soundOff();
-        //Pick random base note
     }
 
     public void goHome(View view) {
@@ -136,13 +143,10 @@ public class GameActivity extends AppCompatActivity {
         Boolean trueorFalse = verifyInterval();
         Toast.makeText(this, "Score?  " + score, Toast.LENGTH_LONG).show();
         verifyAnswer();
+        roundNum++;
 
         if (roundNum < 10) {
-            roundNum++;
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putStringArrayListExtra("interval_list", intervals);
-            intent.putExtra("roundNum", roundNum);
-            startActivity(intent);
+            startRound();
         } else {
             Intent intent = new Intent(this, Stats.class);
             startActivity(intent);
@@ -512,8 +516,9 @@ public class GameActivity extends AppCompatActivity {
      * Get a random base note and key
      *******************************/
     public void randomBaseNote() {
+        int maxNote = highestNote - convertIntervalToInt();
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((82 - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((maxNote - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 
@@ -562,8 +567,9 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         testNoteKey = baseNoteKey + convertIntervalToInt();
-        //Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
-        setTestNote(Notes.get(testNoteKey));
+        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+        if(Notes.get(testNoteKey) != null)
+            setTestNote(Notes.get(testNoteKey));
     }
 
     /**

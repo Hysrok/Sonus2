@@ -169,7 +169,7 @@ public class GameActivity extends AppCompatActivity {
                 break;
             }
             case 62: {
-                noteU = findViewById(R.id.D4);
+                noteU = findViewById(R.id.D4U);
                 break;
             }
             case 63: {
@@ -237,7 +237,7 @@ public class GameActivity extends AppCompatActivity {
                 break;
             }
             case 76: {
-                noteP = findViewById(R.id.E5U);
+                noteU = findViewById(R.id.E5U);
                 break;
             }
             case 77: {
@@ -439,19 +439,13 @@ public class GameActivity extends AppCompatActivity {
 
     public void play(View view) {
         soundOff();
-
-        displayGuess(getUserNote());
+        getUserNote();
     }
 
     public int getUserNote() {
-        SeekBar seekBar = findViewById(R.id.seekBar2);
+        SeekBar seekBar = findViewById(R.id.noteSelect);
         int seekValue = seekBar.getProgress();
         int note = 0;
-
-       /* if (noteU != null) {
-            noteU.setVisibility(View.INVISIBLE);
-            sharpU.setVisibility(View.INVISIBLE);
-        }*/
 
         switch (seekValue) {
             case 0:
@@ -507,6 +501,7 @@ public class GameActivity extends AppCompatActivity {
                 note = 60;
         }
         Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
+        displayGuess(note);
         return note;
     }
 

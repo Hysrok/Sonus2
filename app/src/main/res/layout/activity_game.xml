@@ -29,7 +29,7 @@
 
 
     <SeekBar
-        android:id="@+id/seekBar2"
+        android:id="@+id/noteSelect"
         style="@style/Widget.AppCompat.SeekBar.Discrete"
         android:layout_width="150dp"
         android:layout_height="150dp"
@@ -149,7 +149,7 @@
         android:layout_marginTop="186dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -173,7 +173,7 @@
         android:layout_marginTop="196dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -197,7 +197,7 @@
         android:layout_marginTop="206dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -221,7 +221,7 @@
         android:layout_marginTop="216dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -245,7 +245,7 @@
         android:layout_marginTop="226dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -269,8 +269,8 @@
         android:layout_marginTop="48dp"
         android:rotation="180"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
-        app:layout_constraintTop_toTopOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
+        app:layout_constraintTop_toTopOf="@+id/noteSelect"
         app:srcCompat="@drawable/note" />
 
     <ImageView
@@ -291,7 +291,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="188dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -313,7 +313,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="198dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -335,7 +335,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="208dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -357,7 +357,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="217dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -379,7 +379,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="227dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -401,7 +401,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="236dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 
@@ -424,7 +424,7 @@
         android:layout_marginEnd="37dp"
         android:layout_marginTop="247dp"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar2"
+        app:layout_constraintEnd_toEndOf="@+id/noteSelect"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/note" />
 

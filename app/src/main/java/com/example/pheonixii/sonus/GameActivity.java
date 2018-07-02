@@ -87,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
     private ImageView noteU = null;
     private ImageView sharpU = null;
 
+    int highestNote = 82;
     private int baseNoteKey = 0;
     private int baseNote = 0;
     private int testNote = 0;
@@ -508,8 +509,9 @@ public class GameActivity extends AppCompatActivity {
      * Get a random base note and key
      *******************************/
     public void randomBaseNote() {
+        int maxNote = highestNote - convertIntervalToInt();
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((82 - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
+        baseNoteKey = rand.nextInt((maxNote - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
         setBaseNote(Notes.get(baseNoteKey));
     }
 

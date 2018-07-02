@@ -553,7 +553,7 @@ public class GameActivity extends AppCompatActivity {
             case "Perfect Octave":
                 return 12;
             default:
-                Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -567,7 +567,7 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         testNoteKey = baseNoteKey + convertIntervalToInt();
-        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+       // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
         if(Notes.get(testNoteKey) != null)
             setTestNote(Notes.get(testNoteKey));
     }

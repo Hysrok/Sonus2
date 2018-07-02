@@ -95,7 +95,8 @@ public class GameActivity extends AppCompatActivity {
     private int userNoteKey = 0;
 
     boolean correct = false;
-
+    Spinner spinner;
+    float score = 0;
 
     private ArrayList<String> intervals;
 
@@ -107,7 +108,7 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
         intervals = intent.getStringArrayListExtra("interval_list");
 
-        Spinner spinner = findViewById(R.id.intervals_spinner);
+        spinner = findViewById(R.id.intervals_spinner);
 
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
@@ -131,7 +132,9 @@ public class GameActivity extends AppCompatActivity {
     public void submit(View view) {
         userNoteKey = getUserNote();
         String interval = randomInterval();
-        Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
+        verifyAnswer();
+        Boolean trueorFalse = verifyInterval();
+        Toast.makeText(this, "Score?  " + score, Toast.LENGTH_LONG).show();
         verifyAnswer();
 
         if (roundNum < 10) {
@@ -500,7 +503,7 @@ public class GameActivity extends AppCompatActivity {
             if (note < 60)
                 note = 60;
         }
-        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         displayGuess(note);
         return note;
     }
@@ -559,7 +562,7 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         testNoteKey = baseNoteKey + convertIntervalToInt();
-        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
         setTestNote(Notes.get(testNoteKey));
     }
 
@@ -602,14 +605,30 @@ public class GameActivity extends AppCompatActivity {
         return false;
     }
 
+    /**
+     * Check if they chose the correct interval. If so return true else return false.
+     */
     public boolean verifyInterval() {
-        return false;
+        String correctInterval = randomInterval();
+        String userInterval = spinner.getSelectedItem().toString();
+        if (correctInterval == userInterval) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * Check if they got the interval correct. If so add .5 to their score.
+     * Check if they got the note correct. If so add another .5 to their score.
+     */
     public void verifyAnswer() {
-        if (verifyNote() && verifyInterval())
+        if (verifyInterval()) {
+            score += .5;
             correct = true;
-        else if (!verifyNote() || !verifyInterval()) {
+        }
+        else if (verifyNote()) {
+            score += .5;
             correct = false;
         }
     }

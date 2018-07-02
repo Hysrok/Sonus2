@@ -607,8 +607,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public boolean verifyNote() {
-        int theirNote = convertNote();
-        return false;
+        if(baseNoteKey == getUserNote())
+        {
+            Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+        return true;}
+        else{
+            Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
+            return false;}
     }
 
     /**

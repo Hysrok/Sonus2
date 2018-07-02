@@ -138,11 +138,11 @@ public class GameActivity extends AppCompatActivity {
 
     public void submit(View view) {
         userNoteKey = getUserNote();
-        String interval = randomInterval();
+        //String interval = randomInterval();
         verifyAnswer();
-        Boolean trueorFalse = verifyInterval();
-        Toast.makeText(this, "Score?  " + score, Toast.LENGTH_LONG).show();
-        verifyAnswer();
+        //Boolean trueorFalse = verifyInterval();
+        Toast.makeText(this, "Score  " + score, Toast.LENGTH_LONG).show();
+        //verifyAnswer();
         roundNum++;
 
         if (roundNum < 10) {
@@ -636,11 +636,11 @@ public class GameActivity extends AppCompatActivity {
     public void verifyAnswer() {
         if (verifyInterval()) {
             score += .5;
-            correct = true;
+            //correct = true;
         }
-        else if (verifyNote()) {
+        if (verifyNote()) {
             score += .5;
-            correct = false;
+            //correct = false;
         }
     }
 }

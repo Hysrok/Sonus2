@@ -445,6 +445,11 @@ public class GameActivity extends AppCompatActivity {
         getUserNote();
     }
 
+    /**********************************************************
+     * GetUserNote
+     * Checks the seekbar to see which note the user has selected
+     * returns the note as an int.
+     *****************************************************/
     public int getUserNote() {
         SeekBar seekBar = findViewById(R.id.noteSelect);
         int seekValue = seekBar.getProgress();

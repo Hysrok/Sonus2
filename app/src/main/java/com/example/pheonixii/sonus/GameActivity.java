@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -622,7 +621,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean verifyInterval() {
         String correctInterval = randomInterval();
         String userInterval = spinner.getSelectedItem().toString();
-        if (correctInterval == userInterval) {
+        if (correctInterval.equals(userInterval)) {
             return true;
         } else {
             return false;

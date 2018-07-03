@@ -150,6 +150,9 @@ public class GameActivity extends AppCompatActivity {
             startRound();
         } else {
             Intent intent = new Intent(this, Stats.class);
+            // send the intervals that they used to the next page so that they can retry with those same intervals
+            intent.putStringArrayListExtra("interval_list", intervals);
+            // send the users score
             intent.putExtra("USER_SCORE", score);
             startActivity(intent);
         }

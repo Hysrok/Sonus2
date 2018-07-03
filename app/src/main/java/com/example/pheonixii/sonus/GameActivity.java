@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -98,7 +99,7 @@ public class GameActivity extends AppCompatActivity {
 
     boolean correct = false;
     Spinner spinner;
-    float score = 0;
+    double score = 0.0;
 
     private ArrayList<String> intervals;
 
@@ -149,6 +150,7 @@ public class GameActivity extends AppCompatActivity {
             startRound();
         } else {
             Intent intent = new Intent(this, Stats.class);
+            intent.putExtra("USER_SCORE", score);
             startActivity(intent);
         }
     }

@@ -40,6 +40,8 @@
         android:max="12"
         android:progress="3"
         android:rotation="270"
+        android:thumbTint="@color/black"
+        android:progressTint="@color/black"
         app:layout_constraintBottom_toBottomOf="@+id/Clef"
         app:layout_constraintEnd_toEndOf="@+id/Clef"
         app:layout_constraintTop_toTopOf="@+id/Clef" />

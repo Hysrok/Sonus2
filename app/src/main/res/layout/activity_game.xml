@@ -119,16 +119,10 @@
             android:layout_weight="1"
             android:buttonTint="@color/green"
             android:checked="true"
-            android:text="@string/natural" />
+            android:text="@string/natural" /><![CDATA[
         android:text="@string/natural" />
 
-        <RadioButton
-            android:id="@+id/userFlat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:buttonTint="@color/green"
-            android:text="@string/flat" />
+        ]]>
     </RadioGroup>
 
     <ImageView

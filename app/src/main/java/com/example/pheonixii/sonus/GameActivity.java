@@ -204,6 +204,7 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * DISPLAY GUESS
+     * -Displays the note the user is choosing
      * @param note
      */
     public void displayGuess(int note) {

@@ -89,10 +89,14 @@ public class GameActivity extends AppCompatActivity {
     private ImageView sharpU = null;
 
     int highestNote = 82;
+    //the keys are for the note map
     private int baseNoteKey = 0;
+    //the base note is the first note that gets played
     private int baseNote = 0;
+    //the test note is the note the user needs to guess; the second note that gets played
     private int testNote = 0;
     private int testNoteKey = 0;
+    //the user note is the note the user is choosing
     private int userNoteKey = 0;
     private int roundNum = 0;
 
@@ -102,20 +106,50 @@ public class GameActivity extends AppCompatActivity {
 
     private ArrayList<String> intervals;
 
+    /**
+     * SETTERS
+     */
+
+    public void setBaseNote(int baseNote) {
+        this.baseNote = baseNote;
+    }
+
+    public void setTestNote(int testNote) {
+        this.testNote = testNote;
+    }
+
+    public void setUserNote(int userNote) {
+        this.userNoteKey = userNote;
+    }
+
+    /**
+     * ON CREATE
+     * - Sets up the view spinner
+     * - Sets intervals with data from last activity
+     * - Roundnum = 0
+     * - Calls startRound
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //initialize intent
         Intent intent = getIntent();
+
+        //set intervals
         intervals = intent.getStringArrayListExtra("interval_list");
 
+        //set empty spinner to view spinner
         spinner = findViewById(R.id.intervals_spinner);
 
+        //preparing adapter for spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //add adapter to spinner
         spinner.setAdapter(adapter);
 
         roundNum = 0;
@@ -123,6 +157,11 @@ public class GameActivity extends AppCompatActivity {
         startRound();
     }
 
+    /**
+     * START ROUND
+     * - Sets a new random interval, base note and test note
+     * - Displays base note
+     */
     public void startRound(){
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
@@ -131,18 +170,24 @@ public class GameActivity extends AppCompatActivity {
         soundOff();
     }
 
+    /**
+     * GO HOME
+     * @param view
+     */
     public void goHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * SUBMIT
+     * - Verifies note and add a 1 to round number
+     * - Goes to status act if the user has played 10 rounds
+     * @param view
+     */
     public void submit(View view) {
         userNoteKey = getUserNote();
-        //String interval = randomInterval();
         verifyAnswer();
-        //Boolean trueorFalse = verifyInterval();
-        Toast.makeText(this, "Score  " + score, Toast.LENGTH_LONG).show();
-        //verifyAnswer();
         roundNum++;
 
         if (roundNum < 10) {
@@ -157,6 +202,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * DISPLAY GUESS
+     * @param note
+     */
     public void displayGuess(int note) {
         if (noteU != null) {
             noteU.setVisibility(View.INVISIBLE);
@@ -292,6 +341,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * DISPLAY NOTE
+     * @param note
+     */
     public void displayNote(int note) {
         if (noteP != null) {
             noteP.setVisibility(View.INVISIBLE);
@@ -454,7 +507,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**********************************************************
-     * GetUserNote
+     * GET USER NOTE
      * Checks the seekbar to see which note the user has selected
      * returns the note as an int.
      *****************************************************/
@@ -522,6 +575,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /****************************
+     * RANDOM BASE NOTE
      * Get a random base note and key
      *******************************/
     public void randomBaseNote() {
@@ -533,6 +587,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     /*********************
+     * CONVERT INTERVAL TO INT
      * Intervals are strings and need to be ints
      **********************/
     public int convertIntervalToInt() {
@@ -572,6 +627,7 @@ public class GameActivity extends AppCompatActivity {
 
 
     /*********************
+     * INTERVAL TEST NOTE
      * Get test note base off the base note and interval
      **********************/
     public void intervalTestNote() {
@@ -582,6 +638,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * RANDOM INTERVAL
      * Chooses a random interval which will be used to determine the test note.
      * Uses only intervals that user has chosen.
      */
@@ -592,29 +649,11 @@ public class GameActivity extends AppCompatActivity {
         return answerInterval;
     }
 
-    public void createTestNote() {
-        String interval = randomInterval();
-        switch (interval){
-            case "Perfect Unison" : setTestNote(baseNote);
-        }
-    }
 
-    public void setBaseNote(int baseNote) {
-        this.baseNote = baseNote;
-    }
-
-    public void setTestNote(int testNote) {
-        this.testNote = testNote;
-    }
-
-    public void setUserNote(int userNote) {
-        this.userNoteKey = userNote;
-    }
-
-    public int convertNote() {
-        return -1;
-    }
-
+    /**
+     * VERIFY NOTE
+     * @return
+     */
     public boolean verifyNote() {
         if(baseNoteKey == getUserNote())
         {
@@ -626,6 +665,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * VERIFY INTERVAL
      * Check if they chose the correct interval. If so return true else return false.
      */
     public boolean verifyInterval() {
@@ -639,6 +679,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * VERIFY ANSWER
      * Check if they got the interval correct. If so add .5 to their score.
      * Check if they got the note correct. If so add another .5 to their score.
      */

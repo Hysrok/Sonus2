@@ -501,13 +501,13 @@ public class GameActivity extends AppCompatActivity {
         if (userSharp.isChecked()) {
             note++;
         }
-        RadioButton userFlat = findViewById(R.id.userFlat);
+        /*RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
             // we shouldn't have anything lower than 60
             if (note < 60)
                 note = 60;
-        }
+        }*/
         Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
         displayGuess(note);
         return note;

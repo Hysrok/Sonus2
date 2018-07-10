@@ -644,4 +644,54 @@
         app:layout_constraintTop_toTopOf="@+id/Clef"
         app:srcCompat="@drawable/sharp" />
 
+    <ImageView
+        android:id="@+id/C4R"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="247dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/Clef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rightnote" />
+
+    <ImageView
+        android:id="@+id/D4R"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="236dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/Clef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rightnote" />
+
+    <ImageView
+        android:id="@+id/E4R"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="226dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/Clef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rightnote" />
+
+    <ImageView
+        android:id="@+id/F4R"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="226dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/Clef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rightnote" />
+
+    <ImageView
+        android:id="@+id/G4R"
+        android:layout_width="75dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="216dp"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="@+id/Clef"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/rightnote" />
+
 </android.support.constraint.ConstraintLayout>

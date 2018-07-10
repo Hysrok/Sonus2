@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -13,72 +14,13 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
-import java.util.TreeMap;
 
 
 public class GameActivity extends AppCompatActivity {
     static final String SAVE_FILE = "";
 
-    private static final Map<Integer, Integer> Notes = new TreeMap<Integer, Integer>() {{
-        put(48, R.raw.fourty_eight);
-        put(49, R.raw.fourty_nine);
-        put(50, R.raw.fifty);
-        put(51, R.raw.fifty_one);
-        put(52, R.raw.fifty_two);
-        put(53, R.raw.fifty_three);
-        put(54, R.raw.fifty_four);
-        put(55, R.raw.fifty_five);
-        put(56, R.raw.fifty_six);
-        put(57, R.raw.fifty_seven);
-        put(58, R.raw.fifty_eight);
-        put(59, R.raw.fifty_nine);
-        put(60, R.raw.sixty);
-        put(61, R.raw.sixty_one);
-        put(62, R.raw.sixty_two);
-        put(63, R.raw.sixty_three);
-        put(64, R.raw.sixty_four);
-        put(65, R.raw.sixty_five);
-        put(66, R.raw.sixty_six);
-        put(67, R.raw.sixty_seven);
-        put(68, R.raw.sixty_eight);
-        put(69, R.raw.sixty_nine);
-        put(70, R.raw.seventy);
-        put(71, R.raw.seventy_one);
-        put(72, R.raw.seventy_two);
-        put(73, R.raw.seventy_three);
-        put(74, R.raw.seventy_four);
-        put(75, R.raw.seventy_five);
-        put(76, R.raw.seventy_six);
-        put(77, R.raw.seventy_seven);
-        put(78, R.raw.seventy_eight);
-        put(79, R.raw.seventy_nine);
-        put(80, R.raw.eighty);
-        put(81, R.raw.eighty_one);
-        put(82, R.raw.eighty_two);
-        put(83, R.raw.eighty_three);
-        put(84, R.raw.eighty_four);
-        put(85, R.raw.eighty_five);
-        put(86, R.raw.eighty_six);
-        put(87, R.raw.eighty_seven);
-        put(88, R.raw.eighty_eight);
-        put(89, R.raw.eighty_nine);
-        put(90, R.raw.ninety);
-        put(91, R.raw.ninety_one);
-        put(92, R.raw.ninety_two);
-        put(93, R.raw.ninety_three);
-        put(94, R.raw.ninety_four);
-        put(95, R.raw.ninety_five);
-        put(96, R.raw.ninety_six);
-        put(97, R.raw.ninety_seven);
-        put(98, R.raw.ninety_eight);
-        put(99, R.raw.ninety_nine);
-        put(100, R.raw.one_hundred);
-        put(101, R.raw.one_hundred_one);
-        put(102, R.raw.one_hundred_two);
-        put(103, R.raw.one_hundred_three);
-    }};
+    VerifyNotes verifyNotes = new VerifyNotes();
 
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
@@ -88,32 +30,42 @@ public class GameActivity extends AppCompatActivity {
     private ImageView sharpU = null;
 
     int highestNote = 82;
-    private int baseNoteKey = 0;
-    private int baseNote = 0;
-    private int testNote = 0;
-    private int testNoteKey = 0;
-    private int userNoteKey = 0;
     private int roundNum = 0;
 
     boolean correct = false;
-
+    Spinner spinner;
+    double score = 0.0;
 
     private ArrayList<String> intervals;
 
+    /**
+     * ON CREATE
+     * - Sets up the view spinner
+     * - Sets intervals with data from last activity
+     * - Roundnum = 0
+     * - Calls startRound
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //initialize intent
         Intent intent = getIntent();
+
+        //set intervals
         intervals = intent.getStringArrayListExtra("interval_list");
 
-        Spinner spinner = findViewById(R.id.intervals_spinner);
+        //set empty spinner to view spinner
+        spinner = findViewById(R.id.intervals_spinner);
 
+        //preparing adapter for spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //add adapter to spinner
         spinner.setAdapter(adapter);
 
         roundNum = 0;
@@ -121,23 +73,35 @@ public class GameActivity extends AppCompatActivity {
         startRound();
     }
 
+    /**
+     * START ROUND
+     * - Sets a new random interval, base note and test note
+     * - Displays base note
+     */
     public void startRound(){
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-        displayNote(baseNoteKey);
+        displayNote(verifyNotes.getBaseNoteKey());
         soundOff();
     }
 
+    /**
+     * GO HOME
+     * @param view
+     */
     public void goHome(View view) {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
 
+    /**
+     * SUBMIT
+     * - Verifies note and add a 1 to round number
+     * - Goes to status act if the user has played 10 rounds
+     * @param view
+     */
     public void submit(View view) {
-        userNoteKey = getUserNote();
-        String interval = randomInterval();
-        Toast.makeText(this, "User Note = " + userNoteKey, Toast.LENGTH_LONG).show();
         verifyAnswer();
         roundNum++;
 
@@ -145,10 +109,18 @@ public class GameActivity extends AppCompatActivity {
             startRound();
         } else {
             Intent intent = new Intent(this, Stats.class);
+            // send the intervals that they used to the next page so that they can retry with those same intervals
+            intent.putStringArrayListExtra("interval_list", intervals);
+            // send the users score
+            intent.putExtra("USER_SCORE", score);
             startActivity(intent);
         }
     }
 
+    /**
+     * DISPLAY GUESS
+     * @param note
+     */
     public void displayGuess(int note) {
         if (noteU != null) {
             noteU.setVisibility(View.INVISIBLE);
@@ -284,6 +256,10 @@ public class GameActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * DISPLAY NOTE
+     * @param note
+     */
     public void displayNote(int note) {
         if (noteP != null) {
             noteP.setVisibility(View.INVISIBLE);
@@ -421,14 +397,14 @@ public class GameActivity extends AppCompatActivity {
     public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
         MediaPlayer midiFileMediaPlayer2;
-        midiFileMediaPlayer1 = MediaPlayer.create(this, Notes.get(baseNoteKey));
+        midiFileMediaPlayer1 = MediaPlayer.create(this, VerifyNotes.Notes.get(verifyNotes.getBaseNoteKey()));
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.release();
             }
         });
-        midiFileMediaPlayer2 = MediaPlayer.create(this, Notes.get(testNoteKey));
+        midiFileMediaPlayer2 = MediaPlayer.create(this, VerifyNotes.Notes.get(verifyNotes.getTestNoteKey()));
         midiFileMediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
@@ -446,7 +422,7 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**********************************************************
-     * GetUserNote
+     * GET USER NOTE
      * Checks the seekbar to see which note the user has selected
      * returns the note as an int.
      *****************************************************/
@@ -501,30 +477,31 @@ public class GameActivity extends AppCompatActivity {
         if (userSharp.isChecked()) {
             note++;
         }
-        /*RadioButton userFlat = findViewById(R.id.userFlat);
+/*        RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
             // we shouldn't have anything lower than 60
             if (note < 60)
                 note = 60;
-        }*/
-        Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
-        displayGuess(note);
+        }
+        //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
+*/        displayGuess(note);
         return note;
     }
 
     /****************************
+     * RANDOM BASE NOTE
      * Get a random base note and key
      *******************************/
     public void randomBaseNote() {
         int maxNote = highestNote - convertIntervalToInt();
         Random rand = new Random();
-        baseNoteKey = rand.nextInt((maxNote - 60) + 1) + 60; //rand.nextInt((max - min) + 1) + min;
-        setBaseNote(Notes.get(baseNoteKey));
+        verifyNotes.setBaseNoteKey(rand.nextInt((maxNote - 60) + 1) + 60); //rand.nextInt((max - min) + 1) + min;
     }
 
 
     /*********************
+     * CONVERT INTERVAL TO INT
      * Intervals are strings and need to be ints
      **********************/
     public int convertIntervalToInt() {
@@ -554,7 +531,7 @@ public class GameActivity extends AppCompatActivity {
             case "Perfect Octave":
                 return 12;
             default:
-                Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
                 break;
         }
 
@@ -564,16 +541,16 @@ public class GameActivity extends AppCompatActivity {
 
 
     /*********************
+     * INTERVAL TEST NOTE
      * Get test note base off the base note and interval
      **********************/
     public void intervalTestNote() {
-        testNoteKey = baseNoteKey + convertIntervalToInt();
-        Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
-        if(Notes.get(testNoteKey) != null)
-            setTestNote(Notes.get(testNoteKey));
+        verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + convertIntervalToInt());
+       // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
     }
 
     /**
+     * RANDOM INTERVAL
      * Chooses a random interval which will be used to determine the test note.
      * Uses only intervals that user has chosen.
      */
@@ -584,37 +561,48 @@ public class GameActivity extends AppCompatActivity {
         return answerInterval;
     }
 
-    public void setBaseNote(int baseNote) {
-        this.baseNote = baseNote;
-    }
 
-    public void setTestNote(int testNote) {
-        this.testNote = testNote;
-    }
-
-    public void setUserNote(int userNote) {
-        this.userNoteKey = userNote;
-    }
-
-    public int convertNote() {
-        return -1;
-    }
-
+    /**
+     * VERIFY NOTE
+     * @return
+     */
     public boolean verifyNote() {
-        int theirNote = convertNote();
-        return false;
+        if(verifyNotes.getBaseNoteKey() == getUserNote())
+        {
+            Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+        return true;}
+        else{
+            Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
+            return false;}
     }
 
+    /**
+     * VERIFY INTERVAL
+     * Check if they chose the correct interval. If so return true else return false.
+     */
     public boolean verifyInterval() {
-        return false;
-    }
-
-    public void verifyAnswer() {
-        if (verifyNote() && verifyInterval())
-            correct = true;
-        else if (!verifyNote() || !verifyInterval()) {
-            correct = false;
+        String correctInterval = randomInterval();
+        String userInterval = spinner.getSelectedItem().toString();
+        if (correctInterval.equals(userInterval)) {
+            return true;
+        } else {
+            return false;
         }
     }
 
+    /**
+     * VERIFY ANSWER
+     * Check if they got the interval correct. If so add .5 to their score.
+     * Check if they got the note correct. If so add another .5 to their score.
+     */
+    public void verifyAnswer() {
+        if (verifyInterval()) {
+            score += .5;
+            //correct = true;
+        }
+        if (verifyNote()) {
+            score += .5;
+            //correct = false;
+        }
+    }
 }

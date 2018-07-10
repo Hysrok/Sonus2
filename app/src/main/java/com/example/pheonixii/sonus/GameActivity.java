@@ -40,6 +40,10 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * ON CREATE
+     * - Sets up the view spinner
+     * - Sets intervals with data from last activity
+     * - Roundnum = 0
+     * - Calls startRound
      * @param savedInstanceState
      */
     @Override
@@ -47,15 +51,21 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+        //initialize intent
         Intent intent = getIntent();
+
+        //set intervals
         intervals = intent.getStringArrayListExtra("interval_list");
 
+        //set empty spinner to view spinner
         spinner = findViewById(R.id.intervals_spinner);
 
+        //preparing adapter for spinner
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
+        //add adapter to spinner
         spinner.setAdapter(adapter);
 
         roundNum = 0;
@@ -65,6 +75,8 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * START ROUND
+     * - Sets a new random interval, base note and test note
+     * - Displays base note
      */
     public void startRound(){
         interval = randomInterval();
@@ -85,14 +97,12 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * SUBMIT
+     * - Verifies note and add a 1 to round number
+     * - Goes to status act if the user has played 10 rounds
      * @param view
      */
     public void submit(View view) {
-        //String interval = randomInterval();
         verifyAnswer();
-        //Boolean trueOrFalse = verifyInterval();
-        Toast.makeText(this, "Score  " + score, Toast.LENGTH_LONG).show();
-        //verifyAnswer();
         roundNum++;
 
         if (roundNum < 10) {

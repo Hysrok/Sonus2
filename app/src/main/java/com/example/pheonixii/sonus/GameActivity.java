@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
@@ -14,6 +13,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 
@@ -24,10 +24,15 @@ public class GameActivity extends AppCompatActivity {
 
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
-    private ImageView noteP = null;
-    private ImageView sharpP = null;
+    boolean noteBool = true;
+    boolean sharpBool = false;
+    private int imageNote = 0;
+    private int  imageSharp = 0;
+    private ImageView noteB = null;
+    private ImageView sharpB = null;
     private ImageView noteU = null;
     private ImageView sharpU = null;
+    public Map<Integer, Integer> imageMap = null;
 
     int highestNote = 82;
     private int roundNum = 0;
@@ -82,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-        displayNote(verifyNotes.getBaseNoteKey());
+        displayNote(verifyNotes.getBaseNoteKey(), "Base");
         soundOff();
     }
 
@@ -118,281 +123,175 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * DISPLAY GUESS
-     * -Displays the note the user is choosing
+     *
      * @param note
+     * @param mapType
      */
-    public void displayGuess(int note) {
-        if (noteU != null) {
-            noteU.setVisibility(View.INVISIBLE);
-            sharpU.setVisibility(View.INVISIBLE);
+    public void displayNote(int note, String mapType){
+        if(mapType.compareTo("User") == 0) {
+            if (noteU != null) {
+                noteU.setVisibility(View.INVISIBLE);
+                sharpU.setVisibility(View.INVISIBLE);
+            }
+            chooseNote(note,mapType);
+            noteU = findViewById(imageNote);
+            sharpU = findViewById(imageSharp);
+            if (noteBool)
+                noteU.setVisibility(View.VISIBLE);
+            if (sharpBool)
+                sharpU.setVisibility(View.VISIBLE);
         }
-        noteU = findViewById(R.id.C4U);
-        boolean noteB = true;
-        sharpU = findViewById(R.id.C4sU);
-        boolean sharpB = false;
-
-
-        switch (note) {
-            case 60: {
-                noteU = findViewById(R.id.C4U);
-                break;
+        else if (mapType.compareTo("Base") == 0) {
+            if (noteB != null) {
+                noteB.setVisibility(View.INVISIBLE);
+                sharpB.setVisibility(View.INVISIBLE);
             }
-            case 61: {
-                noteU = findViewById(R.id.C4U);
-                sharpU = findViewById(R.id.C4sU);
-                sharpB = true;
-                break;
-            }
-            case 62: {
-                noteU = findViewById(R.id.D4U);
-                break;
-            }
-            case 63: {
-                noteU = findViewById(R.id.D4U);
-                sharpU = findViewById(R.id.D4sU);
-                sharpB = true;
-                break;
-            }
-            case 64: {
-                noteU = findViewById(R.id.E4U);
-                break;
-            }
-            case 65: {
-                noteU = findViewById(R.id.F4U);
-                break;
-            }
-            case 66: {
-                noteU = findViewById(R.id.F4U);
-                sharpU = findViewById(R.id.F4sU);
-                sharpB = true;
-                break;
-            }
-            case 67: {
-                noteU = findViewById(R.id.G4U);
-                break;
-            }
-            case 68: {
-                noteU = findViewById(R.id.G4U);
-                sharpU = findViewById(R.id.G4sU);
-                sharpB = true;
-                break;
-            }
-            case 69: {
-                noteU = findViewById(R.id.A4U);
-                break;
-            }
-            case 70: {
-                noteU = findViewById(R.id.A4U);
-                sharpU = findViewById(R.id.A4sU);
-                sharpB = true;
-                break;
-            }
-            case 71: {
-                noteU = findViewById(R.id.B4U);
-                break;
-            }
-            case 72: {
-                noteU = findViewById(R.id.C5U);
-                break;
-            }
-            case 73: {
-                noteU = findViewById(R.id.C5U);
-                sharpU = findViewById(R.id.C5sU);
-                sharpB = true;
-                break;
-            }
-            case 74: {
-                noteU = findViewById(R.id.D5U);
-                break;
-            }
-            case 75: {
-                noteU = findViewById(R.id.D5U);
-                sharpU = findViewById(R.id.D5sU);
-                sharpB = true;
-                break;
-            }
-            case 76: {
-                noteU = findViewById(R.id.E5U);
-                break;
-            }
-            case 77: {
-                noteU = findViewById(R.id.F5U);
-                break;
-            }
-            case 78: {
-                noteU = findViewById(R.id.F5U);
-                sharpU = findViewById(R.id.F5sU);
-                sharpB = true;
-                break;
-            }
-            case 79: {
-                noteU = findViewById(R.id.G5U);
-                break;
-            }
-            case 80: {
-                noteU = findViewById(R.id.G5U);
-                sharpU = findViewById(R.id.G5sU);
-                sharpB = true;
-                break;
-            }
-            case 81: {
-                noteU = findViewById(R.id.A5U);
-                break;
-            }
-            case 82: {
-                noteU = findViewById(R.id.A5U);
-                sharpU = findViewById(R.id.A5sU);
-                sharpB = true;
-                break;
-            }
-            default:
-                noteB = false;
-                sharpB = false;
+            chooseNote(note,mapType);
+            noteB = findViewById(imageNote);
+            sharpB = findViewById(imageSharp);
+            if (noteBool)
+                noteB.setVisibility(View.VISIBLE);
+            if (sharpBool)
+                sharpB.setVisibility(View.VISIBLE);
         }
-        if (noteB)
-            noteU.setVisibility(View.VISIBLE);
-        if (sharpB)
-            sharpU.setVisibility(View.VISIBLE);
-
     }
 
     /**
-     * DISPLAY NOTE
+     * CHOOSE NOTE
      * @param note
      */
-    public void displayNote(int note) {
-        if (noteP != null) {
-            noteP.setVisibility(View.INVISIBLE);
-            sharpP.setVisibility(View.INVISIBLE);
+    public void chooseNote(int note,String mapType) {
+        if(mapType.compareTo("User") == 0) {
+            imageMap = ImageMap.userImages;
         }
-        noteP = findViewById(R.id.C4);
-        boolean noteB = true;
-        sharpP = findViewById(R.id.C4s);
-        boolean sharpB = false;
+        else if (mapType.compareTo("Base") == 0) {
+            imageMap = ImageMap.baseImages;
+        }
+
+
+        imageNote = imageMap.get(60);
+        noteBool = true;
+        imageSharp = imageMap.get(61);
+        sharpBool = false;
 
 
         switch (note) {
             case 60: {
-                noteP = findViewById(R.id.C4);
+                imageNote = imageMap.get(60);
                 break;
             }
             case 61: {
-                noteP = findViewById(R.id.C4);
-                sharpP = findViewById(R.id.C4s);
-                sharpB = true;
+                imageNote = imageMap.get(60);
+                imageSharp = imageMap.get(61);
+                sharpBool = true;
                 break;
             }
             case 62: {
-                noteP = findViewById(R.id.D4);
+                imageNote = imageMap.get(62);
                 break;
             }
             case 63: {
-                noteP = findViewById(R.id.D4);
-                sharpP = findViewById(R.id.D4s);
-                sharpB = true;
+                imageNote = imageMap.get(62);
+                imageSharp = imageMap.get(63);
+                sharpBool = true;
                 break;
             }
             case 64: {
-                noteP = findViewById(R.id.E4);
+                imageNote = imageMap.get(64);
                 break;
             }
             case 65: {
-                noteP = findViewById(R.id.F4);
+                imageNote = imageMap.get(65);
                 break;
             }
             case 66: {
-                noteP = findViewById(R.id.F4);
-                sharpP = findViewById(R.id.F4s);
-                sharpB = true;
+                imageNote = imageMap.get(65);
+                imageSharp = imageMap.get(66);
+                sharpBool = true;
                 break;
             }
             case 67: {
-                noteP = findViewById(R.id.G4);
+                imageNote = imageMap.get(67);
                 break;
             }
             case 68: {
-                noteP = findViewById(R.id.G4);
-                sharpP = findViewById(R.id.G4s);
-                sharpB = true;
+                imageNote = imageMap.get(67);
+                imageSharp = imageMap.get(68);
+                sharpBool = true;
                 break;
             }
             case 69: {
-                noteP = findViewById(R.id.A4);
+                imageNote = imageMap.get(69);
                 break;
             }
             case 70: {
-                noteP = findViewById(R.id.A4);
-                sharpP = findViewById(R.id.A4s);
-                sharpB = true;
+                imageNote = imageMap.get(69);
+                imageSharp = imageMap.get(70);
+                sharpBool = true;
                 break;
             }
             case 71: {
-                noteP = findViewById(R.id.B4);
+                imageNote = imageMap.get(71);
                 break;
             }
             case 72: {
-                noteP = findViewById(R.id.C5);
+                imageNote = imageMap.get(72);
                 break;
             }
             case 73: {
-                noteP = findViewById(R.id.C5);
-                sharpP = findViewById(R.id.C5s);
-                sharpB = true;
+                imageNote = imageMap.get(72);
+                imageSharp = imageMap.get(73);
+                sharpBool = true;
                 break;
             }
             case 74: {
-                noteP = findViewById(R.id.D5);
+                imageNote = imageMap.get(74);
                 break;
             }
             case 75: {
-                noteP = findViewById(R.id.D5);
-                sharpP = findViewById(R.id.D5s);
-                sharpB = true;
+                imageNote = imageMap.get(74);
+                imageSharp = imageMap.get(75);
+                sharpBool = true;
                 break;
             }
             case 76: {
-                noteP = findViewById(R.id.E5);
+                imageNote = imageMap.get(76);
                 break;
             }
             case 77: {
-                noteP = findViewById(R.id.F5);
+                imageNote = imageMap.get(77);
                 break;
             }
             case 78: {
-                noteP = findViewById(R.id.F5);
-                sharpP = findViewById(R.id.F5s);
-                sharpB = true;
+                imageNote = imageMap.get(77);
+                imageSharp = imageMap.get(78);
+                sharpBool = true;
                 break;
             }
             case 79: {
-                noteP = findViewById(R.id.G5);
+                imageNote = imageMap.get(79);
                 break;
             }
             case 80: {
-                noteP = findViewById(R.id.G5);
-                sharpP = findViewById(R.id.G5s);
-                sharpB = true;
+                imageNote = imageMap.get(79);
+                imageSharp = imageMap.get(80);
+                sharpBool = true;
                 break;
             }
             case 81: {
-                noteP = findViewById(R.id.A5);
+                imageNote = imageMap.get(81);
                 break;
             }
             case 82: {
-                noteP = findViewById(R.id.A5);
-                sharpP = findViewById(R.id.A5s);
-                sharpB = true;
+                imageNote = imageMap.get(81);
+                imageSharp = imageMap.get(82);
+                sharpBool = true;
                 break;
             }
             default:
-                noteB = false;
-                sharpB = false;
+                noteBool = false;
+                sharpBool = false;
         }
-        if (noteB)
-            noteP.setVisibility(View.VISIBLE);
-        if (sharpB)
-            sharpP.setVisibility(View.VISIBLE);
     }
 
     public void soundOff() {
@@ -420,6 +319,7 @@ public class GameActivity extends AppCompatActivity {
     public void play(View view) {
         soundOff();
         getUserNote();
+
     }
 
     /**********************************************************
@@ -486,7 +386,7 @@ public class GameActivity extends AppCompatActivity {
                 note = 60;
         }
         //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
-*/        displayGuess(note);
+*/        displayNote(note,"User");
         return note;
     }
 

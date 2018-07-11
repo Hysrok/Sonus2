@@ -141,7 +141,7 @@ public class GameActivity extends AppCompatActivity {
     public void next(View view) {
         roundNum++;
 
-        displayCorrect(verifyNotes.getTestNoteKey(), false);
+        displayNote(verifyNotes.getTestNoteKey(), "Correct");
 
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
@@ -210,7 +210,7 @@ public class GameActivity extends AppCompatActivity {
      * CHOOSE NOTE
      * @param note
      */
-    public void chooseNote(int note,String mapType) {
+    public void chooseNote(int note, String mapType) {
         if(mapType.compareTo("User") == 0) {
             imageMap = ImageMap.userImages;
         }
@@ -218,7 +218,7 @@ public class GameActivity extends AppCompatActivity {
             imageMap = ImageMap.baseImages;
         }
         else if (mapType.compareTo("Correct") == 0){
-            imageMap = ImageMap.correctImages;
+            //imageMap = ImageMap.correctImages;
         }
 
 
@@ -344,19 +344,19 @@ public class GameActivity extends AppCompatActivity {
             default:
                 noteBool = false;
                 sharpBool = false;
-        }
+        }/*
         if (isWrong) {
-            if (noteB)
+            if (noteBool)
                 noteR.setVisibility(View.VISIBLE);
-            if (sharpB)
+            if (sharpBool)
                 sharpR.setVisibility(View.VISIBLE);
         }
         else {
-            if (noteB)
+            if (noteBool)
                 noteR.setVisibility(View.INVISIBLE);
-            if (sharpB)
+            if (sharpBool)
                 sharpR.setVisibility(View.INVISIBLE);
-        }
+        }*/
     }
 
     public void soundOff() {
@@ -579,11 +579,12 @@ public class GameActivity extends AppCompatActivity {
             correct.setVisibility(View.VISIBLE);
         }
         else {
-            displayCorrect(verifyNotes.getTestNoteKey(), true);
+            displayNote(verifyNotes.getTestNoteKey(), "Correct");
             ImageView incorrect = findViewById(R.id.redx);
             incorrect.setVisibility(View.VISIBLE);
-        }
+        }/*
         else
             displayNote(verifyNotes.getTestNoteKey(),"Correct");
+            */
     }
 }

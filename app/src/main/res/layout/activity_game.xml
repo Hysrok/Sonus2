@@ -17,16 +17,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_media_play" />
 
-    <ImageButton
-        android:id="@+id/skip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="104dp"
-        android:layout_marginTop="100dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/ic_media_ff" />
-
 
     <SeekBar
         android:id="@+id/noteSelect"
@@ -65,11 +55,11 @@
         android:id="@+id/intervals_spinner"
         android:layout_width="209dp"
         android:layout_height="20dp"
-        android:layout_marginBottom="112dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UserButtons" />
 
     <Button
         android:id="@+id/home"
@@ -87,12 +77,12 @@
         android:id="@+id/submit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="64dp"
         android:onClick="submit"
         android:text="@string/submit"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intervals_spinner" />
 
     <RadioGroup
         android:id="@+id/UserButtons"
@@ -866,5 +856,38 @@
         app:layout_constraintBottom_toBottomOf="@+id/A5s"
         app:layout_constraintEnd_toEndOf="@+id/C4R"
         app:srcCompat="@drawable/rightsharp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="64dp"
+        android:onClick="next"
+        android:text="@string/next_notes"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/intervals_spinner" />
+
+    <ImageView
+        android:id="@+id/redx"
+        android:layout_width="47dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="64dp"
+        android:layout_marginTop="100dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/play_notes"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_delete" />
+
+    <ImageView
+        android:id="@+id/greencheck"
+        android:layout_width="45dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="100dp"
+        android:visibility="invisible"
+        app:layout_constraintStart_toEndOf="@+id/redx"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/greencheck" />
 
 </android.support.constraint.ConstraintLayout>

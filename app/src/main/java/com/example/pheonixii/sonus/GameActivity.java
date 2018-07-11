@@ -111,9 +111,17 @@ public class GameActivity extends AppCompatActivity {
      */
     public void submit(View view) {
         verifyAnswer();
+    }
 
+    public void next(View view) {
         roundNum++;
 
+        displayCorrect(verifyNotes.getTestNoteKey(), false);
+
+        ImageView incorrect = findViewById(R.id.redx);
+        incorrect.setVisibility(View.INVISIBLE);
+        ImageView correct = findViewById(R.id.greencheck);
+        correct.setVisibility(View.INVISIBLE);
         if (roundNum < 10) {
             startRound();
         } else {
@@ -407,7 +415,7 @@ public class GameActivity extends AppCompatActivity {
      * DISPLAY CORRECT
      * @param note
      */
-    public void displayCorrect(int note) {
+    public void displayCorrect(int note, boolean isWrong) {
         if (noteR != null) {
             noteR.setVisibility(View.INVISIBLE);
             sharpR.setVisibility(View.INVISIBLE);
@@ -535,10 +543,18 @@ public class GameActivity extends AppCompatActivity {
                 noteB = false;
                 sharpB = false;
         }
-        if (noteB)
-            noteR.setVisibility(View.VISIBLE);
-        if (sharpB)
-            sharpR.setVisibility(View.VISIBLE);
+        if (isWrong) {
+            if (noteB)
+                noteR.setVisibility(View.VISIBLE);
+            if (sharpB)
+                sharpR.setVisibility(View.VISIBLE);
+        }
+        else {
+            if (noteB)
+                noteR.setVisibility(View.INVISIBLE);
+            if (sharpB)
+                sharpR.setVisibility(View.INVISIBLE);
+        }
     }
 
     public void soundOff() {
@@ -757,8 +773,13 @@ public class GameActivity extends AppCompatActivity {
         if (verifyNote()) {
             score += .5;
             //correct = false;
+            ImageView correct = findViewById(R.id.greencheck);
+            correct.setVisibility(View.VISIBLE);
         }
-        else
-            displayCorrect(verifyNotes.getTestNoteKey());
+        else {
+            displayCorrect(verifyNotes.getTestNoteKey(), true);
+            ImageView incorrect = findViewById(R.id.redx);
+            incorrect.setVisibility(View.VISIBLE);
+        }
     }
 }

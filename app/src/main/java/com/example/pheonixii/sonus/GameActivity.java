@@ -96,6 +96,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * GET INTERVALS
+     * returns the arraylist of intervals
+     */
+    public ArrayList<String> getIntervals() {
+        return intervals;
+    }
+    /**
      * SUBMIT
      * - Verifies note and add a 1 to round number
      * - Goes to status act if the user has played 10 rounds
@@ -489,6 +496,11 @@ public class GameActivity extends AppCompatActivity {
         return note;
     }
 
+    /**
+     * returns the round number
+     */
+    public int getRoundNum() { return roundNum; }
+
     /****************************
      * RANDOM BASE NOTE
      * Get a random base note and key
@@ -569,11 +581,13 @@ public class GameActivity extends AppCompatActivity {
     public boolean verifyNote() {
         if(verifyNotes.getBaseNoteKey() == getUserNote())
         {
-            Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-        return true;}
+            //Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         else{
-            Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
-            return false;}
+            //Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     /**

@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Stats extends AppCompatActivity {
     ArrayList<String> intervals;
+    double score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,7 +21,7 @@ public class Stats extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.content_stats);
         intervals = intent.getStringArrayListExtra("interval_list");
-        double score = intent.getDoubleExtra("USER_SCORE", 0.0);
+        score = intent.getDoubleExtra("USER_SCORE", 0.0);
         TextView scoreText = (TextView)findViewById(R.id.textView);
         scoreText.setText("Your Score: " + score + "/10");
     }

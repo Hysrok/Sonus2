@@ -24,17 +24,15 @@ public class GameActivity extends AppCompatActivity {
 
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
-    boolean noteBool = true;
-    boolean sharpBool = false;
-    private int imageNote = 0;
-    private int  imageSharp = 0;
+
+
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
     private ImageView sharpU = null;
     private ImageView noteR = null;
     private ImageView sharpR = null;
-    public Map<Integer, Integer> imageMap = null;
+    public ImageMap imageMap = new ImageMap();
 
     int highestNote = 82;
     private int roundNum = 0;
@@ -170,12 +168,12 @@ public class GameActivity extends AppCompatActivity {
                 noteU.setVisibility(View.INVISIBLE);
                 sharpU.setVisibility(View.INVISIBLE);
             }
-            chooseNote(note,mapType);
-            noteU = findViewById(imageNote);
-            sharpU = findViewById(imageSharp);
-            if (noteBool)
+            imageMap.chooseNote(note,mapType);
+            noteU = findViewById(imageMap.imageNote);
+            sharpU = findViewById(imageMap.imageSharp);
+            if (imageMap.noteBool == true)
                 noteU.setVisibility(View.VISIBLE);
-            if (sharpBool)
+            if (imageMap.sharpBool)
                 sharpU.setVisibility(View.VISIBLE);
         }
         else if (mapType.compareTo("Base") == 0) {
@@ -183,12 +181,12 @@ public class GameActivity extends AppCompatActivity {
                 noteB.setVisibility(View.INVISIBLE);
                 sharpB.setVisibility(View.INVISIBLE);
             }
-            chooseNote(note,mapType);
-            noteB = findViewById(imageNote);
-            sharpB = findViewById(imageSharp);
-            if (noteBool)
+            imageMap.chooseNote(note,mapType);
+            noteB = findViewById(imageMap.imageNote);
+            sharpB = findViewById(imageMap.imageSharp);
+            if (imageMap.noteBool)
                 noteB.setVisibility(View.VISIBLE);
-            if (sharpBool)
+            if (imageMap.sharpBool)
                 sharpB.setVisibility(View.VISIBLE);
         }
         else if (mapType.compareTo("Correct") == 0) {
@@ -196,167 +194,14 @@ public class GameActivity extends AppCompatActivity {
                 noteR.setVisibility(View.INVISIBLE);
                 sharpR.setVisibility(View.INVISIBLE);
             }
-            chooseNote(note,mapType);
-            noteR = findViewById(imageNote);
-            sharpR = findViewById(imageSharp);
-            if (noteBool)
+            imageMap.chooseNote(note,mapType);
+            noteR = findViewById(imageMap.imageNote);
+            sharpR = findViewById(imageMap.imageSharp);
+            if (imageMap.noteBool)
                 noteR.setVisibility(View.VISIBLE);
-            if (sharpBool)
+            if (imageMap.sharpBool)
                 sharpR.setVisibility(View.VISIBLE);
         }
-    }
-
-    /**
-     * CHOOSE NOTE
-     * @param note
-     */
-    public void chooseNote(int note, String mapType) {
-        if(mapType.compareTo("User") == 0) {
-            imageMap = ImageMap.userImages;
-        }
-        else if (mapType.compareTo("Base") == 0) {
-            imageMap = ImageMap.baseImages;
-        }
-        else if (mapType.compareTo("Correct") == 0){
-            //imageMap = ImageMap.correctImages;
-        }
-
-
-        imageNote = imageMap.get(60);
-        noteBool = true;
-        imageSharp = imageMap.get(61);
-        sharpBool = false;
-
-
-        switch (note) {
-            case 60: {
-                imageNote = imageMap.get(60);
-                break;
-            }
-            case 61: {
-                imageNote = imageMap.get(60);
-                imageSharp = imageMap.get(61);
-                sharpBool = true;
-                break;
-            }
-            case 62: {
-                imageNote = imageMap.get(62);
-                break;
-            }
-            case 63: {
-                imageNote = imageMap.get(62);
-                imageSharp = imageMap.get(63);
-                sharpBool = true;
-                break;
-            }
-            case 64: {
-                imageNote = imageMap.get(64);
-                break;
-            }
-            case 65: {
-                imageNote = imageMap.get(65);
-                break;
-            }
-            case 66: {
-                imageNote = imageMap.get(65);
-                imageSharp = imageMap.get(66);
-                sharpBool = true;
-                break;
-            }
-            case 67: {
-                imageNote = imageMap.get(67);
-                break;
-            }
-            case 68: {
-                imageNote = imageMap.get(67);
-                imageSharp = imageMap.get(68);
-                sharpBool = true;
-                break;
-            }
-            case 69: {
-                imageNote = imageMap.get(69);
-                break;
-            }
-            case 70: {
-                imageNote = imageMap.get(69);
-                imageSharp = imageMap.get(70);
-                sharpBool = true;
-                break;
-            }
-            case 71: {
-                imageNote = imageMap.get(71);
-                break;
-            }
-            case 72: {
-                imageNote = imageMap.get(72);
-                break;
-            }
-            case 73: {
-                imageNote = imageMap.get(72);
-                imageSharp = imageMap.get(73);
-                sharpBool = true;
-                break;
-            }
-            case 74: {
-                imageNote = imageMap.get(74);
-                break;
-            }
-            case 75: {
-                imageNote = imageMap.get(74);
-                imageSharp = imageMap.get(75);
-                sharpBool = true;
-                break;
-            }
-            case 76: {
-                imageNote = imageMap.get(76);
-                break;
-            }
-            case 77: {
-                imageNote = imageMap.get(77);
-                break;
-            }
-            case 78: {
-                imageNote = imageMap.get(77);
-                imageSharp = imageMap.get(78);
-                sharpBool = true;
-                break;
-            }
-            case 79: {
-                imageNote = imageMap.get(79);
-                break;
-            }
-            case 80: {
-                imageNote = imageMap.get(79);
-                imageSharp = imageMap.get(80);
-                sharpBool = true;
-                break;
-            }
-            case 81: {
-                imageNote = imageMap.get(81);
-                break;
-            }
-            case 82: {
-                imageNote = imageMap.get(81);
-                imageSharp = imageMap.get(82);
-                sharpBool = true;
-                break;
-            }
-            default:
-                noteBool = false;
-                sharpBool = false;
-        }/*
-        if (isWrong) {
-            if (noteBool)
-                noteR.setVisibility(View.VISIBLE);
-            if (sharpBool)
-                sharpR.setVisibility(View.VISIBLE);
-        }
-        else {
-            if (noteBool)
-                noteR.setVisibility(View.INVISIBLE);
-            if (sharpBool)
-                sharpR.setVisibility(View.INVISIBLE);
-        }*/
     }
 
     public void soundOff() {
@@ -384,6 +229,7 @@ public class GameActivity extends AppCompatActivity {
     public void play(View view) {
         soundOff();
         getUserNote();
+
     }
 
     /**********************************************************

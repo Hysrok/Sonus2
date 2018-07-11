@@ -23,21 +23,6 @@ public class Stats extends AppCompatActivity {
         double score = intent.getDoubleExtra("USER_SCORE", 0.0);
         TextView scoreText = (TextView)findViewById(R.id.textView);
         scoreText.setText("Your Score: " + score + "/10");
-
-        // I commented out all the stuff below because I'm not sure what its for.
-
-        /*setContentView(R.layout.content_stats);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     /**

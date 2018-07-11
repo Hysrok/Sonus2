@@ -32,6 +32,8 @@ public class GameActivity extends AppCompatActivity {
     private ImageView sharpB = null;
     private ImageView noteU = null;
     private ImageView sharpU = null;
+    private ImageView noteR = null;
+    private ImageView sharpR = null;
     public Map<Integer, Integer> imageMap = null;
 
     int highestNote = 82;
@@ -88,6 +90,25 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         displayNote(verifyNotes.getBaseNoteKey(), "Base");
+        SeekBar noteSelect = findViewById(R.id.noteSelect);
+
+        noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+                displayGuess(getUserNote());
+            }
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        displayNote(verifyNotes.getBaseNoteKey());
         soundOff();
     }
 
@@ -101,6 +122,13 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * GET INTERVALS
+     * returns the arraylist of intervals
+     */
+    public ArrayList<String> getIntervals() {
+        return intervals;
+    }
+    /**
      * SUBMIT
      * - Verifies note and add a 1 to round number
      * - Goes to status act if the user has played 10 rounds
@@ -108,6 +136,7 @@ public class GameActivity extends AppCompatActivity {
      */
     public void submit(View view) {
         verifyAnswer();
+
         roundNum++;
 
         if (roundNum < 10) {
@@ -294,6 +323,144 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * DISPLAY CORRECT
+     * @param note
+     */
+    public void displayCorrect(int note) {
+        if (noteR != null) {
+            noteR.setVisibility(View.INVISIBLE);
+            sharpR.setVisibility(View.INVISIBLE);
+        }
+        noteR = findViewById(R.id.C4R);
+        boolean noteB = true;
+        sharpR = findViewById(R.id.C4sR);
+        boolean sharpB = false;
+
+
+        switch (note) {
+            case 60: {
+                noteR = findViewById(R.id.C4R);
+                break;
+            }
+            case 61: {
+                noteR = findViewById(R.id.C4R);
+                sharpR = findViewById(R.id.C4sR);
+                sharpB = true;
+                break;
+            }
+            case 62: {
+                noteR = findViewById(R.id.D4R);
+                break;
+            }
+            case 63: {
+                noteR = findViewById(R.id.D4R);
+                sharpR = findViewById(R.id.D4sR);
+                sharpB = true;
+                break;
+            }
+            case 64: {
+                noteR = findViewById(R.id.E4R);
+                break;
+            }
+            case 65: {
+                noteR = findViewById(R.id.F4R);
+                break;
+            }
+            case 66: {
+                noteR = findViewById(R.id.F4R);
+                sharpR = findViewById(R.id.F4sR);
+                sharpB = true;
+                break;
+            }
+            case 67: {
+                noteR = findViewById(R.id.G4R);
+                break;
+            }
+            case 68: {
+                noteR = findViewById(R.id.G4R);
+                sharpR = findViewById(R.id.G4sR);
+                sharpB = true;
+                break;
+            }
+            case 69: {
+                noteR = findViewById(R.id.A4R);
+                break;
+            }
+            case 70: {
+                noteR = findViewById(R.id.A4R);
+                sharpR = findViewById(R.id.A4sR);
+                sharpB = true;
+                break;
+            }
+            case 71: {
+                noteR = findViewById(R.id.B4R);
+                break;
+            }
+            case 72: {
+                noteR = findViewById(R.id.C5R);
+                break;
+            }
+            case 73: {
+                noteR = findViewById(R.id.C5R);
+                sharpR = findViewById(R.id.C5sR);
+                sharpB = true;
+                break;
+            }
+            case 74: {
+                noteR = findViewById(R.id.D5R);
+                break;
+            }
+            case 75: {
+                noteR = findViewById(R.id.D5R);
+                sharpR = findViewById(R.id.D5sR);
+                sharpB = true;
+                break;
+            }
+            case 76: {
+                noteR = findViewById(R.id.E5R);
+                break;
+            }
+            case 77: {
+                noteR = findViewById(R.id.F5R);
+                break;
+            }
+            case 78: {
+                noteR = findViewById(R.id.F5R);
+                sharpR = findViewById(R.id.F5sR);
+                sharpB = true;
+                break;
+            }
+            case 79: {
+                noteR = findViewById(R.id.G5R);
+                break;
+            }
+            case 80: {
+                noteR = findViewById(R.id.G5R);
+                sharpR = findViewById(R.id.G5sR);
+                sharpB = true;
+                break;
+            }
+            case 81: {
+                noteR = findViewById(R.id.A5R);
+                break;
+            }
+            case 82: {
+                noteR = findViewById(R.id.A5R);
+                sharpR = findViewById(R.id.A5sR);
+                sharpB = true;
+                break;
+            }
+            default:
+                noteB = false;
+                sharpB = false;
+        }
+        if (noteB)
+            noteR.setVisibility(View.VISIBLE);
+        if (sharpB)
+            sharpR.setVisibility(View.VISIBLE);
+    }
+
     public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
         MediaPlayer midiFileMediaPlayer2;
@@ -390,6 +557,11 @@ public class GameActivity extends AppCompatActivity {
         return note;
     }
 
+    /**
+     * returns the round number
+     */
+    public int getRoundNum() { return roundNum; }
+
     /****************************
      * RANDOM BASE NOTE
      * Get a random base note and key
@@ -468,13 +640,15 @@ public class GameActivity extends AppCompatActivity {
      * @return
      */
     public boolean verifyNote() {
-        if(verifyNotes.getBaseNoteKey() == getUserNote())
+        if(verifyNotes.getTestNoteKey() == getUserNote())
         {
-            Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-        return true;}
+            //Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
+            return true;
+        }
         else{
-            Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
-            return false;}
+            //Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
+            return false;
+        }
     }
 
     /**
@@ -505,5 +679,7 @@ public class GameActivity extends AppCompatActivity {
             score += .5;
             //correct = false;
         }
+        else
+            displayCorrect(verifyNotes.getTestNoteKey());
     }
 }

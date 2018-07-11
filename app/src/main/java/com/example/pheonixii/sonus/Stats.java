@@ -13,6 +13,7 @@ import java.util.ArrayList;
 
 public class Stats extends AppCompatActivity {
     ArrayList<String> intervals;
+    double score;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -20,24 +21,9 @@ public class Stats extends AppCompatActivity {
         Intent intent = getIntent();
         setContentView(R.layout.content_stats);
         intervals = intent.getStringArrayListExtra("interval_list");
-        double score = intent.getDoubleExtra("USER_SCORE", 0.0);
+        score = intent.getDoubleExtra("USER_SCORE", 0.0);
         TextView scoreText = (TextView)findViewById(R.id.textView);
         scoreText.setText("Your Score: " + score + "/10");
-
-        // I commented out all the stuff below because I'm not sure what its for.
-
-        /*setContentView(R.layout.content_stats);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });*/
     }
 
     /**

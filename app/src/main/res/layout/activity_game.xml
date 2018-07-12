@@ -60,7 +60,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/UserButtons" />
+        app:layout_constraintTop_toBottomOf="@+id/sharpSelect" />
 
     <Button
         android:id="@+id/home"
@@ -86,7 +86,7 @@
         app:layout_constraintTop_toBottomOf="@+id/intervals_spinner" />
 
     <RadioGroup
-        android:id="@+id/UserButtons"
+        android:id="@+id/sharpSelect"
         android:layout_width="92dp"
         android:layout_height="59dp"
         android:layout_marginEnd="8dp"
@@ -110,10 +110,7 @@
             android:layout_weight="1"
             android:buttonTint="@color/green"
             android:checked="true"
-            android:text="@string/natural" /><![CDATA[
-        android:text="@string/natural" />
-
-        ]]>
+            android:text="@string/natural" />
     </RadioGroup>
 
     <ImageView

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -24,7 +25,7 @@ public class GameActivity extends AppCompatActivity {
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
 
-
+    private int submits = 0;
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
@@ -90,6 +91,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
+        submits = 0;
         //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -106,11 +108,18 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
-        displayNote(verifyNotes.getBaseNoteKey(),"Base");
+        RadioGroup sharpSelect = findViewById(R.id.sharpSelect);
+
+        sharpSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                displayNote(getUserNote(), "User");
+            }
+        });
+        displayNote(verifyNotes.getBaseNoteKey(), "Base");
         soundOff();
     }
 
@@ -152,20 +161,13 @@ public class GameActivity extends AppCompatActivity {
         roundNum++;
 
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
-        //displayNote(1, "Correct");
+        displayNote(1, "Correct");
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);
         correct.setVisibility(View.INVISIBLE);
         if (roundNum < 10) {
-            // check to see if the user has submitted there answer
-            // they can only go on to the next notes if they submit
-            if (hasSubmitted) {
-                startRound();
-                hasSubmitted = false;
-            } else {
-                Toast.makeText(this, "You must submit before continuing!", Toast.LENGTH_LONG).show();
-            }
+            startRound();
         } else {
             Intent intent = new Intent(this, Stats.class);
             // send the intervals that they used to the next page so that they can retry with those same intervals
@@ -403,13 +405,7 @@ public class GameActivity extends AppCompatActivity {
      * @return
      */
     public boolean verifyNote() {
-        if (verifyNotes.getTestNoteKey() == getUserNote()) {
-            //Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-            return true;
-        } else {
-            //Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return verifyNotes.getTestNoteKey() == getUserNote();
     }
 
     /**
@@ -419,11 +415,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean verifyInterval() {
         String correctInterval = randomInterval();
         String userInterval = spinner.getSelectedItem().toString();
-        if (correctInterval.equals(userInterval)) {
-            return true;
-        } else {
-            return false;
-        }
+        return correctInterval.equals(userInterval);
     }
 
     /**
@@ -441,7 +433,7 @@ public class GameActivity extends AppCompatActivity {
             feedback(true);
         } else {
             displayNote(verifyNotes.getTestNoteKey(), "Correct");
-           feedback(false);
+            feedback(false);
         }
     }
 

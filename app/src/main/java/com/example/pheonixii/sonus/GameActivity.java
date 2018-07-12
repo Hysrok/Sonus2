@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 
@@ -23,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
 
-
+    private int submits = 0;
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
@@ -65,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
         spinner = findViewById(R.id.intervals_spinner);
 
         //preparing adapter for spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -86,6 +87,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
+        submits = 0;
         //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -102,7 +104,15 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
+            }
+        });
 
+        RadioGroup sharpSelect = findViewById(R.id.sharpSelect);
+
+        sharpSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                displayNote(getUserNote(), "User");
             }
         });
         displayNote(verifyNotes.getBaseNoteKey(), "Base");
@@ -135,7 +145,11 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void submit(View view) {
-        verifyAnswer();
+
+        if (submits < 1) {
+            verifyAnswer();
+            submits++;
+        }
     }
 
     public void next(View view) {
@@ -386,13 +400,7 @@ public class GameActivity extends AppCompatActivity {
      * @return
      */
     public boolean verifyNote() {
-        if (verifyNotes.getTestNoteKey() == getUserNote()) {
-            //Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-            return true;
-        } else {
-            //Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return verifyNotes.getTestNoteKey() == getUserNote();
     }
 
     /**
@@ -402,11 +410,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean verifyInterval() {
         String correctInterval = randomInterval();
         String userInterval = spinner.getSelectedItem().toString();
-        if (correctInterval.equals(userInterval)) {
-            return true;
-        } else {
-            return false;
-        }
+        return correctInterval.equals(userInterval);
     }
 
     /**
@@ -425,7 +429,7 @@ public class GameActivity extends AppCompatActivity {
             feedback(true);
         } else {
             displayNote(verifyNotes.getTestNoteKey(), "Correct");
-           feedback(false);
+            feedback(false);
         }
     }
 

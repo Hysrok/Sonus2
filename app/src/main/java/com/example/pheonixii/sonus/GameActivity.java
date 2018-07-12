@@ -152,7 +152,7 @@ public class GameActivity extends AppCompatActivity {
             verifyAnswer();
             hasSubmitted = true;
         }
-        Toast.makeText(this, randomInterval(), Toast.LENGTH_LONG).show();
+        Toast.makeText(this, interval, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -165,7 +165,7 @@ public class GameActivity extends AppCompatActivity {
     public void next(View view) {
 
         if (!hasSubmitted) {
-            Toast.makeText(this, "You have to submit first!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "You have to submit first!", Toast.LENGTH_SHORT).show();
             return;
         }
         roundNum++;
@@ -421,8 +421,12 @@ public class GameActivity extends AppCompatActivity {
      * Check if they chose the correct interval. If so return true else return false.
      */
     public boolean verifyInterval() {
-        String correctInterval = randomInterval();
+        String correctInterval = interval;
         String userInterval = spinner.getSelectedItem().toString();
+
+        spinner.setSelection(intervals.indexOf(interval));
+            //int selectionPosition= adapter.getPosition(randomInterval());
+            //spinner.setSelection(selectionPosition);
         return correctInterval.equals(userInterval);
     }
 
@@ -434,10 +438,6 @@ public class GameActivity extends AppCompatActivity {
     public void verifyAnswer() {
         if (verifyInterval()) {
             score += .5;
-        } else {
-            spinner.setSelection(intervals.indexOf(randomInterval()));
-           // int selectionPosition= adapter.getPosition(randomInterval());
-            //spinner.setSelection(selectionPosition);
         }
         if (verifyNote()) {
             score += .5;

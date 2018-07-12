@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity {
     double score = 0.0;
 
     private ArrayList<String> intervals;
-    ArrayAdapter<String> adapter;
+
 
     boolean hasSubmitted;
 
@@ -71,7 +71,7 @@ public class GameActivity extends AppCompatActivity {
         spinner = findViewById(R.id.intervals_spinner);
 
         //preparing adapter for spinner
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -427,8 +427,7 @@ public class GameActivity extends AppCompatActivity {
         String userInterval = spinner.getSelectedItem().toString();
 
         spinner.setSelection(intervals.indexOf(interval));
-            //int selectionPosition= adapter.getPosition(randomInterval());
-            //spinner.setSelection(selectionPosition);
+
         return correctInterval.equals(userInterval);
     }
 

@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -42,6 +43,9 @@ public class GameActivity extends AppCompatActivity {
 
     private ArrayList<String> intervals;
 
+    boolean hasSubmitted;
+
+
     /**
      * ON CREATE
      * - Sets up the view spinner
@@ -66,7 +70,7 @@ public class GameActivity extends AppCompatActivity {
         spinner = findViewById(R.id.intervals_spinner);
 
         //preparing adapter for spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -87,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-        submits = 0;
+        hasSubmitted = false;
         //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -136,25 +140,32 @@ public class GameActivity extends AppCompatActivity {
     public ArrayList<String> getIntervals() {
         return intervals;
     }
-
     /**
      * SUBMIT
-     * - Verifies note and add a 1 to round number
-     * - Goes to status act if the user has played 10 rounds
-     *
+     * - Verifies note and sets hasSubmitted to true
      * @param view
      */
     public void submit(View view) {
-
-        if (submits < 1) {
+        if (!hasSubmitted) {
             verifyAnswer();
-            submits++;
+            hasSubmitted = true;
         }
     }
 
+    /**
+     * NEXT
+     * - sets the correct note to invisible
+     * - sets the red X or green checkmark to invisible
+     * - add 1 to round number
+     * - sends to stat page if the user has played 10 rounds
+     */
     public void next(View view) {
-        roundNum++;
 
+        if (!hasSubmitted) {
+            Toast.makeText(this, "You have to submit first!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        roundNum++;
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
         ImageView incorrect = findViewById(R.id.redx);
@@ -421,7 +432,6 @@ public class GameActivity extends AppCompatActivity {
     public void verifyAnswer() {
         if (verifyInterval()) {
             score += .5;
-            //correct = true;
         }
         if (verifyNote()) {
             score += .5;

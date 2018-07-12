@@ -43,6 +43,9 @@ public class GameActivity extends AppCompatActivity {
 
     private ArrayList<String> intervals;
 
+    // Whether or not the user has submitted their answer
+    public boolean hasSubmitted = false;
+
     /**
      * ON CREATE
      * - Sets up the view spinner
@@ -93,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                displayNote(getUserNote(), "User");
+                displayNote(getUserNote(), "User", true);
             }
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
@@ -106,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        displayNote(verifyNotes.getBaseNoteKey(),"Base");
+        displayNote(verifyNotes.getBaseNoteKey(),"Base", true);
         soundOff();
     }
 
@@ -128,25 +131,40 @@ public class GameActivity extends AppCompatActivity {
     }
     /**
      * SUBMIT
-     * - Verifies note and add a 1 to round number
-     * - Goes to status act if the user has played 10 rounds
+     * - Verifies note and sets hasSubmitted to true
      * @param view
      */
     public void submit(View view) {
         verifyAnswer();
+        hasSubmitted = true;
     }
 
+    /**
+     * NEXT
+     * - sets the correct note to invisible
+     * - sets the red X or green checkmark to invisible
+     * - add 1 to round number
+     * - sends to stat page if the user has played 10 rounds
+     */
     public void next(View view) {
         roundNum++;
 
-        displayNote(verifyNotes.getTestNoteKey(), "Correct");
-
+        displayNote(verifyNotes.getTestNoteKey(), "Correct", false);
+        //noteR.setVisibility(View.INVISIBLE);
+       // sharpR.setVisibility(View.INVISIBLE);
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);
         correct.setVisibility(View.INVISIBLE);
         if (roundNum < 10) {
-            startRound();
+            // check to see if the user has submitted there answer
+            // they can only go on to the next notes if they submit
+            if (hasSubmitted) {
+                startRound();
+                hasSubmitted = false;
+            } else {
+                Toast.makeText(this, "You must submit before continuing!", Toast.LENGTH_LONG).show();
+            }
         } else {
             Intent intent = new Intent(this, Stats.class);
             // send the intervals that they used to the next page so that they can retry with those same intervals
@@ -158,11 +176,12 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
+     * I added the third parameter to make the correct note stop displaying when it goes on to the next problem
+     * If aren't passing in a Correct type then don't worry about it.
      * @param note
      * @param mapType
      */
-    public void displayNote(int note, String mapType){
+    public void displayNote(int note, String mapType, boolean isWrong){
         if(mapType.compareTo("User") == 0) {
             if (noteU != null) {
                 noteU.setVisibility(View.INVISIBLE);
@@ -197,10 +216,18 @@ public class GameActivity extends AppCompatActivity {
             imageMap.chooseNote(note,mapType);
             noteR = findViewById(imageMap.imageNote);
             sharpR = findViewById(imageMap.imageSharp);
-            if (imageMap.noteBool)
-                noteR.setVisibility(View.VISIBLE);
-            if (imageMap.sharpBool)
-                sharpR.setVisibility(View.VISIBLE);
+            // if the user put in the wrong answer show the right one
+            if (isWrong) {
+                if (imageMap.noteBool)
+                    noteR.setVisibility(View.VISIBLE);
+                if (imageMap.sharpBool)
+                    sharpR.setVisibility(View.VISIBLE);
+            } else {
+                if (imageMap.noteBool)
+                    noteR.setVisibility(View.INVISIBLE);
+                if (imageMap.sharpBool)
+                    sharpR.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -296,7 +323,7 @@ public class GameActivity extends AppCompatActivity {
                 note = 60;
         }
         //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
-*/        displayNote(note,"User");
+*/        displayNote(note,"User", true);
         return note;
     }
 
@@ -416,21 +443,18 @@ public class GameActivity extends AppCompatActivity {
     public void verifyAnswer() {
         if (verifyInterval()) {
             score += .5;
-            //correct = true;
         }
         if (verifyNote()) {
             score += .5;
-            //correct = false;
+            // displays a green check
             ImageView correct = findViewById(R.id.greencheck);
             correct.setVisibility(View.VISIBLE);
         }
         else {
-            displayNote(verifyNotes.getTestNoteKey(), "Correct");
+            displayNote(verifyNotes.getTestNoteKey(), "Correct", true);
+            // displays a red x
             ImageView incorrect = findViewById(R.id.redx);
             incorrect.setVisibility(View.VISIBLE);
-        }/*
-        else
-            displayNote(verifyNotes.getTestNoteKey(),"Correct");
-            */
+        }
     }
 }

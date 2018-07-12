@@ -141,6 +141,7 @@ public class GameActivity extends AppCompatActivity {
     public void next(View view) {
         roundNum++;
 
+        //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
@@ -171,7 +172,7 @@ public class GameActivity extends AppCompatActivity {
             imageMap.chooseNote(note, mapType);
             noteU = findViewById(imageMap.imageNote);
             sharpU = findViewById(imageMap.imageSharp);
-            if (imageMap.noteBool == true)
+            if (imageMap.noteBool)
                 noteU.setVisibility(View.VISIBLE);
             if (imageMap.sharpBool)
                 sharpU.setVisibility(View.VISIBLE);
@@ -209,6 +210,7 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
                 mediaPlayer.release();
             }
         });
@@ -216,6 +218,7 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
                 mediaPlayer.release();
             }
         });
@@ -226,8 +229,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void play(View view) {
         soundOff();
-        getUserNote();
-
     }
 
     /**********************************************************
@@ -421,10 +422,18 @@ public class GameActivity extends AppCompatActivity {
         if (verifyNote()) {
             score += .5;
             //correct = false;
-            ImageView correct = findViewById(R.id.greencheck);
-            correct.setVisibility(View.VISIBLE);
+            feedback(true);
         } else {
             displayNote(verifyNotes.getTestNoteKey(), "Correct");
+           feedback(false);
+        }
+    }
+
+    public void feedback(boolean correct) {
+        if (correct) {
+            ImageView check = findViewById(R.id.greencheck);
+            check.setVisibility(View.VISIBLE);
+        } else {
             ImageView incorrect = findViewById(R.id.redx);
             incorrect.setVisibility(View.VISIBLE);
         }

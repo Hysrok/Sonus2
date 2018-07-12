@@ -5,12 +5,12 @@ import java.util.TreeMap;
 
 
 public class ImageMap {
-    public Map<Integer, Integer> imageMap = null;
+    private Map<Integer, Integer> imageMap = null;
     public boolean noteBool = true;
     public boolean sharpBool = false;
     public int imageNote = 0;
     public int imageSharp = 0;
-    public static final Map<Integer, Integer> baseImages = new TreeMap<Integer, Integer>() {{
+    private static final Map<Integer, Integer> baseImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4);
         put(61, R.id.C4s);
@@ -37,7 +37,7 @@ public class ImageMap {
         put(82, R.id.A5s);
     }};
 
-    public static final Map<Integer, Integer> userImages = new TreeMap<Integer, Integer>() {{
+    private static final Map<Integer, Integer> userImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4U);
         put(61, R.id.C4sU);
@@ -64,7 +64,7 @@ public class ImageMap {
         put(82, R.id.A5sU);
     }};
 
-    public static final Map<Integer, Integer> correctImages = new TreeMap<Integer, Integer>() {{
+    private static final Map<Integer, Integer> correctImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4R);
         put(61, R.id.C4sR);
@@ -101,7 +101,7 @@ public class ImageMap {
         }
 
 
-        imageNote = imageMap.get(60);
+        //imageNote = imageMap.get(60);
         noteBool = true;
         imageSharp = imageMap.get(61);
         sharpBool = false;

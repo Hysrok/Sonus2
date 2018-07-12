@@ -101,9 +101,9 @@ public class ImageMap {
         }
 
 
-        imageNote = imageMap.get(60);
+        //imageNote = imageMap.get(60);
         noteBool = true;
-        imageSharp = imageMap.get(61);
+        //imageSharp = imageMap.get(61);
         sharpBool = false;
 
 

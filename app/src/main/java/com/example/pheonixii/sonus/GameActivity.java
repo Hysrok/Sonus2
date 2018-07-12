@@ -22,7 +22,6 @@ public class GameActivity extends AppCompatActivity {
 
     VerifyNotes verifyNotes = new VerifyNotes();
 
-    private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
     private ImageView noteP = null;
     private ImageView sharpP = null;
@@ -79,7 +78,7 @@ public class GameActivity extends AppCompatActivity {
      * - Displays base note
      */
     public void startRound(){
-        interval = randomInterval();
+        verifyNotes.setInterval(randomInterval());
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         displayNote(verifyNotes.getBaseNoteKey());
@@ -505,7 +504,7 @@ public class GameActivity extends AppCompatActivity {
      * Intervals are strings and need to be ints
      **********************/
     public int convertIntervalToInt() {
-        switch (interval) {
+        switch (verifyNotes.getInterval()) {
             case "Perfect Unison":
                 return 0;
             case "Minor Second":

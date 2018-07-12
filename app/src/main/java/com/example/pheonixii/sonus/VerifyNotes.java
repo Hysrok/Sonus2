@@ -5,13 +5,24 @@ import java.util.TreeMap;
 
 public class VerifyNotes {
 
+    // The keys are for the note map
     private int baseNoteKey = 0;
+    // The test note is the note the user needs to guess; the second note that gets played
     private int testNoteKey = 0;
 
+    private String interval;
 
     /**
      * GETTERS and SETTERS
      */
+
+    public String getInterval() {
+        return interval;
+    }
+
+    public void setInterval(String interval) {
+        this.interval = interval;
+    }
 
     public int getBaseNoteKey() {
         return baseNoteKey;

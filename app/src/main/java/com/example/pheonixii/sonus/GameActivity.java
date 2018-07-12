@@ -43,8 +43,8 @@ public class GameActivity extends AppCompatActivity {
 
     private ArrayList<String> intervals;
 
-    // Whether or not the user has submitted their answer
-    public boolean hasSubmitted = false;
+    boolean hasSubmitted;
+
 
     /**
      * ON CREATE
@@ -91,7 +91,7 @@ public class GameActivity extends AppCompatActivity {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-        submits = 0;
+        hasSubmitted = false;
         //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -146,8 +146,10 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void submit(View view) {
-        verifyAnswer();
-        hasSubmitted = true;
+        if (!hasSubmitted) {
+            verifyAnswer();
+            hasSubmitted = true;
+        }
     }
 
     /**
@@ -158,8 +160,12 @@ public class GameActivity extends AppCompatActivity {
      * - sends to stat page if the user has played 10 rounds
      */
     public void next(View view) {
-        roundNum++;
 
+        if (!hasSubmitted) {
+            Toast.makeText(this, "You have to submit first!", Toast.LENGTH_LONG).show();
+            return;
+        }
+        roundNum++;
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
         ImageView incorrect = findViewById(R.id.redx);

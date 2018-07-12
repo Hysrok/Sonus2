@@ -93,7 +93,6 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         hasSubmitted = false;
-        //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -141,9 +140,11 @@ public class GameActivity extends AppCompatActivity {
     public ArrayList<String> getIntervals() {
         return intervals;
     }
+
     /**
      * SUBMIT
      * - Verifies note and sets hasSubmitted to true
+     *
      * @param view
      */
     public void submit(View view) {
@@ -323,7 +324,6 @@ public class GameActivity extends AppCompatActivity {
         }
         //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
 */
-        displayNote(note, "User");
         return note;
     }
 

@@ -42,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
     double score = 0.0;
 
     private ArrayList<String> intervals;
+    ArrayAdapter<String> adapter;
 
     boolean hasSubmitted;
 
@@ -70,7 +71,7 @@ public class GameActivity extends AppCompatActivity {
         spinner = findViewById(R.id.intervals_spinner);
 
         //preparing adapter for spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
+        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -150,6 +151,7 @@ public class GameActivity extends AppCompatActivity {
             verifyAnswer();
             hasSubmitted = true;
         }
+        Toast.makeText(this, randomInterval(), Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -432,6 +434,10 @@ public class GameActivity extends AppCompatActivity {
     public void verifyAnswer() {
         if (verifyInterval()) {
             score += .5;
+        } else {
+            spinner.setSelection(intervals.indexOf(randomInterval()));
+           // int selectionPosition= adapter.getPosition(randomInterval());
+            //spinner.setSelection(selectionPosition);
         }
         if (verifyNote()) {
             score += .5;

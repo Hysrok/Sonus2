@@ -92,6 +92,8 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         hasSubmitted = false;
+        displayNote(1, "User");
+
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -436,14 +438,14 @@ public class GameActivity extends AppCompatActivity {
         if (verifyNote()) {
             score += .5;
             //correct = false;
-            feedback(true);
+            noteFeedback(true);
         } else {
             displayNote(verifyNotes.getTestNoteKey(), "Correct");
-            feedback(false);
+            noteFeedback(false);
         }
     }
 
-    public void feedback(boolean correct) {
+    public void noteFeedback(boolean correct) {
         if (correct) {
             ImageView check = findViewById(R.id.greencheck);
             check.setVisibility(View.VISIBLE);

@@ -92,7 +92,6 @@ public class GameActivity extends AppCompatActivity {
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         hasSubmitted = false;
-        displayNote(1, "User");
 
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -171,6 +170,7 @@ public class GameActivity extends AppCompatActivity {
         roundNum++;
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
+        displayNote(1, "User");
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);

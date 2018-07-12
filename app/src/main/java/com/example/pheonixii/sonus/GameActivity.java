@@ -8,12 +8,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.Map;
 import java.util.Random;
 
 
@@ -25,7 +24,7 @@ public class GameActivity extends AppCompatActivity {
     private String interval;
     // ImageViews to remember which view was used last in order to delete them later.
 
-
+    private int submits = 0;
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
@@ -49,6 +48,7 @@ public class GameActivity extends AppCompatActivity {
      * - Sets intervals with data from last activity
      * - Roundnum = 0
      * - Calls startRound
+     *
      * @param savedInstanceState
      */
     @Override
@@ -66,7 +66,7 @@ public class GameActivity extends AppCompatActivity {
         spinner = findViewById(R.id.intervals_spinner);
 
         //preparing adapter for spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, intervals);
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -83,10 +83,11 @@ public class GameActivity extends AppCompatActivity {
      * - Sets a new random interval, base note and test note
      * - Displays base note
      */
-    public void startRound(){
+    public void startRound() {
         interval = randomInterval();
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
+        submits = 0;
         //displayNote(verifyNotes.getBaseNoteKey(), "Base");
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
@@ -95,6 +96,7 @@ public class GameActivity extends AppCompatActivity {
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 displayNote(getUserNote(), "User");
             }
+
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
 
@@ -102,16 +104,24 @@ public class GameActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
             }
         });
 
-        displayNote(verifyNotes.getBaseNoteKey(),"Base");
+        RadioGroup sharpSelect = findViewById(R.id.sharpSelect);
+
+        sharpSelect.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                displayNote(getUserNote(), "User");
+            }
+        });
+        displayNote(verifyNotes.getBaseNoteKey(), "Base");
         soundOff();
     }
 
     /**
      * GO HOME
+     *
      * @param view
      */
     public void goHome(View view) {
@@ -126,17 +136,31 @@ public class GameActivity extends AppCompatActivity {
     public ArrayList<String> getIntervals() {
         return intervals;
     }
+
     /**
      * SUBMIT
      * - Verifies note and add a 1 to round number
      * - Goes to status act if the user has played 10 rounds
+     *
      * @param view
      */
     public void submit(View view) {
-        verifyAnswer();
 
+        if (submits < 1) {
+            verifyAnswer();
+            submits++;
+        }
+    }
+
+    public void next(View view) {
         roundNum++;
 
+        //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
+        displayNote(1, "Correct");
+        ImageView incorrect = findViewById(R.id.redx);
+        incorrect.setVisibility(View.INVISIBLE);
+        ImageView correct = findViewById(R.id.greencheck);
+        correct.setVisibility(View.INVISIBLE);
         if (roundNum < 10) {
             startRound();
         } else {
@@ -150,43 +174,40 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     *
      * @param note
      * @param mapType
      */
-    public void displayNote(int note, String mapType){
-        if(mapType.compareTo("User") == 0) {
+    public void displayNote(int note, String mapType) {
+        if (mapType.compareTo("User") == 0) {
             if (noteU != null) {
                 noteU.setVisibility(View.INVISIBLE);
                 sharpU.setVisibility(View.INVISIBLE);
             }
-            imageMap.chooseNote(note,mapType);
+            imageMap.chooseNote(note, mapType);
             noteU = findViewById(imageMap.imageNote);
             sharpU = findViewById(imageMap.imageSharp);
-            if (imageMap.noteBool == true)
+            if (imageMap.noteBool)
                 noteU.setVisibility(View.VISIBLE);
             if (imageMap.sharpBool)
                 sharpU.setVisibility(View.VISIBLE);
-        }
-        else if (mapType.compareTo("Base") == 0) {
+        } else if (mapType.compareTo("Base") == 0) {
             if (noteB != null) {
                 noteB.setVisibility(View.INVISIBLE);
                 sharpB.setVisibility(View.INVISIBLE);
             }
-            imageMap.chooseNote(note,mapType);
+            imageMap.chooseNote(note, mapType);
             noteB = findViewById(imageMap.imageNote);
             sharpB = findViewById(imageMap.imageSharp);
             if (imageMap.noteBool)
                 noteB.setVisibility(View.VISIBLE);
             if (imageMap.sharpBool)
                 sharpB.setVisibility(View.VISIBLE);
-        }
-        else if (mapType.compareTo("Correct") == 0) {
+        } else if (mapType.compareTo("Correct") == 0) {
             if (noteR != null) {
                 noteR.setVisibility(View.INVISIBLE);
                 sharpR.setVisibility(View.INVISIBLE);
             }
-            imageMap.chooseNote(note,mapType);
+            imageMap.chooseNote(note, mapType);
             noteR = findViewById(imageMap.imageNote);
             sharpR = findViewById(imageMap.imageSharp);
             if (imageMap.noteBool)
@@ -203,6 +224,7 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
                 mediaPlayer.release();
             }
         });
@@ -210,6 +232,7 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer2.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
                 mediaPlayer.release();
             }
         });
@@ -220,8 +243,6 @@ public class GameActivity extends AppCompatActivity {
 
     public void play(View view) {
         soundOff();
-        getUserNote();
-
     }
 
     /**********************************************************
@@ -288,14 +309,17 @@ public class GameActivity extends AppCompatActivity {
                 note = 60;
         }
         //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
-*/        displayNote(note,"User");
+*/
+        displayNote(note, "User");
         return note;
     }
 
     /**
      * returns the round number
      */
-    public int getRoundNum() { return roundNum; }
+    public int getRoundNum() {
+        return roundNum;
+    }
 
     /****************************
      * RANDOM BASE NOTE
@@ -354,7 +378,7 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + convertIntervalToInt());
-       // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+        // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
     }
 
     /**
@@ -372,18 +396,11 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * VERIFY NOTE
+     *
      * @return
      */
     public boolean verifyNote() {
-        if(verifyNotes.getTestNoteKey() == getUserNote())
-        {
-            //Toast.makeText(this, "True", Toast.LENGTH_SHORT).show();
-            return true;
-        }
-        else{
-            //Toast.makeText(this, "False", Toast.LENGTH_SHORT).show();
-            return false;
-        }
+        return verifyNotes.getTestNoteKey() == getUserNote();
     }
 
     /**
@@ -393,11 +410,7 @@ public class GameActivity extends AppCompatActivity {
     public boolean verifyInterval() {
         String correctInterval = randomInterval();
         String userInterval = spinner.getSelectedItem().toString();
-        if (correctInterval.equals(userInterval)) {
-            return true;
-        } else {
-            return false;
-        }
+        return correctInterval.equals(userInterval);
     }
 
     /**
@@ -413,8 +426,20 @@ public class GameActivity extends AppCompatActivity {
         if (verifyNote()) {
             score += .5;
             //correct = false;
+            feedback(true);
+        } else {
+            displayNote(verifyNotes.getTestNoteKey(), "Correct");
+            feedback(false);
         }
-        else
-            displayNote(verifyNotes.getTestNoteKey(),"Correct");
+    }
+
+    public void feedback(boolean correct) {
+        if (correct) {
+            ImageView check = findViewById(R.id.greencheck);
+            check.setVisibility(View.VISIBLE);
+        } else {
+            ImageView incorrect = findViewById(R.id.redx);
+            incorrect.setVisibility(View.VISIBLE);
+        }
     }
 }

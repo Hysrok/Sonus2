@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -95,7 +96,7 @@ public class GameActivity extends AppCompatActivity {
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                displayNote(getUserNote(), "User", true);
+                displayNote(getUserNote(), "User");
             }
 
             @Override
@@ -109,7 +110,7 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        displayNote(verifyNotes.getBaseNoteKey(),"Base", true);
+        displayNote(verifyNotes.getBaseNoteKey(),"Base");
         soundOff();
     }
 
@@ -151,7 +152,7 @@ public class GameActivity extends AppCompatActivity {
         roundNum++;
 
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
-        displayNote(1, "Correct");
+        //displayNote(1, "Correct");
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);

@@ -160,7 +160,7 @@ public class GameActivity extends AppCompatActivity {
             else {
                 displayNote(verifyNotes.getTestNoteKey(), "Correct");
             }
-            feedback(feedBack);
+            noteFeedback(feedBack);
             submits++;
         }
         Toast.makeText(this, verifyNotes.getInterval(), Toast.LENGTH_SHORT).show();

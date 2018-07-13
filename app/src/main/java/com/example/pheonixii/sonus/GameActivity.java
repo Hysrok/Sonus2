@@ -11,6 +11,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Random;
@@ -31,13 +32,16 @@ public class GameActivity extends AppCompatActivity {
     private ImageView noteR = null;
     private ImageView sharpR = null;
     public ImageMap imageMap = new ImageMap();
-    Spinner spinner;
-    private boolean feedBack;
 
     int highestNote = 82;
     private int roundNum = 0;
 
     boolean correct = false;
+    Spinner spinner;
+    double score = 0.0;
+
+    boolean hasSubmitted;
+
 
     /**
      * ON CREATE
@@ -85,8 +89,8 @@ public class GameActivity extends AppCompatActivity {
         verifyNotes.setInterval(verifyNotes.randomInterval());
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
-        submits = 0;
-        //displayNote(verifyNotes.getBaseNoteKey(), "Base");
+        hasSubmitted = false;
+
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -137,16 +141,16 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * SUBMIT
-     * - Verifies note and add a 1 to round number
-     * - Goes to status act if the user has played 10 rounds
+     * - Verifies note and sets hasSubmitted to true
      *
      * @param view
      */
     public void submit(View view) {
 
         feedBack = false;
-        if (submits < 1) {
+        if (!hasSubmitted) {
             verifyNotes.verifyAnswer();
+            hasSubmitted = true;
             if(verifyNotes.verifyNote()) {
                 feedBack = true;
             }
@@ -156,13 +160,26 @@ public class GameActivity extends AppCompatActivity {
             feedback(feedBack);
             submits++;
         }
+        Toast.makeText(this, verifyNotes.getInterval(), Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * NEXT
+     * - sets the correct note to invisible
+     * - sets the red X or green checkmark to invisible
+     * - add 1 to round number
+     * - sends to stat page if the user has played 10 rounds
+     */
     public void next(View view) {
-        roundNum++;
 
+        if (!hasSubmitted) {
+            Toast.makeText(this, "You have to submit first!", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        roundNum++;
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
+        displayNote(1, "User");
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);
@@ -180,7 +197,6 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
-     * DISPLAY GUESS
      * @param note
      * @param mapType
      */
@@ -224,12 +240,7 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void displayCorrection(int note, String mapType) {
-
-    }
-
-
-        public void soundOff() {
+    public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
         MediaPlayer midiFileMediaPlayer2;
         midiFileMediaPlayer1 = MediaPlayer.create(this, VerifyNotes.Notes.get(verifyNotes.getBaseNoteKey()));

@@ -1,16 +1,20 @@
 package com.example.pheonixii.sonus;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -170,6 +174,27 @@ public class GameActivity extends AppCompatActivity {
             return;
         }
         roundNum++;
+
+        // change spinner color to black if it was changed green
+        spinner.setEnabled(true);
+        if (intervals.indexOf(interval) == intervals.indexOf(intervals.get(0)))
+            spinner.setSelection(intervals.indexOf(intervals.get(1)));
+        else
+            spinner.setSelection(intervals.indexOf(intervals.get(0)));
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                ((TextView) view).setTextColor(Color.BLACK); //Change selected text color
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+
         //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
         displayNote(1, "User");
@@ -418,6 +443,8 @@ public class GameActivity extends AppCompatActivity {
         return verifyNotes.getTestNoteKey() == getUserNote();
     }
 
+
+
     /**
      * VERIFY INTERVAL
      * Check if they chose the correct interval. If so return true else return false.
@@ -426,9 +453,24 @@ public class GameActivity extends AppCompatActivity {
         String correctInterval = interval;
         String userInterval = spinner.getSelectedItem().toString();
 
-        spinner.setSelection(intervals.indexOf(interval));
+        boolean isCorrect = correctInterval.equals(userInterval);
+        // if its wrong display the correct one in green
+        if (!isCorrect) {
+            spinner.setSelection(intervals.indexOf(interval));
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView) view).setTextColor(Color.GREEN); //Change selected text color
+                }
 
-        return correctInterval.equals(userInterval);
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinner.setEnabled(false);
+        }
+        return isCorrect;
     }
 
     /**

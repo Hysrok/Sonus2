@@ -31,15 +31,13 @@ public class GameActivity extends AppCompatActivity {
     private ImageView noteR = null;
     private ImageView sharpR = null;
     public ImageMap imageMap = new ImageMap();
+    Spinner spinner;
+    private boolean feedBack;
 
     int highestNote = 82;
     private int roundNum = 0;
 
     boolean correct = false;
-    Spinner spinner;
-    double score = 0.0;
-
-    private ArrayList<String> intervals;
 
     /**
      * ON CREATE
@@ -59,13 +57,14 @@ public class GameActivity extends AppCompatActivity {
         Intent intent = getIntent();
 
         //set intervals
-        intervals = intent.getStringArrayListExtra("interval_list");
+        verifyNotes.setIntervals(intent.getStringArrayListExtra("interval_list"));
 
         //set empty spinner to view spinner
         spinner = findViewById(R.id.intervals_spinner);
+        verifyNotes.setSpinner(spinner);
 
         //preparing adapter for spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, intervals);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, getIntervals());
 
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
@@ -83,7 +82,7 @@ public class GameActivity extends AppCompatActivity {
      * - Displays base note
      */
     public void startRound() {
-        interval = randomInterval();
+        verifyNotes.setInterval(verifyNotes.randomInterval());
         randomBaseNote(); //has to go before the test note
         intervalTestNote();
         submits = 0;
@@ -133,7 +132,7 @@ public class GameActivity extends AppCompatActivity {
      * returns the arraylist of intervals
      */
     public ArrayList<String> getIntervals() {
-        return intervals;
+        return verifyNotes.getIntervals();
     }
 
     /**
@@ -145,8 +144,16 @@ public class GameActivity extends AppCompatActivity {
      */
     public void submit(View view) {
 
+        feedBack = false;
         if (submits < 1) {
-            verifyAnswer();
+            verifyNotes.verifyAnswer();
+            if(verifyNotes.verifyNote()) {
+                feedBack = true;
+            }
+            else {
+                displayNote(verifyNotes.getTestNoteKey(), "Correct");
+            }
+            feedback(feedBack);
             submits++;
         }
     }
@@ -165,9 +172,9 @@ public class GameActivity extends AppCompatActivity {
         } else {
             Intent intent = new Intent(this, Stats.class);
             // send the intervals that they used to the next page so that they can retry with those same intervals
-            intent.putStringArrayListExtra("interval_list", intervals);
+            intent.putStringArrayListExtra("interval_list", verifyNotes.getIntervals());
             // send the users score
-            intent.putExtra("USER_SCORE", score);
+            intent.putExtra("USER_SCORE", verifyNotes.getScore());
             startActivity(intent);
         }
     }
@@ -217,7 +224,12 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
-    public void soundOff() {
+    public void displayCorrection(int note, String mapType) {
+
+    }
+
+
+        public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
         MediaPlayer midiFileMediaPlayer2;
         midiFileMediaPlayer1 = MediaPlayer.create(this, VerifyNotes.Notes.get(verifyNotes.getBaseNoteKey()));
@@ -311,6 +323,7 @@ public class GameActivity extends AppCompatActivity {
         //Toast.makeText(this, "Note = " + note, Toast.LENGTH_LONG).show();
 */
         displayNote(note, "User");
+        verifyNotes.setUserNote(note);
         return note;
     }
 
@@ -326,112 +339,20 @@ public class GameActivity extends AppCompatActivity {
      * Get a random base note and key
      *******************************/
     public void randomBaseNote() {
-        int maxNote = highestNote - convertIntervalToInt();
+        int maxNote = highestNote - verifyNotes.convertIntervalToInt();
         Random rand = new Random();
         verifyNotes.setBaseNoteKey(rand.nextInt((maxNote - 60) + 1) + 60); //rand.nextInt((max - min) + 1) + min;
     }
-
-
-    /*********************
-     * CONVERT INTERVAL TO INT
-     * Intervals are strings and need to be ints
-     **********************/
-    public int convertIntervalToInt() {
-        switch (verifyNotes.getInterval()) {
-            case "Perfect Unison":
-                return 0;
-            case "Minor Second":
-                return 1;
-            case "Major second":
-                return 2;
-            case "Minor Third":
-                return 3;
-            case "Major Third":
-                return 4;
-            case "Perfect Fourth":
-                return 5;
-            case "Perfect Fifth":
-                return 7;
-            case "Minor Sixth":
-                return 8;
-            case "Major Sixth":
-                return 9;
-            case "Minor Seventh":
-                return 10;
-            case "Major Seventh":
-                return 11;
-            case "Perfect Octave":
-                return 12;
-            default:
-                //Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
-                break;
-        }
-
-        return -1; //fail
-
-    }
-
 
     /*********************
      * INTERVAL TEST NOTE
      * Get test note base off the base note and interval
      **********************/
     public void intervalTestNote() {
-        verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + convertIntervalToInt());
+        verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + verifyNotes.convertIntervalToInt());
         // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
     }
 
-    /**
-     * RANDOM INTERVAL
-     * Chooses a random interval which will be used to determine the test note.
-     * Uses only intervals that user has chosen.
-     */
-    public String randomInterval() {
-        String answerInterval = "Empty";
-        if (!intervals.isEmpty())
-            answerInterval = intervals.get(new Random().nextInt(intervals.size()));
-        return answerInterval;
-    }
-
-
-    /**
-     * VERIFY NOTE
-     *
-     * @return
-     */
-    public boolean verifyNote() {
-        return verifyNotes.getTestNoteKey() == getUserNote();
-    }
-
-    /**
-     * VERIFY INTERVAL
-     * Check if they chose the correct interval. If so return true else return false.
-     */
-    public boolean verifyInterval() {
-        String correctInterval = randomInterval();
-        String userInterval = spinner.getSelectedItem().toString();
-        return correctInterval.equals(userInterval);
-    }
-
-    /**
-     * VERIFY ANSWER
-     * Check if they got the interval correct. If so add .5 to their score.
-     * Check if they got the note correct. If so add another .5 to their score.
-     */
-    public void verifyAnswer() {
-        if (verifyInterval()) {
-            score += .5;
-            //correct = true;
-        }
-        if (verifyNote()) {
-            score += .5;
-            //correct = false;
-            feedback(true);
-        } else {
-            displayNote(verifyNotes.getTestNoteKey(), "Correct");
-            feedback(false);
-        }
-    }
 
     public void feedback(boolean correct) {
         if (correct) {

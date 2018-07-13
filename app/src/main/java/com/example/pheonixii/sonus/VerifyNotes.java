@@ -1,9 +1,18 @@
 package com.example.pheonixii.sonus;
 
+import android.widget.Spinner;
+
+import java.util.ArrayList;
 import java.util.Map;
+import java.util.Random;
 import java.util.TreeMap;
 
 public class VerifyNotes {
+
+    private ArrayList<String> intervals;
+
+    // User note to be used by the verifyNote function.
+    private int userNote;
 
     // The keys are for the note map
     private int baseNoteKey = 0;
@@ -12,9 +21,45 @@ public class VerifyNotes {
 
     private String interval;
 
+    Spinner spinner;
+
+    double score = 0.0;
+
     /**
      * GETTERS and SETTERS
      */
+
+    public ArrayList<String> getIntervals() {
+        return intervals;
+    }
+
+    public void setIntervals(ArrayList<String> intervals) {
+        this.intervals = intervals;
+    }
+
+    public int getUserNote() {
+        return userNote;
+    }
+
+    public void setUserNote(int userNote) {
+        this.userNote = userNote;
+    }
+
+    public double getScore() {
+        return score;
+    }
+
+    public void setScore(double score) {
+        this.score = score;
+    }
+
+    public Spinner getSpinner() {
+        return spinner;
+    }
+
+    public void setSpinner(Spinner spinner) {
+        this.spinner = spinner;
+    }
 
     public String getInterval() {
         return interval;
@@ -99,4 +144,92 @@ public class VerifyNotes {
         put(103, R.raw.one_hundred_three);
     }};
 
+    /*********************
+     * CONVERT INTERVAL TO INT
+     * Intervals are strings and need to be ints
+     **********************/
+    public int convertIntervalToInt() {
+        switch (interval) {
+            case "Perfect Unison":
+                return 0;
+            case "Minor Second":
+                return 1;
+            case "Major second":
+                return 2;
+            case "Minor Third":
+                return 3;
+            case "Major Third":
+                return 4;
+            case "Perfect Fourth":
+                return 5;
+            case "Perfect Fifth":
+                return 7;
+            case "Minor Sixth":
+                return 8;
+            case "Major Sixth":
+                return 9;
+            case "Minor Seventh":
+                return 10;
+            case "Major Seventh":
+                return 11;
+            case "Perfect Octave":
+                return 12;
+            default:
+                //Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return -1; //fail
+    }
+
+        /**
+         * RANDOM INTERVAL
+         * Chooses a random interval which will be used to determine the test note.
+         * Uses only intervals that user has chosen.
+         */
+        public String randomInterval() {
+            String answerInterval = "Empty";
+            if (!intervals.isEmpty())
+                answerInterval = intervals.get(new Random().nextInt(intervals.size()));
+            return answerInterval;
+        }
+
+
+        /**
+         * VERIFY INTERVAL
+         * Check if they chose the correct interval. If so return true else return false.
+         */
+        public boolean verifyInterval() {
+            String correctInterval = randomInterval();
+            String userInterval = spinner.getSelectedItem().toString();
+            return correctInterval.equals(userInterval);
+        }
+
+
+    /**
+     * VERIFY NOTE
+     *
+     * @return
+     */
+    public boolean verifyNote() {
+        return getTestNoteKey() == userNote;
+    }
+
+    /**
+     * VERIFY ANSWER
+     * Check if they got the interval correct. If so add .5 to their score.
+     * Check if they got the note correct. If so add another .5 to their score.
+    */
+    public void verifyAnswer() {
+        if (verifyInterval()) {
+            score += .5;
+        }
+
+        if (verifyNote()) {
+            score += .5;
+        }
+    }
+
 }
+
+
+

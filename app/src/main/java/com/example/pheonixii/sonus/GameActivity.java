@@ -36,10 +36,9 @@ public class GameActivity extends AppCompatActivity {
     int highestNote = 82;
     private int roundNum = 0;
 
-    boolean correct = false;
     Spinner spinner;
-    double score = 0.0;
 
+    boolean feedBack;
     boolean hasSubmitted;
 
 

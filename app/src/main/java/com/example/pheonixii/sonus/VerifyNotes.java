@@ -201,6 +201,7 @@ public class VerifyNotes {
         public boolean verifyInterval() {
             String correctInterval = randomInterval();
             String userInterval = spinner.getSelectedItem().toString();
+            spinner.setSelection(intervals.indexOf(interval));
             return correctInterval.equals(userInterval);
         }
 

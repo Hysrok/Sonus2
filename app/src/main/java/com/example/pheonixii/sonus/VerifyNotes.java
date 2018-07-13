@@ -1,6 +1,10 @@
 package com.example.pheonixii.sonus;
 
+import android.graphics.Color;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -194,16 +198,33 @@ public class VerifyNotes {
         }
 
 
-        /**
-         * VERIFY INTERVAL
-         * Check if they chose the correct interval. If so return true else return false.
-         */
-        public boolean verifyInterval() {
-            String correctInterval = randomInterval();
-            String userInterval = spinner.getSelectedItem().toString();
+    /**
+     * VERIFY INTERVAL
+     * Check if they chose the correct interval. If so return true else return false.
+     */
+    public boolean verifyInterval() {
+        String correctInterval = interval;
+        String userInterval = spinner.getSelectedItem().toString();
+
+        boolean isCorrect = correctInterval.equals(userInterval);
+        // if its wrong display the correct one in green
+        if (!isCorrect) {
             spinner.setSelection(intervals.indexOf(interval));
-            return correctInterval.equals(userInterval);
+            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    ((TextView) view).setTextColor(Color.GREEN); //Change selected text color
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
+            spinner.setEnabled(false);
         }
+        return isCorrect;
+    }
 
 
     /**
@@ -231,6 +252,7 @@ public class VerifyNotes {
     }
 
 }
+
 
 
 

@@ -183,10 +183,13 @@ public class GameActivity extends AppCompatActivity {
 
         // change spinner color to black if it was changed green
         spinner.setEnabled(true);
-        if (verifyNotes.getIntervals().indexOf(verifyNotes.getInterval()) == getIntervals().indexOf(getIntervals().get(0)))
-            spinner.setSelection(verifyNotes.getIntervals().indexOf(verifyNotes.getIntervals().get(1)));
-        else
-            spinner.setSelection(verifyNotes.getIntervals().indexOf(verifyNotes.getIntervals().get(0)));
+        if(verifyNotes.getIntervals().size() != 1) {
+
+            if (verifyNotes.getIntervals().indexOf(verifyNotes.getInterval()) == getIntervals().indexOf(getIntervals().get(0)))
+                spinner.setSelection(verifyNotes.getIntervals().indexOf(verifyNotes.getIntervals().get(1)));
+            else
+                spinner.setSelection(verifyNotes.getIntervals().indexOf(verifyNotes.getIntervals().get(0)));
+        }
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -386,78 +389,6 @@ public class GameActivity extends AppCompatActivity {
     public void intervalTestNote() {
         verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + verifyNotes.convertIntervalToInt());
         // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
-    }
-
-    /**
-     * RANDOM INTERVAL
-     * Chooses a random interval which will be used to determine the test note.
-     * Uses only intervals that user has chosen.
-     */
-    public String randomInterval() {
-        String answerInterval = "Empty";
-        if (!intervals.isEmpty())
-            answerInterval = intervals.get(new Random().nextInt(intervals.size()));
-        return answerInterval;
-    }
-
-
-    /**
-     * VERIFY NOTE
-     *
-     * @return
-     */
-    public boolean verifyNote() {
-        return verifyNotes.getTestNoteKey() == getUserNote();
-    }
-
-
-
-    /**
-     * VERIFY INTERVAL
-     * Check if they chose the correct interval. If so return true else return false.
-     */
-    public boolean verifyInterval() {
-        String correctInterval = interval;
-        String userInterval = spinner.getSelectedItem().toString();
-
-        boolean isCorrect = correctInterval.equals(userInterval);
-        // if its wrong display the correct one in green
-        if (!isCorrect) {
-            spinner.setSelection(intervals.indexOf(interval));
-            spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    ((TextView) view).setTextColor(Color.GREEN); //Change selected text color
-                }
-
-    public void feedback(boolean correct) {
-                @Override
-                public void onNothingSelected(AdapterView<?> parent) {
-
-                }
-            });
-            spinner.setEnabled(false);
-        }
-        return isCorrect;
-    }
-
-    /**
-     * VERIFY ANSWER
-     * Check if they got the interval correct. If so add .5 to their score.
-     * Check if they got the note correct. If so add another .5 to their score.
-     */
-    public void verifyAnswer() {
-        if (verifyInterval()) {
-            score += .5;
-        }
-        if (verifyNote()) {
-            score += .5;
-            //correct = false;
-            noteFeedback(true);
-        } else {
-            displayNote(verifyNotes.getTestNoteKey(), "Correct");
-            noteFeedback(false);
-        }
     }
 
     public void noteFeedback(boolean correct) {

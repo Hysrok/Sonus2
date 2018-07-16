@@ -1,6 +1,7 @@
 package com.example.pheonixii.sonus;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +16,17 @@ public class MainActivity extends AppCompatActivity {
     ArrayList<String> intervals = new ArrayList<String>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        MediaPlayer midiFileMediaPlayer1;
+        midiFileMediaPlayer1 = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
+        midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                mediaPlayer.reset();
+                mediaPlayer.release();
+            }
+        });
+        midiFileMediaPlayer1.setLooping(true);
+        midiFileMediaPlayer1.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

@@ -14,19 +14,25 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
     //I made a comment
     ArrayList<String> intervals = new ArrayList<String>();
+    MediaPlayer midiFileMediaPlayer;
+    protected void onStop(){
+
+        super.onStop();
+        midiFileMediaPlayer.stop();
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        MediaPlayer midiFileMediaPlayer1;
-        midiFileMediaPlayer1 = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
-        midiFileMediaPlayer1.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+
+        midiFileMediaPlayer = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
+        midiFileMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.reset();
                 mediaPlayer.release();
             }
         });
-        midiFileMediaPlayer1.setLooping(true);
-        midiFileMediaPlayer1.start();
+        midiFileMediaPlayer.setLooping(true);
+        midiFileMediaPlayer.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }

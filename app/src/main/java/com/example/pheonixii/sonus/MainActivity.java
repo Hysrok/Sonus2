@@ -1,6 +1,7 @@
 package com.example.pheonixii.sonus;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,17 +13,27 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     //I made a comment
     ArrayList<String> intervals = new ArrayList<String>();
-  //  MediaPlayer midiFileMediaPlayer;
-  /*  protected void onStop(){
+    MediaPlayer midiFileMediaPlayer;
+
+    /**
+     * ONSTOP
+     * stop the theme song when we go on to another activity
+     */
+    protected void onStop(){
 
         super.onStop();
         midiFileMediaPlayer.stop();
-    }*/
+    }
+
+    /**
+     * ONCREATE
+     * Play the theme song
+    */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
-       // midiFileMediaPlayer = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
-     /*   midiFileMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+        // play the theme song
+        midiFileMediaPlayer = MediaPlayer.create(this, R.raw.app_sight_singing_theme);
+        midiFileMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.reset();
@@ -30,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         midiFileMediaPlayer.setLooping(true);
-        midiFileMediaPlayer.start();*/
+        midiFileMediaPlayer.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
     /**
-     *
+     * CHECKEDNUM
+     * get all the intervals the user checks and put in an array list and return the number selected
      */
     public int checkedNum(){
         // Is the view now checked
@@ -105,8 +117,12 @@ public class MainActivity extends AppCompatActivity {
         return count;
     }
 
+    /**
+     * PLAY
+     * check to see if they chose at least 3 then send the intervals and start the next activity
+     */
     public void play(View view) {
-        if(checkedNum()>=0) {
+        if(checkedNum()>=3) {
             Intent intent = new Intent(this, GameActivity.class);
 
             intent.putStringArrayListExtra("interval_list", intervals);
@@ -117,9 +133,6 @@ public class MainActivity extends AppCompatActivity {
         else
             Toast.makeText(this, "You require more intervals", Toast.LENGTH_SHORT).show();
     }
-
-
-
 }
 
 

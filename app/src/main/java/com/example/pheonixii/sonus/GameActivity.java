@@ -213,7 +213,7 @@ public class GameActivity extends AppCompatActivity {
         correct.setVisibility(View.INVISIBLE);
         if (roundNum < 10) {
             startRound();
-        } else {
+        } else { // if they've done 10 rounds go to the stats
             Intent intent = new Intent(this, Stats.class);
             // send the intervals that they used to the next page so that they can retry with those same intervals
             intent.putStringArrayListExtra("interval_list", verifyNotes.getIntervals());
@@ -224,6 +224,9 @@ public class GameActivity extends AppCompatActivity {
     }
 
     /**
+     * DISPLAYNOTE
+     * Displays the based off of what maptype is needed.
+     * Calls chooseNote
      * @param note
      * @param mapType
      */
@@ -267,6 +270,10 @@ public class GameActivity extends AppCompatActivity {
         }
     }
 
+    /**
+     * SOUNDOFF
+     * Plays the base and test notes
+     */
     public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
         MediaPlayer midiFileMediaPlayer2;
@@ -291,6 +298,11 @@ public class GameActivity extends AppCompatActivity {
         midiFileMediaPlayer1.start();
     }
 
+    /**
+     * PLAY
+     * Calls soundoff to play the notes
+     * @param view
+     */
     public void play(View view) {
         soundOff();
     }
@@ -351,7 +363,8 @@ public class GameActivity extends AppCompatActivity {
         if (userSharp.isChecked()) {
             note++;
         }
-/*        RadioButton userFlat = findViewById(R.id.userFlat);
+/*      commented this out incase we want to add flats later
+        RadioButton userFlat = findViewById(R.id.userFlat);
         if (userFlat.isChecked()) {
             note--;
             // we shouldn't have anything lower than 60
@@ -391,6 +404,11 @@ public class GameActivity extends AppCompatActivity {
         // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
     }
 
+    /**
+     * NOTEFEEDBACK
+     * if the answer is correct display green check. If not display red X.
+     * @param correct
+     */
     public void noteFeedback(boolean correct) {
         if (correct) {
             ImageView check = findViewById(R.id.greencheck);

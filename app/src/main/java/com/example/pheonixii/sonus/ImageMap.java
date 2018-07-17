@@ -91,6 +91,12 @@ public class ImageMap {
         put(82, R.id.A5sR);
     }};
 
+    /**
+     * CHOOSENOTE
+     * Chooses the note.
+     * @param note
+     * @param mapType
+     */
     public void chooseNote(int note, String mapType) {
         if (mapType.compareTo("User") == 0) {
             imageMap = ImageMap.userImages;

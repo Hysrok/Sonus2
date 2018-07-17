@@ -185,17 +185,17 @@ public class VerifyNotes {
         return -1; //fail
     }
 
-        /**
-         * RANDOM INTERVAL
-         * Chooses a random interval which will be used to determine the test note.
-         * Uses only intervals that user has chosen.
-         */
-        public String randomInterval() {
-            String answerInterval = "Empty";
-            if (!intervals.isEmpty())
-                answerInterval = intervals.get(new Random().nextInt(intervals.size()));
-            return answerInterval;
-        }
+    /**
+     * RANDOM INTERVAL
+     * Chooses a random interval which will be used to determine the test note.
+     * Uses only intervals that user has chosen.
+     */
+    public String randomInterval() {
+        String answerInterval = "Empty";
+        if (!intervals.isEmpty())
+            answerInterval = intervals.get(new Random().nextInt(intervals.size()));
+        return answerInterval;
+    }
 
 
     /**

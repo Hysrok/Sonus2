@@ -37,10 +37,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-
+    /**
+     *
+     */
     public int checkedNum(){
-        // Is the view now checked?
-
+        // Is the view now checked
         int count = 0;
         CheckBox P1 = findViewById(R.id.P1);
         if(P1.isChecked()) {

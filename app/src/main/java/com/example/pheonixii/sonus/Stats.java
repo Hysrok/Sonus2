@@ -14,6 +14,12 @@ import java.util.ArrayList;
 public class Stats extends AppCompatActivity {
     ArrayList<String> intervals;
     double score;
+
+    /**
+     * ONCREATE
+     * Gets the user score from the gameActivity and then display it.
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

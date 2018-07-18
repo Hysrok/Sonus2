@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.ContextMenu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -29,6 +28,7 @@ public class GameActivity extends AppCompatActivity {
     // ImageViews to remember which view was used last in order to delete them later.
 
     private int submits = 0;
+    private boolean digression = false;
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
@@ -389,6 +389,12 @@ public class GameActivity extends AppCompatActivity {
     public void intervalTestNote() {
         verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + verifyNotes.convertIntervalToInt());
         // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
+
+        Random randBool = new Random();
+        digression = randBool.nextBoolean();
+
+        if (digression)
+            verifyNotes.switcheroo();
     }
 
     public void noteFeedback(boolean correct) {

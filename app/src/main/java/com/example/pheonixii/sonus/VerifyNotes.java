@@ -251,6 +251,11 @@ public class VerifyNotes {
         }
     }
 
+    public void switcheroo(){
+        int tempBase = baseNoteKey;
+        baseNoteKey = testNoteKey;
+        testNoteKey = tempBase;
+    }
 }
 
 

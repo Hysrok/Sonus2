@@ -1,6 +1,7 @@
 package com.example.pheonixii.sonus;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -12,17 +13,17 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     //I made a comment
     ArrayList<String> intervals = new ArrayList<String>();
-  //  MediaPlayer midiFileMediaPlayer;
-  /*  protected void onStop(){
+   MediaPlayer midiFileMediaPlayer;
+   protected void onStop(){
 
         super.onStop();
         midiFileMediaPlayer.stop();
-    }*/
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-       // midiFileMediaPlayer = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
-     /*   midiFileMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+       midiFileMediaPlayer = MediaPlayer.create(this,R.raw.app_sight_singing_theme );
+       midiFileMediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
             @Override
             public void onCompletion(MediaPlayer mediaPlayer) {
                 mediaPlayer.reset();
@@ -30,14 +31,12 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         midiFileMediaPlayer.setLooping(true);
-        midiFileMediaPlayer.start();*/
+        midiFileMediaPlayer.start();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
     }
 
-    /**
-     *
-     */
+
     public int checkedNum(){
         // Is the view now checked
         int count = 0;

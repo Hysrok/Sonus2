@@ -23,12 +23,13 @@ import java.util.Random;
 public class GameActivity extends AppCompatActivity {
     static final String SAVE_FILE = "";
 
+    // instance of the class that performs all the verification
     VerifyNotes verifyNotes = new VerifyNotes();
-
-    // ImageViews to remember which view was used last in order to delete them later.
 
     private int submits = 0;
     private boolean digression = false;
+
+    // ImageViews to remember which view was used last in order to delete them later.
     private ImageView noteB = null;
     private ImageView sharpB = null;
     private ImageView noteU = null;
@@ -40,9 +41,12 @@ public class GameActivity extends AppCompatActivity {
     int highestNote = 82;
     private int roundNum = 0;
 
+    // drop down menu for the chosen intervals
     Spinner spinner;
 
+    // if the user is correct
     boolean feedBack;
+    // if the user has submitted their answer this round
     boolean hasSubmitted;
 
 
@@ -96,6 +100,7 @@ public class GameActivity extends AppCompatActivity {
 
         SeekBar noteSelect = findViewById(R.id.noteSelect);
 
+        // display the note the user chooses
         noteSelect.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -120,13 +125,14 @@ public class GameActivity extends AppCompatActivity {
                 displayNote(getUserNote(), "User");
             }
         });
+        // display first note
         displayNote(verifyNotes.getBaseNoteKey(), "Base");
         soundOff();
     }
 
     /**
      * GO HOME
-     *
+     * return to main menu
      * @param view
      */
     public void goHome(View view) {
@@ -149,7 +155,6 @@ public class GameActivity extends AppCompatActivity {
      * @param view
      */
     public void submit(View view) {
-
         feedBack = false;
         if (!hasSubmitted) {
             verifyNotes.verifyAnswer();
@@ -163,7 +168,6 @@ public class GameActivity extends AppCompatActivity {
             noteFeedback(feedBack);
             submits++;
         }
-        Toast.makeText(this, verifyNotes.getInterval(), Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -174,7 +178,6 @@ public class GameActivity extends AppCompatActivity {
      * - sends to stat page if the user has played 10 rounds
      */
     public void next(View view) {
-
         if (!hasSubmitted) {
             Toast.makeText(this, "You have to submit first!", Toast.LENGTH_SHORT).show();
             return;
@@ -202,11 +205,10 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-
-
-        //set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
+        // set correct note to 1 (doesn't exist in map and will make note bool false) to stop displaying correct note
         displayNote(1, "Correct");
         displayNote(1, "User");
+        // set both the red x and green check to invisible
         ImageView incorrect = findViewById(R.id.redx);
         incorrect.setVisibility(View.INVISIBLE);
         ImageView correct = findViewById(R.id.greencheck);
@@ -225,7 +227,12 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * DISPLAYNOTE
-     * Displays the based off of what maptype is needed.
+     * Displays the note based off of what maptype is needed.
+     * User, Base, or Correct
+     * User is the note chosen by the user
+     * Base is the first note given
+     * Correct is the correct note only displayed if the user was wrong
+     *
      * Calls chooseNote
      * @param note
      * @param mapType
@@ -272,7 +279,7 @@ public class GameActivity extends AppCompatActivity {
 
     /**
      * SOUNDOFF
-     * Plays the base and test notes
+     * Plays the base and test note files
      */
     public void soundOff() {
         MediaPlayer midiFileMediaPlayer1;
@@ -358,7 +365,6 @@ public class GameActivity extends AppCompatActivity {
                 note = 81;
         }
 
-
         RadioButton userSharp = findViewById(R.id.userSharp);
         if (userSharp.isChecked()) {
             note++;
@@ -401,7 +407,6 @@ public class GameActivity extends AppCompatActivity {
      **********************/
     public void intervalTestNote() {
         verifyNotes.setTestNoteKey(verifyNotes.getBaseNoteKey() + verifyNotes.convertIntervalToInt());
-        // Toast.makeText(this, "Note = " + baseNoteKey + " Note2 = " + testNoteKey, Toast.LENGTH_LONG).show();
 
         Random randBool = new Random();
         digression = randBool.nextBoolean();

@@ -89,6 +89,7 @@ public class VerifyNotes {
         this.testNoteKey = testNoteKey;
     }
 
+    // assign each midi sound file an integer to facilitate comparing the notes with the file that plays the note
     public static final Map<Integer, Integer> Notes = new TreeMap<Integer, Integer>() {{
         put(48, R.raw.fourty_eight);
         put(49, R.raw.fourty_nine);
@@ -179,7 +180,6 @@ public class VerifyNotes {
             case "Perfect Octave":
                 return 12;
             default:
-                //Toast.makeText(this, "FAIl", Toast.LENGTH_SHORT).show();
                 break;
         }
         return -1; //fail
@@ -229,7 +229,7 @@ public class VerifyNotes {
 
     /**
      * VERIFY NOTE
-     *
+     * Check if the user note matches the correct note
      * @return
      */
     public boolean verifyNote() {

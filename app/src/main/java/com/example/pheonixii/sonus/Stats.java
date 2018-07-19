@@ -18,6 +18,7 @@ public class Stats extends AppCompatActivity {
     /**
      * ONCREATE
      * Gets the user score from the gameActivity and then display it.
+     * Also receives the intervals used.
      * @param savedInstanceState
      */
     @Override

@@ -10,6 +10,7 @@ public class ImageMap {
     public boolean sharpBool = false;
     public int imageNote = 0;
     public int imageSharp = 0;
+    // assign each base note image an int that corresponds to their midi file number
     private static final Map<Integer, Integer> baseImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4);
@@ -36,7 +37,7 @@ public class ImageMap {
         put(81, R.id.A5);
         put(82, R.id.A5s);
     }};
-
+    // assign each user note image an int that corresponds to their midi file number
     private static final Map<Integer, Integer> userImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4U);
@@ -63,7 +64,7 @@ public class ImageMap {
         put(81, R.id.A5U);
         put(82, R.id.A5sU);
     }};
-
+    // assign each correct note image an int that corresponds to their midi file number
     private static final Map<Integer, Integer> correctImages = new TreeMap<Integer, Integer>() {{
 
         put(60, R.id.C4R);
@@ -106,12 +107,10 @@ public class ImageMap {
             imageMap = ImageMap.correctImages;
         }
 
-
         //imageNote = imageMap.get(60);
         noteBool = true;
         imageSharp = imageMap.get(61);
         sharpBool = false;
-
 
         switch (note) {
             case 60: {

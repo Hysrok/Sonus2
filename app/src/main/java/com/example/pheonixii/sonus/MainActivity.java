@@ -113,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
             count++;
             intervals.add(P8.getText().toString());
         }
-
+        // return total number of intervals chosen
         return count;
     }
 
